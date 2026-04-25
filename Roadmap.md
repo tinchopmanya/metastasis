@@ -30,6 +30,15 @@ Primer avance técnico ejecutado:
 - `data_manifest/generated/signature_report.md` generado.
 - La preparación inicial de firmas queda sin advertencias.
 
+Segundo avance técnico ejecutado:
+
+- `scripts/check_gene_availability.py` creado.
+- `data_manifest/generated/hgnc_approved_symbols.tsv` generado.
+- `data_manifest/generated/gene_availability.tsv` generado.
+- `data_manifest/generated/gene_availability_report.md` generado.
+- Todas las firmas tienen 100% de cobertura contra HGNC aprobado.
+- `GSE225857` y `GSE226997` quedan marcados como fuentes que requieren extracción pesada antes de validación dataset-específica.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 

@@ -9,14 +9,14 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Tema: CRC primario, metástasis hepática, tejidos normales adyacentes y sangre periférica.
 - Uso: validar heterogeneidad celular, fibroblastos `MCAM+`, células T `CXCL13+`, diferencias primario-metástasis.
 - Valor: dataset directamente alineado con CRLM.
-- Limitación: pocos pacientes; requiere cuidado con batch y tratamiento.
+- Limitación: pocos pacientes; requiere cuidado con batch y tratamiento. GEO informa un TAR procesado de aproximadamente 607 MB, por lo que se posterga su descarga hasta refinar marcadores.
 - Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE225857
 
 ### GSE226997
 - Tipo: spatial transcriptomics Visium de CRC.
 - Uso: spatial validation en artículos recientes; el estudio 2025 lo usa para mapear `mCAF`, `High-M CRC`, `HGF`, `MET`, `MYC` y glicólisis.
 - Valor: permite probar co-localización espacial.
-- Limitación: no es por sí solo un atlas grande de CRLM; sirve más como validación espacial.
+- Limitación: no es por sí solo un atlas grande de CRLM; sirve más como validación espacial. GEO informa un TAR procesado de aproximadamente 41.2 GB, por lo que no entra en la primera fase liviana.
 - Link: https://www.omicsdi.org/dataset/geo/GSE226997
 
 ### GSE231559 / GSE234804

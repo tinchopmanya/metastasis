@@ -31,3 +31,22 @@ Generated files:
 - `data_manifest/generated/signatures_normalized.tsv`
 - `data_manifest/generated/signature_gene_matrix.tsv`
 - `data_manifest/generated/signature_report.md`
+
+## Gene Availability
+Run:
+
+```powershell
+python scripts/check_gene_availability.py
+```
+
+Generated files:
+
+- `data_manifest/generated/hgnc_approved_symbols.tsv`
+- `data_manifest/generated/gene_availability.tsv`
+- `data_manifest/generated/gene_availability_report.md`
+
+Later, add dataset-specific gene lists:
+
+```powershell
+python scripts/check_gene_availability.py --universe tcga_coad=data_manifest/gene_universes/tcga_coad_genes.txt
+```

@@ -21,6 +21,23 @@ Siguiente paso técnico:
 
 Crear un checker de disponibilidad de genes por dataset antes de puntuar firmas. El orden recomendado es GEO primero, TCGA después.
 
+Implementación autónoma en curso:
+
+- Crear `scripts/check_gene_availability.py`.
+- Verificar todos los genes contra HGNC aprobado como control de nomenclatura.
+- Preparar interfaz `--universe name=path` para agregar universos GEO/TCGA sin cambiar código.
+- Registrar que `GSE225857` y `GSE226997` requieren extracción pesada antes de validación dataset-específica.
+
+Resultado ejecutado: 2026-04-25 01:21:28 -03:00
+
+- `scripts/check_gene_availability.py` creado y ejecutado.
+- Universo `hgnc_approved` descargado desde HGNC/Google Cloud Storage.
+- 44,982 símbolos HGNC aprobados cargados.
+- 40 filas firma-gen evaluadas.
+- 0 genes faltantes.
+- Todas las firmas tienen 100% de cobertura contra HGNC aprobado.
+- Reporte generado en `data_manifest/generated/gene_availability_report.md`.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

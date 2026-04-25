@@ -148,14 +148,19 @@ def write_signature_tables(
             "raw_gene_symbol",
             "is_valid_symbol_shape",
         ]
-        writer = csv.DictWriter(handle, fieldnames=fieldnames, delimiter="\t")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=fieldnames,
+            delimiter="\t",
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 
     signature_ids = sorted({row["signature_id"] for row in rows})
     genes = sorted(gene_to_signatures)
     with matrix_path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.writer(handle, delimiter="\t")
+        writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
         writer.writerow(["gene_symbol", *signature_ids])
         for gene in genes:
             memberships = set(gene_to_signatures[gene])
@@ -237,7 +242,8 @@ def write_report(
         ]
     )
 
-    report_path.write_text("\n".join(lines), encoding="utf-8")
+    with report_path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write("\n".join(lines))
     return report_path
 
 
