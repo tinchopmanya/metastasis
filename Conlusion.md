@@ -1,67 +1,59 @@
 # Conclusión dinámica vigente
 
-Fecha de actualización: 2026-04-23 03:28:33 -03:00
+Fecha de actualización: 2026-04-25 01:06:15 -03:00
 
-## Línea en ejecución
-La investigación vigente ya no está en fase panorámica. La línea activa es:
+## Línea activa
+La línea activa queda fijada en:
 
-`cáncer colorrectal -> metástasis hepática`
+`nicho metastásico hepático en cáncer colorrectal`
 
-## Conclusión principal
-Dentro de CRLM, la mayor probabilidad de descubrimiento con agentes de IA no parece estar en encontrar una sola mutación nueva o en hacer una clasificación genérica más. La mejor apuesta es identificar un programa de nicho metastásico hepático reproducible.
+## Hipótesis principal
+CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas, con señalización `HGF-MET`, activación `MYC` y glicólisis local.
 
-Ese programa, según la evidencia actual, probablemente combine:
+## Por qué esta hipótesis manda ahora
+- Es mecanística: conecta estroma, tumor, metabolismo, espacialidad e inmunidad.
+- Tiene soporte reciente en single-cell, spatial transcriptomics y validación funcional.
+- Usa datasets públicos concretos: `GSE225857`, `GSE226997`, TCGA-COAD, TCIA CRLM y cohorts metastásicas.
+- Es falsable: si no hay co-localización, correlación o enriquecimiento reproducible de las firmas, la hipótesis pierde fuerza.
+- Permite salida computacional útil sin prometer validación clínica inmediata.
 
-- plasticidad tumoral
-- fibroblastos metastásicos específicos
-- soporte metabólico local
-- supresión o desvío inmune
-- señales espaciales que favorecen colonización y recurrencia
+## Núcleo de evidencia
+- Un estudio 2025 integró 35 datasets single-cell y spatial y propuso un eje `mCAF -> HGF-MET -> MYC/glycolysis` en nichos de metástasis hepática colorrectal.
+- `GSE225857` aporta soporte independiente para heterogeneidad celular en CRLM, incluyendo fibroblastos `MCAM+` y células T `CXCL13+`.
+- La literatura 2025 sobre macrófagos sugiere que el metabolismo lipídico puede reprogramar estados mieloides en CRLM, lo que encaja con el hígado como órgano metabólico e inmunomodulador.
 
-## Mejor subproyecto biológico
-`nicho metastásico hepático en CRLM`
+## Mejor output próximo
+El siguiente avance útil no es un paper narrativo más. Es una matriz priorizada:
 
-Por qué:
+- hipótesis
+- genes/vías
+- células implicadas
+- evidencia
+- datasets
+- validación computacional
+- criterio de falsación
 
-- es donde la biología reciente más está creciendo
-- hay datos single-cell y spatial para hacer descubrimiento real
-- permite producir hipótesis con valor mecanístico, no sólo scores
-- es una línea que se puede validar luego en bulk, imagen y organoides
+## Señales prioritarias
+- `HGF`
+- `MET`
+- `MYC`
+- `SLC2A1`
+- `HK2`
+- `PGK1`
+- `TPI1`
+- `MCAM`
+- `CXCL13`
+- `BHLHE40`
+- CAF/mCAF, EMT-like CAF, macrófagos lipídicos, T cells `CXCL13+`
 
-## Mejor subproyecto técnico
-`recurrencia post-hepatectomía en CRLM usando TCIA`
+## Próximo paso técnico
+Preparar una validación liviana y reproducible:
 
-Por qué:
+1. Extraer metadata y matrices accesibles de GEO.
+2. Definir gene sets para `mCAF`, `High-M CRC`, `HGF-MET`, `MYC` y glicólisis.
+3. Calcular enriquecimiento/co-expresión cuando los datos lo permitan.
+4. Cruzar contra evidencia externa de TCGA-COAD/META-PRISM.
+5. Mantener TCIA como línea secundaria para supervivencia/recurrencia.
 
-- dataset claro y ya disponible
-- endpoint medible
-- buena base para un pipeline reproducible
-- menor riesgo de dispersión que una integración biológica demasiado amplia
-
-## Señales que hoy parecen más prometedoras
-- eje `HGF-MET`
-- activación `MYC`
-- glicólisis y metabolismo del nicho
-- fibrosis y remodelado hepático
-- interacciones fibroblasto-macrófago-linfocito
-
-## Lo que la IA sí puede producir aquí
-- atlas funcional de estados celulares metastásicos
-- ranking de interacciones ligand-receptor
-- biomarcadores de recurrencia o mal pronóstico
-- shortlist de vías y targets para validación
-- hipótesis de reposicionamiento de fármacos
-
-## Lo que no debería afirmar por sí sola
-- que una firma computacional es causal
-- que una diana es clínicamente válida sin validación
-- que un modelo retrospectivo equivale a utilidad clínica
-
-## Próxima ola recomendada
-Nombre sugerido:
-
-`InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
-
-Objetivo sugerido:
-
-Definir qué estados tumorales, fibroblásticos, mieloides e interacciones espaciales distinguen a la metástasis hepática colorrectal y cuáles de esas señales son reproducibles en datasets públicos independientes.
+## Cuidado epistemológico
+Esta hipótesis es fuerte como programa de descubrimiento, no como afirmación clínica. Todavía no debemos decir que el eje es causal en pacientes ni que existe una intervención validada. La salida correcta por ahora es priorización de hipótesis y validación computacional reproducible.

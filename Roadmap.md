@@ -2,6 +2,26 @@
 
 Fecha: 2026-04-25 00:53:22 -03:00
 
+## Modo autónomo activo
+Actualización: 2026-04-25 01:06:15 -03:00
+
+El proyecto entra en modo de avance autónomo. La línea activa queda fijada como ola 003:
+
+`CAFs/mCAFs hepáticos -> HGF-MET -> MYC/glicólisis -> plasticidad tumoral e inmunomodulación en CRLM`
+
+La prioridad inmediata ya no es decidir qué investigar, sino construir evidencia organizada alrededor de esa hipótesis. El trabajo se ejecuta en este orden:
+
+1. Abrir la ola 003 en `Investigacion.md`, `InvestigacionMapa.md` y `Conlusion.md`.
+2. Crear la investigación extensa del nicho metastásico hepático.
+3. Crear una matriz de hipótesis priorizadas.
+4. Crear un mapa de datasets y señales.
+5. Crear un plan de validación computacional.
+6. Versionar y subir los avances.
+
+Primer objetivo operativo:
+
+Convertir la hipótesis `mCAF-HGF-MET-MYC-glycolysis` en una hipótesis testeable, con evidencia, datasets, genes, células, predicciones y criterios de falsación.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 

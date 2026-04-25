@@ -1,0 +1,76 @@
+active_hypothesis: mCAF-HGF-MET-MYC-glycolysis
+updated_at: "2026-04-25 01:06:15 -03:00"
+
+signatures:
+  hgf_met_axis:
+    description: Core stromal-tumor ligand-receptor axis.
+    genes:
+      - HGF
+      - MET
+
+  myc_glycolysis_core:
+    description: Minimal MYC/glycolysis program to test first.
+    genes:
+      - MYC
+      - SLC2A1
+      - HK2
+      - PGK1
+      - TPI1
+      - LDHA
+      - ENO1
+
+  caf_core:
+    description: Broad CAF/stromal markers for first-pass checks.
+    genes:
+      - COL1A1
+      - COL1A2
+      - ACTA2
+      - FAP
+      - POSTN
+      - PDGFRA
+      - PDGFRB
+
+  mcam_caf:
+    description: MCAM+ fibroblast branch from GSE225857-linked literature.
+    genes:
+      - MCAM
+      - COL1A1
+      - COL1A2
+      - ACTA2
+
+  cxcl13_t_cells:
+    description: CXCL13+ T-cell branch associated with liver metastatic niche.
+    genes:
+      - CXCL13
+      - CD3D
+      - CD3E
+      - CD4
+      - CD8A
+      - CD8B
+
+  macrophage_lipid_candidate:
+    description: First-pass macrophage/lipid candidates to refine from source papers.
+    genes:
+      - CD68
+      - CD14
+      - FCGR3A
+      - CD1C
+      - CXCL10
+      - CX3CR1
+      - APOE
+      - LPL
+
+  plasticity_emt:
+    description: Tumor plasticity and partial EMT candidates.
+    genes:
+      - BHLHE40
+      - VIM
+      - ZEB1
+      - EPCAM
+      - CDH1
+      - LGR5
+
+next_refinement:
+  - Extract marker lists directly from PMC12605286 tables/supplements.
+  - Extract marker lists directly from PMC10275599/GSE225857.
+  - Replace broad signatures with paper-derived top markers before formal scoring.

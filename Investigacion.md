@@ -23,7 +23,7 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - Una recomendación operativa clara al final.
 
 ## Ola activa actual
-- Ola 002: `cáncer colorrectal -> metástasis hepática`
+- Ola 003: `nicho metastásico hepático en cáncer colorrectal`
 
 ## Olas registradas
 
@@ -35,18 +35,29 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [InvestigacionSobreMetastasisEnCanceres.md](./InvestigacionSobreMetastasisEnCanceres.md)
 - [ResumenInvestigacionSobreMetastasisEnCanceres.md](./ResumenInvestigacionSobreMetastasisEnCanceres.md)
 - [Conlusion.md](./Conlusion.md)
-- Hipótesis de trabajo actual: la mejor combinación entre impacto, datos abiertos y probabilidad de descubrimiento reproducible con IA parece estar en cáncer colorrectal con metástasis hepática. Muy cerca quedan cáncer de mama con metástasis a cerebro o hueso y cáncer de pulmón con metástasis cerebral.
-- Próximo paso sugerido: convertir la conclusión actual en una investigación de segunda ola con foco estrecho y datasets concretos.
+- Resultado: selección de `cáncer colorrectal -> metástasis hepática` como primera línea con mejor equilibrio entre impacto, datos públicos y posibilidad de descubrimiento computacional.
 
 ### Ola 002
 - Fecha de apertura: 2026-04-23 03:28:33 -03:00
 - Tema: cáncer colorrectal y metástasis hepática.
-- Estado: activa.
+- Estado: cerrada como refinamiento de línea.
 - Archivos asociados:
 - [InvestigacionSobreCancerColorrectalYMetastasisHepatica.md](./InvestigacionSobreCancerColorrectalYMetastasisHepatica.md)
 - [ResumenInvestigacionSobreCancerColorrectalYMetastasisHepatica.md](./ResumenInvestigacionSobreCancerColorrectalYMetastasisHepatica.md)
 - [Conlusion.md](./Conlusion.md)
-- Hipótesis de trabajo actual: la mayor probabilidad de descubrimiento no parece estar en una sola mutación "nueva", sino en un programa de nicho metastásico hepático reproducible que combine plasticidad tumoral, fibroblastos metastásicos, soporte metabólico e inmunorresistencia.
-- Subproyecto biológico recomendado: nicho metastásico hepático en CRLM.
-- Subproyecto técnico recomendado: predicción de recurrencia post-hepatectomía usando TCIA.
-- Próximo paso sugerido: abrir una ola 003 centrada en `nicho metastásico hepático` o, si queremos algo más ingenieril, en `recurrencia post-hepatectomía en CRLM`.
+- Resultado: selección del nicho metastásico hepático como sublínea biológica principal, con TCIA/recurrencia post-hepatectomía como sublínea técnica secundaria.
+
+### Ola 003
+- Fecha de apertura: 2026-04-25 01:06:15 -03:00
+- Tema: nicho metastásico hepático en cáncer colorrectal.
+- Estado: activa.
+- Archivos asociados:
+- [InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md](./InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md)
+- [ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md](./ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md)
+- [HipotesisNichoMetastaticoCRLM.md](./HipotesisNichoMetastaticoCRLM.md)
+- [DatasetsCRLM.md](./DatasetsCRLM.md)
+- [SenalesPrioritariasCRLM.md](./SenalesPrioritariasCRLM.md)
+- [PlanValidacionCRLM.md](./PlanValidacionCRLM.md)
+- [Conlusion.md](./Conlusion.md)
+- Hipótesis de trabajo actual: CAFs/mCAFs del hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas, con señalización `HGF-MET`, activación `MYC` y glicólisis local.
+- Próximo paso sugerido: ejecutar validación computacional liviana de firmas `mCAF`, `High-M CRC`, `HGF-MET`, `MYC` y glicólisis en datasets públicos accesibles.
