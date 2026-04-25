@@ -16,5 +16,18 @@ Preferred first script:
 Expected output:
 
 - normalized signature table
-- missing gene report per dataset
+- signature-gene matrix
 - markdown summary for the next research log
+
+## Current script
+Run:
+
+```powershell
+python scripts/prepare_signatures.py
+```
+
+Generated files:
+
+- `data_manifest/generated/signatures_normalized.tsv`
+- `data_manifest/generated/signature_gene_matrix.tsv`
+- `data_manifest/generated/signature_report.md`

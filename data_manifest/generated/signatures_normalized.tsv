@@ -1,0 +1,41 @@
+signature_id	signature_description	gene_order	gene_symbol	raw_gene_symbol	is_valid_symbol_shape
+hgf_met_axis	Core stromal-tumor ligand-receptor axis.	1	HGF	HGF	yes
+hgf_met_axis	Core stromal-tumor ligand-receptor axis.	2	MET	MET	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	1	MYC	MYC	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	2	SLC2A1	SLC2A1	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	3	HK2	HK2	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	4	PGK1	PGK1	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	5	TPI1	TPI1	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	6	LDHA	LDHA	yes
+myc_glycolysis_core	Minimal MYC/glycolysis program to test first.	7	ENO1	ENO1	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	1	COL1A1	COL1A1	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	2	COL1A2	COL1A2	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	3	ACTA2	ACTA2	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	4	FAP	FAP	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	5	POSTN	POSTN	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	6	PDGFRA	PDGFRA	yes
+caf_core	Broad CAF/stromal markers for first-pass checks.	7	PDGFRB	PDGFRB	yes
+mcam_caf	MCAM+ fibroblast branch from GSE225857-linked literature.	1	MCAM	MCAM	yes
+mcam_caf	MCAM+ fibroblast branch from GSE225857-linked literature.	2	COL1A1	COL1A1	yes
+mcam_caf	MCAM+ fibroblast branch from GSE225857-linked literature.	3	COL1A2	COL1A2	yes
+mcam_caf	MCAM+ fibroblast branch from GSE225857-linked literature.	4	ACTA2	ACTA2	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	1	CXCL13	CXCL13	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	2	CD3D	CD3D	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	3	CD3E	CD3E	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	4	CD4	CD4	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	5	CD8A	CD8A	yes
+cxcl13_t_cells	CXCL13+ T-cell branch associated with liver metastatic niche.	6	CD8B	CD8B	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	1	CD68	CD68	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	2	CD14	CD14	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	3	FCGR3A	FCGR3A	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	4	CD1C	CD1C	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	5	CXCL10	CXCL10	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	6	CX3CR1	CX3CR1	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	7	APOE	APOE	yes
+macrophage_lipid_candidate	First-pass macrophage/lipid candidates to refine from source papers.	8	LPL	LPL	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	1	BHLHE40	BHLHE40	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	2	VIM	VIM	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	3	ZEB1	ZEB1	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	4	EPCAM	EPCAM	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	5	CDH1	CDH1	yes
+plasticity_emt	Tumor plasticity and partial EMT candidates.	6	LGR5	LGR5	yes

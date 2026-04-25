@@ -2,6 +2,25 @@
 
 Fecha: 2026-04-25 01:06:15 -03:00
 
+## Estado técnico
+Actualización: 2026-04-25 01:16:54 -03:00
+
+Fase 1 iniciada y ejecutada con `scripts/prepare_signatures.py`.
+
+Resultados:
+
+- 7 firmas preparadas.
+- 40 filas firma-gen normalizadas.
+- 37 genes únicos.
+- 0 advertencias de formato.
+- Tabla normalizada generada en `data_manifest/generated/signatures_normalized.tsv`.
+- Matriz gen-firma generada en `data_manifest/generated/signature_gene_matrix.tsv`.
+- Reporte generado en `data_manifest/generated/signature_report.md`.
+
+Siguiente paso técnico:
+
+Crear un checker de disponibilidad de genes por dataset antes de puntuar firmas. El orden recomendado es GEO primero, TCGA después.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

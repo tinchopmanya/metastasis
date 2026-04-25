@@ -22,6 +22,14 @@ Primer objetivo operativo:
 
 Convertir la hipótesis `mCAF-HGF-MET-MYC-glycolysis` en una hipótesis testeable, con evidencia, datasets, genes, células, predicciones y criterios de falsación.
 
+Primer avance técnico ejecutado:
+
+- `scripts/prepare_signatures.py` creado.
+- `data_manifest/generated/signatures_normalized.tsv` generado.
+- `data_manifest/generated/signature_gene_matrix.tsv` generado.
+- `data_manifest/generated/signature_report.md` generado.
+- La preparación inicial de firmas queda sin advertencias.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 
