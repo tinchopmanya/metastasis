@@ -51,69 +51,34 @@ Tercer avance técnico ejecutado: 2026-04-26
 - Resultado combinado: 0 genes faltantes en HGNC aprobado ni en TCGA-COAD.
 - Las 7 firmas están listas para scoring en datos TCGA-COAD bulk.
 
+Cuarto avance técnico ejecutado: 2026-04-26
+
+- `scripts/score_signatures_bulk.py` creado (sin dependencias externas).
+- Matriz de expresión TCGA-COAD descargada desde UCSC Xena: 20,530 genes x 329 muestras (log2 normalized, 16.7 MB comprimido).
+- 37/37 genes de firma presentes en la matriz.
+- Scores de firma calculados por muestra (z-score medio) para las 7 firmas.
+- 22 correlaciones clave calculadas (gen-gen y score-gen).
+
+Resultados principales de plausibilidad:
+
+- `MET-MYC` gene correlation: r = 0.515, p < 1e-300 (fuerte, significativa). La señal más fuerte del eje.
+- `MYC` vs score glycolysis: r = 0.422, p < 1e-300 (moderada, significativa).
+- `MET` vs score glycolysis: r = 0.320, p = 1e-9 (moderada, significativa).
+- `CAF score` vs `HGF`: r = 0.675, p < 1e-300 (fuerte). Señal CAF-HGF robusta.
+- `HGF-MET` gene correlation: r = -0.08, no significativa. Esperable en señalización paracrina diluida en bulk.
+- `score:hgf_met_axis` vs `score:myc_glycolysis_core`: r = 0.079, no significativa. El composite no predice glicólisis en bulk, pero MET solo sí.
+- Reporte completo en `data_manifest/generated/tcga_coad_bulk_plausibility_report.md`.
+
+Interpretación: el eje MET-MYC-glycolysis es plausible en bulk. La ausencia de correlación HGF-MET directa es consistente con señalización paracrina. La hipótesis sigue justificando inversión en validación single-cell.
+
 Siguiente paso técnico:
 
-- Descargar una matriz de expresión bulk TCGA-COAD (e.g. HTSeq counts aggregados) para calcular scores de firma y correlaciones `MET-MYC`.
-- Alternativa: usar `TCGAbiolinks` o el endpoint GDC para obtener una matriz compacta sin descargar archivos crudos.
-- Antes de descargar matrices pesadas de GEO, validar primero con TCGA bulk como señal de plausibilidad.
+- Validar en datos single-cell (GSE225857) si HGF se concentra en mCAF y MET en células tumorales.
+- Evaluar correlación MET-MYC dentro del compartimento tumoral a nivel single-cell.
 
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 
 ## Preguntas testeables
 - ¿`HGF` se concentra en CAF/mCAF?
-- ¿`MET` se expresa en células tumorales receptoras?
-- ¿`MET` se asocia con `MYC`?
-- ¿`MYC` se asocia con glicólisis?
-- ¿mCAF y High-M CRC co-localizan espacialmente?
-- ¿La señal se observa en más de un dataset?
-
-## Fase 1: preparación de firmas
-Crear gene sets mínimos:
-
-- `mCAF_signature`
-- `HighM_CRC_signature`
-- `HGF_MET_axis`
-- `MYC_targets`
-- `Glycolysis`
-- `MCAM_CAF`
-- `CXCL13_Tcell`
-- `Lipid_macrophage`
-
-Salida:
-
-- `data_manifest/signatures.yml`
-- tabla markdown de genes y fuente
-
-## Fase 2: GEO ligero
-Primero usar metadata y matrices accesibles:
-
-- `GSE225857`
-- `GSE226997`
-- datasets del paper 2025 si están directamente disponibles
-
-Análisis:
-
-- score por célula/spot
-- comparación primario vs metástasis
-- correlación `MET-MYC`
-- co-localización espacial si hay coordenadas
-
-Salida:
-
-- notebook o script reproducible
-- reporte markdown con figuras o tablas
-
-## Fase 3: validación bulk
-Usar TCGA COAD/READ:
-
-- correlación `MET-MYC`
-- asociación score glicólisis con `MYC`
-- score `High-M-like` en primarios
-- asociación exploratoria con estadio/supervivencia si la metadata lo permite
-
-Limitación:
-
-TCGA no prueba CRLM; sólo aporta señal de plausibilidad.
-
-## Fase 4: validación metastásica ext
+- ¿`MET` se expresa en c�

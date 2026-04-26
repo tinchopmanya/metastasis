@@ -104,6 +104,10 @@ Archivos generados:
 - `data_manifest/generated/gene_availability_report.md`
 - `data_manifest/gene_universes/tcga_coad_genes.txt` (59,427 genes desde GDC STAR-Counts)
 - `data_manifest/gene_universes/README.md`
+- `data_manifest/generated/tcga_coad_expression.tsv` (20,530 genes x 329 muestras, UCSC Xena)
+- `data_manifest/generated/tcga_coad_signature_scores.tsv`
+- `data_manifest/generated/tcga_coad_correlations.tsv`
+- `data_manifest/generated/tcga_coad_bulk_plausibility_report.md`
 
 ## Fuentes clave
 Paper lider para la hipotesis:
@@ -146,29 +150,32 @@ Este bloque fue completado exitosamente:
 - `PlanValidacionCRLM.md` y `Roadmap.md` actualizados.
 - TCGA-READ comparte pipeline STAR/GENCODE v36; universo identico a TCGA-COAD.
 
+## Bloque completado: scoring bulk TCGA-COAD
+
+- `scripts/score_signatures_bulk.py` creado y ejecutado.
+- Matriz TCGA-COAD de UCSC Xena: 20,530 genes x 329 muestras.
+- 7 firmas scored, 22 correlaciones calculadas.
+- MET-MYC r=0.515 (fuerte), MYC-glycolysis r=0.422 (moderada), CAF-HGF r=0.675 (fuerte).
+- HGF-MET r=-0.08 (no significativa): consistente con paracrinia.
+- Conclusion: eje plausible en bulk. Justifica validacion single-cell.
+
 ## Proximo objetivo recomendado
-Obtener una matriz de expresion bulk TCGA-COAD y calcular scores de firma.
+Validar la hipotesis en datos single-cell.
 
 Ruta recomendada:
 
-1. Descargar expresion bulk TCGA-COAD desde GDC (HTSeq counts o STAR-Counts agregados).
-2. Calcular scores por muestra para las 7 firmas.
-3. Evaluar correlacion `MET-MYC` y `MYC-glycolysis` en tumores primarios.
-4. Si la senal es plausible en bulk, justifica invertir en datos single-cell.
-5. Si la senal no aparece en bulk, documentar como resultado negativo informativo.
-
-Alternativa si GDC bulk es pesado:
-
-- Usar un recurso pre-procesado como UCSC Xena o cBioPortal para obtener expresion TCGA-COAD.
-- Documentar la fuente y mantener reproducibilidad.
+1. Evaluar GSE225857 como fuente de datos single-cell accesible (~607 MB).
+2. Si se descarga, verificar que HGF se expresa en CAF/mCAF y MET en tumor.
+3. Evaluar correlacion MET-MYC dentro del compartimento tumoral.
+4. Evaluar co-localizacion mCAF-tumor si hay datos espaciales.
+5. Si GSE225857 es demasiado pesado, buscar matrices procesadas o subsets.
 
 ## Criterios de exito del proximo bloque
 El bloque cuenta como exitoso si deja:
 
-- Un script para descargar o procesar expresion bulk TCGA-COAD.
-- Scores de firma por muestra.
-- Correlaciones MET-MYC y MYC-glycolysis.
-- Un reporte con conclusion sobre plausibilidad en bulk.
+- Un plan claro de extraccion de GSE225857 o alternativa.
+- Si se logra acceso: localización celular de HGF y MET confirmada o refutada.
+- Si no: un documento de bloqueo con alternativas.
 - Actualizacion en documentos vivos.
 - Commit y push.
 
@@ -212,22 +219,4 @@ Commit/push:
 
 ```powershell
 git add .
-git commit -m "Short useful message"
-git push
-```
-
-## Si hay que decidir
-Decidir asi:
-
-1. Priorizar validacion liviana.
-2. Priorizar reproducibilidad.
-3. Priorizar hipotesis falsables.
-4. Evitar descargas pesadas hasta que una pregunta concreta lo justifique.
-5. Mantener documentos vivos actualizados.
-
-## Mensaje para continuar
-La siguiente accion ideal es:
-
-`Crear el primer universo genico TCGA/GDC liviano y correr check_gene_availability.py contra ese universo.`
-
-Si eso se bloquea
+git commit -

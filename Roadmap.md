@@ -49,10 +49,20 @@ Tercer avance técnico ejecutado:
 - Resultado: 7/7 firmas, 37/37 genes, 100% cobertura en ambos universos. 0 genes faltantes.
 - Las firmas están técnicamente listas para scoring en datos TCGA-COAD bulk.
 
+Cuarto avance técnico ejecutado:
+
+- `scripts/score_signatures_bulk.py` creado.
+- Matriz TCGA-COAD descargada desde UCSC Xena (20,530 genes x 329 muestras).
+- 7 firmas scored, 22 correlaciones calculadas.
+- Resultado clave: `MET-MYC` r = 0.515 (fuerte, significativa), `MYC-glycolysis` r = 0.422, `CAF-HGF` r = 0.675.
+- `HGF-MET` r = -0.08 (no significativa): consistente con señalización paracrina.
+- Conclusión: el eje es plausible en bulk. Justifica validación single-cell.
+- Reporte completo en `data_manifest/generated/tcga_coad_bulk_plausibility_report.md`.
+
 Próximo avance técnico pendiente:
 
-- Obtener una matriz de expresión bulk TCGA-COAD para calcular scores de firma y correlaciones `MET-MYC`.
-- Evaluar si la señal `mCAF-HGF-MET-MYC-glycolysis` tiene plausibilidad en datos bulk antes de invertir en descarga de datos single-cell pesados.
+- Validación single-cell en GSE225857 para confirmar localización celular de HGF (mCAF) y MET (tumor).
+- Evaluar correlación MET-MYC dentro del compartimento tumoral.
 
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
@@ -218,21 +228,4 @@ Si tengo varias horas para avanzar, empezaría por una ola 003 y construiría un
 
 La hipótesis que hoy parece más fuerte como punto de partida es:
 
-`CAFs/mCAFs en el hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales de alta plasticidad, con señalización HGF-MET, activación MYC y glicólisis local.`
-
-Por qué esta hipótesis:
-
-- es concreta
-- conecta célula tumoral y microambiente
-- tiene soporte single-cell y spatial reciente
-- se puede validar con datasets públicos
-- apunta a mecanismos, no sólo predicción
-
-## Próxima acción recomendada
-Abrir la ola 003:
-
-`nicho metastásico hepático en cáncer colorrectal`
-
-Primeros archivos a crear:
-
-- `InvestigacionSobreNichoMetastaticoH
+`CAFs/mCAFs en el hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorr
