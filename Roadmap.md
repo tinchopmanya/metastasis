@@ -59,9 +59,19 @@ Cuarto avance técnico ejecutado:
 - Conclusión: el eje es plausible en bulk. Justifica validación single-cell.
 - Reporte completo en `data_manifest/generated/tcga_coad_bulk_plausibility_report.md`.
 
+Quinto avance técnico ejecutado:
+
+- GSE225857 tiene archivos individuales por muestra (no requiere el TAR de 607 MB).
+- Metadata non-immune descargada (1.9 MB, 41,892 células con anotación de cell type).
+- Composición celular analizada: MCAM+ CAFs 83% en hígado (fold 2.86x), CXCL14+ fibroblasts 94% en colon.
+- Tu02_DEFA5 es 97% hígado-específico (fold 20.4x).
+- Scripts creados: `analyze_gse225857_cellcomp.py`, `download_gse225857.py`.
+- Hipótesis MCAM+ CAFs liver-enriched: CONFIRMADA.
+
 Próximo avance técnico pendiente:
 
-- Validación single-cell en GSE225857 para confirmar localización celular de HGF (mCAF) y MET (tumor).
+- Descargar count matrix non-immune (86 MB) con `python scripts/download_gse225857.py --non-immune`.
+- Validar expresión celular HGF→mCAF, MET→tumor.
 - Evaluar correlación MET-MYC dentro del compartimento tumoral.
 
 ## Decisión estratégica
@@ -218,14 +228,4 @@ Resultado esperado:
 
 ## Qué no haría todavía
 - No intentaría prometer descubrimiento clínico.
-- No descargaría imágenes pesadas antes de tener clara la hipótesis.
-- No haría un modelo predictivo primero si todavía no sabemos qué queremos validar.
-- No abriría diez tipos de cáncer a la vez.
-- No convertiría esto en una lista gigante de genes sin mecanismo.
-
-## Mi apuesta concreta
-Si tengo varias horas para avanzar, empezaría por una ola 003 y construiría una matriz de hipótesis del nicho metastásico hepático.
-
-La hipótesis que hoy parece más fuerte como punto de partida es:
-
-`CAFs/mCAFs en el hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorr
+- No descargaría imágenes pesadas antes de tener clara la hipó

@@ -71,14 +71,12 @@ Resultados principales de plausibilidad:
 
 Interpretación: el eje MET-MYC-glycolysis es plausible en bulk. La ausencia de correlación HGF-MET directa es consistente con señalización paracrina. La hipótesis sigue justificando inversión en validación single-cell.
 
-Siguiente paso técnico:
+Quinto avance técnico ejecutado: 2026-04-26
 
-- Validar en datos single-cell (GSE225857) si HGF se concentra en mCAF y MET en células tumorales.
-- Evaluar correlación MET-MYC dentro del compartimento tumoral a nivel single-cell.
+- Se descubrió que GSE225857 tiene archivos individuales accesibles por muestra (no solo el TAR de 607 MB).
+- `gse225857_non_immune_meta.tsv` descargado (1.9 MB, 41,892 células).
+- Análisis de composición celular ejecutado.
 
-## Objetivo
-Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
+Resultados de composición (predicciones de la hipótesis vs datos):
 
-## Preguntas testeables
-- ¿`HGF` se concentra en CAF/mCAF?
-- ¿`MET` se expresa en c�
+- **MCAM+ CAFs enriquecidos en hígado**: CONFIRMADO (3,387 en LCT vs 692 en CCT, 83% en 

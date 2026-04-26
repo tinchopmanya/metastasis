@@ -159,8 +159,18 @@ Este bloque fue completado exitosamente:
 - HGF-MET r=-0.08 (no significativa): consistente con paracrinia.
 - Conclusion: eje plausible en bulk. Justifica validacion single-cell.
 
+## Bloque completado: composicion celular GSE225857
+
+- Se descubrio que GSE225857 tiene archivos individuales (~1.9 MB metadata vs 607 MB TAR).
+- `scripts/download_gse225857.py` creado: descarga selectiva por compartimento.
+- `scripts/analyze_gse225857_cellcomp.py` creado.
+- Metadata non-immune descargada: 41,892 celulas, 23 cell types, 6 pacientes.
+- MCAM+ CAFs: 83% en higado (fold 2.86x). CONFIRMADO.
+- CXCL14+ fibroblasts: 94% en colon (fold 0.04x). Patron inverso CONFIRMADO.
+- Tu02_DEFA5: 97% en higado (fold 20.4x). Subtipo metastasis-especifico.
+
 ## Proximo objetivo recomendado
-Validar la hipotesis en datos single-cell.
+Validar expresion gen-especifica en single-cell.
 
 Ruta recomendada:
 
@@ -187,36 +197,4 @@ El bloque cuenta como exitoso si deja:
 - No afirmar utilidad terapeutica sin validacion.
 - No borrar ni revertir cambios del usuario.
 - Mantener `.env` fuera de git.
-- Preferir archivos markdown y scripts reproducibles simples.
-- Despues de cada bloque util: `git status`, commit y push.
-
-## Comandos utiles
-Preparar firmas:
-
-```powershell
-python scripts/prepare_signatures.py
-```
-
-Verificar disponibilidad contra HGNC:
-
-```powershell
-python scripts/check_gene_availability.py
-```
-
-Verificar contra universo local:
-
-```powershell
-python scripts/check_gene_availability.py --universe nombre=data_manifest/gene_universes/archivo_genes.txt
-```
-
-Chequeo de diff:
-
-```powershell
-git diff --check
-```
-
-Commit/push:
-
-```powershell
-git add .
-git commit -
+- Preferir archiv
