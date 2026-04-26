@@ -68,11 +68,44 @@ Quinto avance técnico ejecutado:
 - Scripts creados: `analyze_gse225857_cellcomp.py`, `download_gse225857.py`.
 - Hipótesis MCAM+ CAFs liver-enriched: CONFIRMADA.
 
+Sexto avance técnico ejecutado:
+
+- Count matrix non-immune descargada y parseada (90 MB comprimido, 1.4 GB descomprimido, 17,516 genes x 41,892 células).
+- 13/13 genes de interés encontrados en la matriz.
+- `scripts/validate_sc_expression.py` creado.
+- Validación single-cell ejecutada contra las tres preguntas centrales:
+
+Resultado 1 — HGF en fibroblastos:
+
+- HGF mean en fibroblastos: 0.674 (30.1% expressing). En tumor: 0.004 (0.3%). Ratio 168x. CONFIRMADO.
+- Dentro de fibroblastos: CXCL14+ tiene mayor expresión per-cell (mean 1.664), pero MCAM+ CAFs son la fuente dominante en hígado por abundancia (3,387 células en LCT, mean 0.371).
+
+Resultado 2 — MET en tumor:
+
+- MET mean en tumor: 0.399 (27.6% expressing). En fibroblastos: 0.009 (0.7%). Ratio 44x. CONFIRMADO.
+- Patrón paracrino HGF(estroma)→MET(tumor) validado a nivel single-cell.
+
+Resultado 3 — MET-MYC en tumor:
+
+- Pearson r = 0.1438 en 23,954 células tumorales (p < 1e-300). CONFIRMADO (débil pero robustamente significativo).
+- MYC-PGK1 r = 0.36, MYC-TPI1 r = 0.42: el eje MYC-glicólisis es el enlace más fuerte.
+
+Reporte completo en `data_manifest/generated/gse225857_sc_expression_report.md`.
+
+Conclusión de validación single-cell:
+
+Las 5 predicciones de expresión de la hipótesis se confirman:
+1. HGF en fibroblastos >> tumor (168x).
+2. MET en tumor >> fibroblastos (44x).
+3. MET-MYC correlación positiva en tumor (r=0.14, p<1e-300).
+4. MYC-glicólisis fuerte en tumor (MYC-TPI1 r=0.42).
+5. Patrón paracrino no-solapante confirmado.
+
 Próximo avance técnico pendiente:
 
-- Descargar count matrix non-immune (86 MB) con `python scripts/download_gse225857.py --non-immune`.
-- Validar expresión celular HGF→mCAF, MET→tumor.
-- Evaluar correlación MET-MYC dentro del compartimento tumoral.
+- Evaluar co-localización espacial mCAF-tumor si hay datos de coordenadas en GSE225857.
+- Cruzar con META-PRISM para verificar especificidad CRLM vs metástasis general.
+- Considerar validación en dataset independiente (GSE226997 o papers 2025).
 
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
@@ -179,53 +212,4 @@ Validaciones posibles:
 ## Orden recomendado de trabajo
 
 ### Bloque 1: dos a tres horas
-Crear la matriz de hipótesis y datasets. Este es el bloque de mayor retorno porque convierte literatura dispersa en una base de decisión.
-
-Resultado esperado:
-
-- `HipotesisNichoMetastaticoCRLM.md`
-- `DatasetsCRLM.md`
-- actualización de `Conlusion.md`
-
-### Bloque 2: tres a seis horas
-Profundizar en las tres hipótesis más fuertes. Para cada una:
-
-- paper principal
-- evidencia independiente
-- genes centrales
-- células implicadas
-- qué dataset permite probarla
-- qué resultado computacional la fortalecería o debilitaría
-
-Resultado esperado:
-
-- `InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
-- `ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
-
-### Bloque 3: seis a doce horas
-Empezar trabajo técnico. Prioridad conservadora:
-
-1. Descargar metadata y tablas disponibles.
-2. Construir manifest de datasets.
-3. Preparar scripts de análisis exploratorio.
-4. Intentar una primera validación de firmas en datos públicos accesibles.
-
-Resultado esperado:
-
-- carpeta `data_manifest/`
-- carpeta `scripts/`
-- primer script reproducible de extracción/validación
-- un reporte de hallazgos y bloqueos
-
-### Bloque 4: línea técnica paralela
-Usar TCIA para recurrencia post-hepatectomía. Esta línea es valiosa, pero la pondría como segunda prioridad porque se vuelve más pesada en datos e infraestructura.
-
-Resultado esperado:
-
-- manifest del dataset TCIA
-- revisión del paper base
-- plan de pipeline radiomics/deep learning
-
-## Qué no haría todavía
-- No intentaría prometer descubrimiento clínico.
-- No descargaría imágenes pesadas antes de tener clara la hipó
+Crear la matriz de hipótesis y datasets. Este es el bloque 

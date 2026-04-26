@@ -1,0 +1,10 @@
+gene_x	gene_y	compartment	pearson_r	n	interpretation
+MET	MYC	Tumor	0.1438	23954	weak, highly significant
+MET	MYC	Fibroblast	0.0061	15093	negligible, not significant
+MET	SLC2A1	Tumor	0.1592	23954	weak, highly significant
+MYC	SLC2A1	Tumor	0.0505	23954	negligible, significant
+MYC	PGK1	Tumor	0.3599	23954	moderate, highly significant
+MYC	TPI1	Tumor	0.4170	23954	moderate, highly significant
+HGF	MCAM	Fibroblast	-0.0740	15093	negligible, significant
+HGF	COL1A1	Fibroblast	0.0168	15093	negligible, significant
+HGF	FAP	Fibroblast	0.0150	15093	negligible, not significant

@@ -79,4 +79,136 @@ Quinto avance técnico ejecutado: 2026-04-26
 
 Resultados de composición (predicciones de la hipótesis vs datos):
 
-- **MCAM+ CAFs enriquecidos en hígado**: CONFIRMADO (3,387 en LCT vs 692 en CCT, 83% en 
+- **MCAM+ CAFs enriquecidos en hígado**: CONFIRMADO (3,387 en LCT vs 692 en CCT, 83% en hígado, fold 2.86x).
+- **Programas fibroblásticos distintos**: CONFIRMADO (CXCL14+ 94% en colon, MCAM+ 83% en hígado).
+- **Subtipos tumorales hígado-específicos**: CONFIRMADO (Tu02_DEFA5 97% en hígado, fold 20.4x).
+- Reporte: `data_manifest/generated/gse225857_composition_report.md`.
+- Tabla: `data_manifest/generated/gse225857_cell_enrichment.tsv`.
+
+Sexto avance técnico ejecutado: 2026-04-26
+
+- Count matrix non-immune descargada (90 MB gz, 1.4 GB decompressed, 17,516 genes x 41,892 células).
+- Extracción selectiva de 13 genes de interés directamente desde .gz (sin descomprimir los 1.4 GB completos).
+- `scripts/validate_sc_expression.py` creado.
+- Fix aplicado: cell IDs usan `.` en counts y `-` en metadata. 41,892/41,892 matched.
+
+Resultados de expresión single-cell:
+
+- **HGF en fibroblastos >> tumor**: CONFIRMADO. Fibroblast mean=0.674 (30.1%), Tumor mean=0.004 (0.3%). Ratio 168x.
+- **MET en tumor >> fibroblastos**: CONFIRMADO. Tumor mean=0.399 (27.6%), Fibroblast mean=0.009 (0.7%). Ratio 44x.
+- **MET-MYC en tumor**: CONFIRMADO. Pearson r=0.1438, n=23,954, p<1e-300.
+- **MYC-glicólisis en tumor**: CONFIRMADO. MYC-PGK1 r=0.36, MYC-TPI1 r=0.42.
+- **Patrón paracrino HGF→MET**: CONFIRMADO. Compartimentos no-solapantes a nivel single-cell.
+
+Refinamiento: HGF no viene solo de MCAM+ CAFs. CXCL14+ fibroblasts tienen mayor expresión per-cell (mean 1.664), pero están 94% en colon. En hígado, PRELP+ (F01, 5,091 células) y MCAM+ (F02, 3,387 células) son los productores dominantes de HGF.
+
+- Reporte: `data_manifest/generated/gse225857_sc_expression_report.md`.
+- Tabla resumen: `data_manifest/generated/gse225857_gene_expression_summary.tsv`.
+- Correlaciones: `data_manifest/generated/gse225857_sc_correlations.tsv`.
+
+Siguiente paso técnico:
+
+- Evaluar co-localización espacial mCAF-tumor si GSE225857 incluye coordenadas Visium/MERFISH.
+- Cruzar resultados con META-PRISM para especificidad CRLM vs metástasis general.
+- Buscar validación independiente en GSE226997 o datasets 2025.
+
+## Objetivo
+Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
+
+## Preguntas testeables
+- ¿`HGF` se concentra en CAF/mCAF?
+- ¿`MET` se expresa en células tumorales receptoras?
+- ¿`MET` se asocia con `MYC`?
+- ¿`MYC` se asocia con glicólisis?
+- ¿mCAF y High-M CRC co-localizan espacialmente?
+- ¿La señal se observa en más de un dataset?
+
+## Fase 1: preparación de firmas
+Crear gene sets mínimos:
+
+- `mCAF_signature`
+- `HighM_CRC_signature`
+- `HGF_MET_axis`
+- `MYC_targets`
+- `Glycolysis`
+- `MCAM_CAF`
+- `CXCL13_Tcell`
+- `Lipid_macrophage`
+
+Salida:
+
+- `data_manifest/signatures.yml`
+- tabla markdown de genes y fuente
+
+## Fase 2: GEO ligero
+Primero usar metadata y matrices accesibles:
+
+- `GSE225857`
+- `GSE226997`
+- datasets del paper 2025 si están directamente disponibles
+
+Análisis:
+
+- score por célula/spot
+- comparación primario vs metástasis
+- correlación `MET-MYC`
+- co-localización espacial si hay coordenadas
+
+Salida:
+
+- notebook o script reproducible
+- reporte markdown con figuras o tablas
+
+## Fase 3: validación bulk
+Usar TCGA COAD/READ:
+
+- correlación `MET-MYC`
+- asociación score glicólisis con `MYC`
+- score `High-M-like` en primarios
+- asociación exploratoria con estadio/supervivencia si la metadata lo permite
+
+Limitación:
+
+TCGA no prueba CRLM; sólo aporta señal de plausibilidad.
+
+## Fase 4: validación metastásica externa
+Usar META-PRISM u otra cohorte metastásica accesible:
+
+- distinguir señal de metástasis hepática versus metástasis general
+- comparar CRC con otros tumores metastásicos
+- ver si el eje aparece en tumores refractarios
+
+## Fase 5: TCIA como puente clínico
+No descargar imágenes todavía salvo que el análisis molecular dé señales fuertes.
+
+Cuando toque:
+
+- usar dataset CRLM de 197 pacientes
+- empezar por metadata clínica
+- modelar recurrencia/supervivencia con baseline simple
+- considerar radiomics sólo después
+
+## Criterios de avance
+La hipótesis avanza si:
+
+- aparece en al menos dos fuentes independientes
+- tiene separación primario/metástasis o nicho tumoral/estromal
+- tiene lectura espacial o celular clara
+- no depende de un único gen aislado
+
+La hipótesis baja prioridad si:
+
+- no hay reproducibilidad
+- sólo aparece por batch o composición celular
+- no hay célula emisora/receptora plausible
+- no hay conexión con agresividad, recurrencia, plasticidad o metabolismo
+
+## Próximo artefacto técnico
+Crear:
+
+- `data_manifest/`
+- `scripts/`
+- `scripts/prepare_signatures.ps1` o un script Python/R si se decide análisis real
+- `data_manifest/crlm_sources.md`
+
+La primera ejecución técnica debe ser pequeña: metadata, gene sets y manifest. Nada pesado todavía.

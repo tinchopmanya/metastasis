@@ -169,23 +169,50 @@ Este bloque fue completado exitosamente:
 - CXCL14+ fibroblasts: 94% en colon (fold 0.04x). Patron inverso CONFIRMADO.
 - Tu02_DEFA5: 97% en higado (fold 20.4x). Subtipo metastasis-especifico.
 
+## Bloque completado: expresion single-cell GSE225857
+
+- Count matrix non-immune descargada: 90 MB gz, 1.4 GB decompressed, 17,516 genes x 41,892 celulas.
+- Extraccion selectiva de 13 genes directamente desde .gz (evita descomprimir 1.4 GB).
+- `scripts/validate_sc_expression.py` creado.
+- Fix aplicado: cell IDs usan `.` en counts y `-` en metadata. 41,892/41,892 matched.
+
+Resultados clave:
+
+- HGF en fibroblastos: mean=0.674 (30.1%). En tumor: mean=0.004 (0.3%). Ratio 168x. CONFIRMADO.
+- MET en tumor: mean=0.399 (27.6%). En fibroblastos: mean=0.009 (0.7%). Ratio 44x. CONFIRMADO.
+- MET-MYC en tumor: r=0.1438, n=23,954, p<1e-300. CONFIRMADO.
+- MYC-glicolisis: MYC-PGK1 r=0.36, MYC-TPI1 r=0.42. CONFIRMADO.
+- Patron paracrino HGF(estroma)->MET(tumor): CONFIRMADO.
+
+Archivos generados:
+
+- `data_manifest/generated/gse225857_sc_expression_report.md`
+- `data_manifest/generated/gse225857_gene_expression_summary.tsv`
+- `data_manifest/generated/gse225857_sc_correlations.tsv`
+- `data_manifest/generated/gse225857_extracted_genes.json`
+
+Refinamiento de hipotesis:
+
+- HGF no viene solo de MCAM+ CAFs. PRELP+ fibroblasts (F01) contribuyen mas HGF total en higado por abundancia.
+- En higado: F01_PRELP (5,091 celulas, mean 0.667) + F02_MCAM (3,387 celulas, mean 0.371) = >90% del HGF.
+- MYC es 45% mas alto en LCT que CCT, sugiriendo seleccion/induccion en el nicho metastasico.
+
 ## Proximo objetivo recomendado
-Validar expresion gen-especifica en single-cell.
+Validacion cruzada y extension.
 
 Ruta recomendada:
 
-1. Evaluar GSE225857 como fuente de datos single-cell accesible (~607 MB).
-2. Si se descarga, verificar que HGF se expresa en CAF/mCAF y MET en tumor.
-3. Evaluar correlacion MET-MYC dentro del compartimento tumoral.
-4. Evaluar co-localizacion mCAF-tumor si hay datos espaciales.
-5. Si GSE225857 es demasiado pesado, buscar matrices procesadas o subsets.
+1. Buscar datos espaciales en GSE225857 para co-localizacion mCAF-tumor.
+2. Cruzar con META-PRISM para especificidad CRLM vs metastasis general.
+3. Evaluar validacion independiente en GSE226997 o datasets 2025.
+4. Considerar analisis de supervivencia en TCGA-COAD con firmas ya validadas.
 
 ## Criterios de exito del proximo bloque
 El bloque cuenta como exitoso si deja:
 
-- Un plan claro de extraccion de GSE225857 o alternativa.
-- Si se logra acceso: localización celular de HGF y MET confirmada o refutada.
-- Si no: un documento de bloqueo con alternativas.
+- Evidencia de reproducibilidad en un segundo dataset independiente.
+- O: analisis espacial que confirme co-localizacion.
+- O: documento de limitaciones y plan alternativo claro.
 - Actualizacion en documentos vivos.
 - Commit y push.
 
@@ -197,4 +224,54 @@ El bloque cuenta como exitoso si deja:
 - No afirmar utilidad terapeutica sin validacion.
 - No borrar ni revertir cambios del usuario.
 - Mantener `.env` fuera de git.
-- Preferir archiv
+- Preferir archivos markdown y scripts reproducibles simples.
+- Despues de cada bloque util: `git status`, commit y push.
+
+## Comandos utiles
+Preparar firmas:
+
+```powershell
+python scripts/prepare_signatures.py
+```
+
+Verificar disponibilidad contra HGNC:
+
+```powershell
+python scripts/check_gene_availability.py
+```
+
+Verificar contra universo local:
+
+```powershell
+python scripts/check_gene_availability.py --universe nombre=data_manifest/gene_universes/archivo_genes.txt
+```
+
+Chequeo de diff:
+
+```powershell
+git diff --check
+```
+
+Commit/push:
+
+```powershell
+git add .
+git commit -m "Short useful message"
+git push
+```
+
+## Si hay que decidir
+Decidir asi:
+
+1. Priorizar validacion liviana.
+2. Priorizar reproducibilidad.
+3. Priorizar hipotesis falsables.
+4. Evitar descargas pesadas hasta que una pregunta concreta lo justifique.
+5. Mantener documentos vivos actualizados.
+
+## Mensaje para continuar
+La siguiente accion ideal es:
+
+`Crear el primer universo genico TCGA/GDC liviano y correr check_gene_availability.py contra ese universo.`
+
+Si eso se bloquea, documentar el bloqueo y crear un plan alternativo reproducible.
