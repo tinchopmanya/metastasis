@@ -38,6 +38,25 @@ Resultado ejecutado: 2026-04-25 01:21:28 -03:00
 - Todas las firmas tienen 100% de cobertura contra HGNC aprobado.
 - Reporte generado en `data_manifest/generated/gene_availability_report.md`.
 
+Tercer avance técnico ejecutado: 2026-04-26
+
+- `scripts/fetch_gdc_gene_universe.py` creado.
+- El script consulta la API de GDC, descarga un único archivo STAR-Counts TSV (~4 MB) y extrae los gene symbols sin descargar matrices completas.
+- Fallback automático a GENCODE v36 si GDC no responde.
+- `data_manifest/gene_universes/` creado con README explicativo.
+- Universo TCGA-COAD generado: 59,427 genes desde GDC STAR-Counts file `ff710149-0fc6-464a-93cb-e3b9bdcf3525`.
+- TCGA-READ usa el mismo pipeline STAR/GENCODE v36, por lo que el universo génico es idéntico al de TCGA-COAD.
+- `check_gene_availability.py` ejecutado con `--universe tcga_coad=data_manifest/gene_universes/tcga_coad_genes.txt`.
+- Resultado: 7/7 firmas con 100% de cobertura contra TCGA-COAD.
+- Resultado combinado: 0 genes faltantes en HGNC aprobado ni en TCGA-COAD.
+- Las 7 firmas están listas para scoring en datos TCGA-COAD bulk.
+
+Siguiente paso técnico:
+
+- Descargar una matriz de expresión bulk TCGA-COAD (e.g. HTSeq counts aggregados) para calcular scores de firma y correlaciones `MET-MYC`.
+- Alternativa: usar `TCGAbiolinks` o el endpoint GDC para obtener una matriz compacta sin descargar archivos crudos.
+- Antes de descargar matrices pesadas de GEO, validar primero con TCGA bulk como señal de plausibilidad.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 
@@ -97,44 +116,4 @@ Limitación:
 
 TCGA no prueba CRLM; sólo aporta señal de plausibilidad.
 
-## Fase 4: validación metastásica externa
-Usar META-PRISM u otra cohorte metastásica accesible:
-
-- distinguir señal de metástasis hepática versus metástasis general
-- comparar CRC con otros tumores metastásicos
-- ver si el eje aparece en tumores refractarios
-
-## Fase 5: TCIA como puente clínico
-No descargar imágenes todavía salvo que el análisis molecular dé señales fuertes.
-
-Cuando toque:
-
-- usar dataset CRLM de 197 pacientes
-- empezar por metadata clínica
-- modelar recurrencia/supervivencia con baseline simple
-- considerar radiomics sólo después
-
-## Criterios de avance
-La hipótesis avanza si:
-
-- aparece en al menos dos fuentes independientes
-- tiene separación primario/metástasis o nicho tumoral/estromal
-- tiene lectura espacial o celular clara
-- no depende de un único gen aislado
-
-La hipótesis baja prioridad si:
-
-- no hay reproducibilidad
-- sólo aparece por batch o composición celular
-- no hay célula emisora/receptora plausible
-- no hay conexión con agresividad, recurrencia, plasticidad o metabolismo
-
-## Próximo artefacto técnico
-Crear:
-
-- `data_manifest/`
-- `scripts/`
-- `scripts/prepare_signatures.ps1` o un script Python/R si se decide análisis real
-- `data_manifest/crlm_sources.md`
-
-La primera ejecución técnica debe ser pequeña: metadata, gene sets y manifest. Nada pesado todavía.
+## Fase 4: validación metastásica ext

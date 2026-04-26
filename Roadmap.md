@@ -39,6 +39,21 @@ Segundo avance técnico ejecutado:
 - Todas las firmas tienen 100% de cobertura contra HGNC aprobado.
 - `GSE225857` y `GSE226997` quedan marcados como fuentes que requieren extracción pesada antes de validación dataset-específica.
 
+Tercer avance técnico ejecutado:
+
+- `scripts/fetch_gdc_gene_universe.py` creado: consulta GDC API, descarga un único archivo STAR-Counts TSV y extrae el universo génico.
+- `data_manifest/gene_universes/` creado con README y `tcga_coad_genes.txt` (59,427 genes).
+- Fuente: archivo STAR-Counts `ff710149-0fc6-464a-93cb-e3b9bdcf3525` de TCGA-COAD via GDC.
+- TCGA-READ comparte el mismo pipeline STAR/GENCODE v36; universo génico idéntico.
+- `check_gene_availability.py` ejecutado contra HGNC aprobado y TCGA-COAD simultáneamente.
+- Resultado: 7/7 firmas, 37/37 genes, 100% cobertura en ambos universos. 0 genes faltantes.
+- Las firmas están técnicamente listas para scoring en datos TCGA-COAD bulk.
+
+Próximo avance técnico pendiente:
+
+- Obtener una matriz de expresión bulk TCGA-COAD para calcular scores de firma y correlaciones `MET-MYC`.
+- Evaluar si la señal `mCAF-HGF-MET-MYC-glycolysis` tiene plausibilidad en datos bulk antes de invertir en descarga de datos single-cell pesados.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 
@@ -220,17 +235,4 @@ Abrir la ola 003:
 
 Primeros archivos a crear:
 
-- `InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
-- `ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
-- `HipotesisNichoMetastaticoCRLM.md`
-- `DatasetsCRLM.md`
-
-## Fuentes clave para arrancar
-- GSE225857: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE225857
-- Single-cell and spatial transcriptome analysis of liver metastatic colorectal cancer: https://pmc.ncbi.nlm.nih.gov/articles/PMC10275599/
-- Spatially resolved single-cell landscape with HGF-MET-MYC-glycolysis axis: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/
-- TCIA Colorectal-Liver-Metastases: https://www.cancerimagingarchive.net/collection/colorectal-liver-metastases/
-- Preoperative CT and survival data for CRLM: https://pmc.ncbi.nlm.nih.gov/articles/PMC10847495/
-- NCI PDQ Colon Cancer Treatment: https://www.cancer.gov/types/colorectal/hp/colon-treatment-pdq
-- SEER Colorectal Cancer Stat Facts: https://seer.cancer.gov/statfacts/html/colorect.html
-- AI in CRLM review: https://pubmed.ncbi.nlm.nih.gov/40240167/
+- `InvestigacionSobreNichoMetastaticoH

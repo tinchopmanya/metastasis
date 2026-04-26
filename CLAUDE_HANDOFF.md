@@ -28,6 +28,8 @@ Rama activa:
 
 Ultimos commits relevantes:
 
+- Ultimo: Add TCGA-COAD gene universe and GDC fetch script
+- `1dabfc9 Add Claude handoff for CRLM research`
 - `877a985 Add CRLM gene availability checker`
 - `080fe3d Prepare CRLM signature validation inputs`
 - `491e78a Open CRLM niche hypothesis track`
@@ -100,6 +102,8 @@ Archivos generados:
 - `data_manifest/generated/hgnc_approved_symbols.tsv`
 - `data_manifest/generated/gene_availability.tsv`
 - `data_manifest/generated/gene_availability_report.md`
+- `data_manifest/gene_universes/tcga_coad_genes.txt` (59,427 genes desde GDC STAR-Counts)
+- `data_manifest/gene_universes/README.md`
 
 ## Fuentes clave
 Paper lider para la hipotesis:
@@ -133,51 +137,39 @@ Politica actual:
 
 Primero avanzar con metadata, firmas, universos genicos y validacion liviana. Descargar matrices pesadas solo cuando haya una razon concreta y el plan de extraccion este definido.
 
+## Bloque completado: universo genico TCGA-COAD
+Este bloque fue completado exitosamente:
+
+- `scripts/fetch_gdc_gene_universe.py` creado y funcional.
+- `data_manifest/gene_universes/tcga_coad_genes.txt` generado desde GDC STAR-Counts (59,427 genes).
+- `check_gene_availability.py` ejecutado contra HGNC y TCGA-COAD: 100% cobertura, 0 genes faltantes.
+- `PlanValidacionCRLM.md` y `Roadmap.md` actualizados.
+- TCGA-READ comparte pipeline STAR/GENCODE v36; universo identico a TCGA-COAD.
+
 ## Proximo objetivo recomendado
-Crear el primer universo genico dataset-especifico liviano.
+Obtener una matriz de expresion bulk TCGA-COAD y calcular scores de firma.
 
 Ruta recomendada:
 
-1. Empezar con TCGA/GDC antes que GEO pesado.
-2. Crear `data_manifest/gene_universes/`.
-3. Crear un script para obtener o construir un universo de genes de `TCGA-COAD` y luego `TCGA-READ`.
-4. Usar ese universo con:
+1. Descargar expresion bulk TCGA-COAD desde GDC (HTSeq counts o STAR-Counts agregados).
+2. Calcular scores por muestra para las 7 firmas.
+3. Evaluar correlacion `MET-MYC` y `MYC-glycolysis` en tumores primarios.
+4. Si la senal es plausible en bulk, justifica invertir en datos single-cell.
+5. Si la senal no aparece en bulk, documentar como resultado negativo informativo.
 
-```powershell
-python scripts/check_gene_availability.py --universe tcga_coad=data_manifest/gene_universes/tcga_coad_genes.txt
-```
+Alternativa si GDC bulk es pesado:
 
-5. Generar un reporte nuevo en `data_manifest/generated/`.
-6. Actualizar `PlanValidacionCRLM.md` y `Roadmap.md`.
-7. Commit y push.
-
-## Proximo bloque tecnico exacto
-Crear:
-
-- `scripts/fetch_gdc_gene_universe.py`
-- `data_manifest/gene_universes/README.md`
-- `data_manifest/gene_universes/tcga_coad_genes.txt` si se logra obtener datos livianos.
-
-Objetivo del script:
-
-- Consultar GDC/TCGA de forma liviana.
-- Obtener una lista de genes disponibles para TCGA-COAD, preferentemente desde metadata o un archivo de expresion manejable.
-- No descargar BAM/FASTQ ni archivos pesados.
-- Guardar solo el universo genico.
-- Reusar `scripts/check_gene_availability.py` para comparar las firmas.
-
-Si GDC resulta incomodo:
-
-- Crear primero un universo manual/provisional desde HGNC subset o desde un recurso oficial de GENCODE/HGNC.
-- Documentar claramente que es un universo provisional, no validacion TCGA real.
+- Usar un recurso pre-procesado como UCSC Xena o cBioPortal para obtener expresion TCGA-COAD.
+- Documentar la fuente y mantener reproducibilidad.
 
 ## Criterios de exito del proximo bloque
 El bloque cuenta como exitoso si deja:
 
-- Un script reproducible.
-- Un archivo de universo genico dataset-especifico o un reporte claro de bloqueo.
-- Un reporte de disponibilidad de firmas contra ese universo.
-- Actualizacion en `PlanValidacionCRLM.md`.
+- Un script para descargar o procesar expresion bulk TCGA-COAD.
+- Scores de firma por muestra.
+- Correlaciones MET-MYC y MYC-glycolysis.
+- Un reporte con conclusion sobre plausibilidad en bulk.
+- Actualizacion en documentos vivos.
 - Commit y push.
 
 ## Reglas de trabajo
@@ -238,4 +230,4 @@ La siguiente accion ideal es:
 
 `Crear el primer universo genico TCGA/GDC liviano y correr check_gene_availability.py contra ese universo.`
 
-Si eso se bloquea, documentar el bloqueo y crear un plan alternativo reproducible.
+Si eso se bloquea
