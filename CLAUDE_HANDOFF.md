@@ -481,3 +481,66 @@ Resultado del control:
 Interpretacion actual:
 
 La rama `SPP1/CXCL12` es robusta aun sin genes compartidos. La rama `HLA-DRB5` es realista como candidata secundaria, pero lesion-dependiente. Priorizar SPP1/CXCL12 para el siguiente bloque.
+
+## Actualizacion para Claude: ola 003G validacion externa paired y spatial
+
+Fecha: 2026-04-27 17:53:00 -03:00
+
+Se busco el estado web/literatura 2026 y se avanzo con dos validaciones externas.
+
+Nuevos scripts:
+
+```powershell
+python scripts/validate_gse245552_paired_scrna.py
+python scripts/validate_gse217414_spatial_external.py --permutations 500
+```
+
+Nuevos documentos:
+
+- `InvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md`
+- `ResumenInvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md`
+
+Nuevas salidas GSE245552:
+
+- `data_manifest/generated/gse245552_sample_manifest.tsv`
+- `data_manifest/generated/gse245552_sample_signature_scores.tsv`
+- `data_manifest/generated/gse245552_lm_vs_primary_comparisons.tsv`
+- `data_manifest/generated/gse245552_paired_deltas.tsv`
+- `data_manifest/generated/gse245552_external_validation_report.md`
+
+Nuevas salidas GSE217414:
+
+- `data_manifest/generated/gse217414_spatial_signature_availability.tsv`
+- `data_manifest/generated/gse217414_spatial_correlations.tsv`
+- `data_manifest/generated/gse217414_spatial_adjacency_permutation.tsv`
+- `data_manifest/generated/gse217414_spatial_spot_scores.tsv`
+- `data_manifest/generated/gse217414_spatial_external_report.md`
+
+Resultado GSE245552:
+
+- `myeloid SPP1/CXCL12-lite`: LM/primario 1.844, p = 1.34e-04, positivo 13/13 pares.
+- `myeloid HLA-DRB5-lite`: LM/primario 1.478, p = 1.72e-03, positivo 12/13 pares.
+- `CAF SPP1/CXCL12-lite`: LM/primario 1.361, p = 0.0307, positivo 11/13 pares.
+- `tumor MYC/glycolysis-lite`: LM/primario 0.967, p = 0.692, positivo 5/13 pares.
+
+Resultado GSE217414:
+
+- 4 muestras Visium CRLM, 10,674 spots.
+- `CAF -> SPP1/CXCL12-lite`: positivo 4/4, ratio medio 1.346.
+- `CAF -> HLA-DRB5-lite`: positivo 4/4, ratio medio 1.391.
+- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: positivo 4/4, ratio medio 1.776.
+- `HLA-DRB5-lite -> MYC/glycolysis-lite`: positivo 4/4, ratio medio 1.467.
+
+Lectura para seguir:
+
+No decir que el terreno es virgen. La oportunidad es una historia multi-dataset:
+
+`stromal-myeloid SPP1/CXCL12/HLA-DRB5 states are enriched in liver metastasis and spatially couple to tumor MYC/glycolysis programs.`
+
+Siguiente paso recomendado:
+
+1. Crear controles negativos y firmas aleatorias emparejadas por expresion.
+2. Implementar nulos espaciales estratificados para GSE217414 y GSE225857.
+3. Consolidar ambos datasets spatial en una tabla unica de efectos por muestra.
+4. Mejorar GSE245552 con anotacion celular/pseudobulk.
+5. Preparar figuras de manuscrito.

@@ -43,3 +43,7 @@ data_manifest/generated/gse225857_immune_counts.tsv
 data_manifest/generated/gse225857_immune_meta.tsv
 data_manifest/generated/gse225857_spatial_raw/
 data_manifest/generated/gse234804_raw/
+data_manifest/generated/gse245552_raw/
+data_manifest/generated/GSE245552_family.soft.gz
+data_manifest/generated/gse217414_spatial_raw/
+data_manifest/generated/GSE217414_family.soft.gz

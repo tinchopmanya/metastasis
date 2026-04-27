@@ -364,3 +364,49 @@ Siguiente fase:
 3. Agregar controles negativos o targets no relacionados.
 4. Evaluar deconvolucion espacial si hay marcadores suficientes.
 5. Buscar validacion espacial externa.
+
+## Fase 6B completada: validacion externa paired y spatial
+
+Actualizacion: 2026-04-27 17:53:00 -03:00
+
+Se ejecutaron dos validaciones externas:
+
+- `scripts/validate_gse245552_paired_scrna.py`
+- `scripts/validate_gse217414_spatial_external.py`
+
+GSE245552 paired scRNA:
+
+- 39 muestras procesadas.
+- 13 pares primario/metastasis hepatica utiles.
+- `myeloid SPP1/CXCL12-lite`: ratio LM/primario 1.844, p = 1.34e-04, 13/13 pares positivos.
+- `myeloid HLA-DRB5-lite`: ratio 1.478, p = 1.72e-03, 12/13 pares positivos.
+- `CAF SPP1/CXCL12-lite`: ratio 1.361, p = 0.0307, 11/13 pares positivos.
+- `tumor MYC/glycolysis-lite`: ratio 0.967, p = 0.692, 5/13 pares positivos.
+
+GSE217414 external spatial:
+
+- 4 CRLM Visium sections.
+- 10,674 spots in-tissue.
+- 500 permutaciones por test.
+- `CAF -> SPP1/CXCL12-lite`: ratio medio 1.346, positivo 4/4.
+- `CAF -> HLA-DRB5-lite`: ratio medio 1.391, positivo 4/4.
+- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: ratio medio 1.776, positivo 4/4.
+- `HLA-DRB5-lite -> MYC/glycolysis-lite`: ratio medio 1.467, positivo 4/4.
+
+Decision:
+
+La validacion externa apoya una historia de nicho local estromal-mieloide-metabolico. El siguiente paso no debe ser sumar mas datasets sin controles, sino endurecer la evidencia existente.
+
+## Fase 6C siguiente: controles paper-grade
+
+Objetivo:
+
+Probar si el patron es especifico del modelo o si solo refleja autocorrelacion espacial/alta expresion regional.
+
+Tareas:
+
+1. Agregar firmas negativas emparejadas por tamano y nivel de expresion.
+2. Agregar genes housekeeping y targets no relacionados como controles.
+3. Implementar permutaciones estratificadas por bins de UMI/expresion total o regiones espaciales.
+4. Consolidar GSE225857 y GSE217414 en una tabla unica de efectos por muestra.
+5. En GSE245552, pasar de proxies marker-based a pseudobulk por anotacion celular curada.

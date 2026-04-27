@@ -417,3 +417,36 @@ Control desolapado agregado:
 - El control mantiene fuerte la rama `SPP1/CXCL12-lite`: `CAF -> SPP1/CXCL12-lite` ratio medio 1.513; `SPP1/CXCL12-lite -> MYC/glycolysis-lite` ratio medio 1.602.
 - La rama `HLA-DRB5-lite` se debilita y queda lesion-dependiente: fuerte en L1, debil/marginal en L2.
 - Decision: priorizar `SPP1/CXCL12` como eje 2026 robusto; mantener `HLA-DRB5` como candidato secundario hasta nueva validacion.
+
+## Decimotercer avance tecnico ejecutado
+
+Actualizacion: 2026-04-27 17:53:00 -03:00
+
+Se busco en la web el estado 2026 y se ejecuto una validacion externa doble para responder si estamos cerca de un hallazgo.
+
+Nuevo dataset paired scRNA:
+
+- `GSE245552`, 39 muestras.
+- Script: `scripts/validate_gse245552_paired_scrna.py`.
+- Resultado principal: `myeloid SPP1/CXCL12-lite` sube en metastasis hepatica vs primario en 13/13 pares; `myeloid HLA-DRB5-lite` sube en 12/13.
+- Resultado correctivo: tumor `MYC/glycolysis-lite` no sube como promedio de proxy epitelial.
+
+Nuevo dataset spatial externo:
+
+- `GSE217414`, 4 Visium CRLM, 10,674 spots.
+- Script: `scripts/validate_gse217414_spatial_external.py`.
+- Resultado principal: `CAF -> SPP1/CXCL12-lite`, `CAF -> HLA-DRB5-lite`, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y `HLA-DRB5-lite -> MYC/glycolysis-lite` positivos en 4/4 muestras.
+
+Lectura estrategica:
+
+No estamos en terreno virgen por genes sueltos. Si estamos cerca de una historia computacional publicable si la formulamos como arquitectura reproducible:
+
+`paired scRNA supports metastasis-enriched stromal/myeloid SPP1-CXCL12/HLA-DRB5 states; external spatial data show those states adjacent to MYC/glycolysis tumor programs.`
+
+Proximo bloque autonomo:
+
+1. Controles negativos.
+2. Nulos espaciales mas duros.
+3. Pseudobulk/anotacion celular para GSE245552.
+4. Tabla comun GSE225857 + GSE217414.
+5. Figuras de manuscrito.

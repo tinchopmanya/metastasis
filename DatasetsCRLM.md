@@ -30,6 +30,24 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Estado 2026-04-27: triage GEO ejecutado. `GSE234804` tiene H5Seurat individuales manejables y fue analizado en 3 CRC y 6 LM. Resultado sample-level: no aumenta `CAF/MCAM` ni `MYC-glicolisis` en LM; sigue siendo util si se consiguen anotaciones celulares. `GSE231559` queda como candidato secundario por 10x dividido, pero requiere mapeo fenotipico.
 - Link de estudio integrador: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/
 
+### GSE245552
+- Tipo: scRNA-seq paired primary CRC / liver metastasis / adjacent tissues.
+- Tema: CRLM sincrono, EMT e interaccion inmune-tumor.
+- Uso: validacion externa pareada de firmas `SPP1/CXCL12`, `HLA-DRB5`, CAF y tumor `MYC/glycolysis`.
+- Valor: permite comparar metastasis hepatica contra primario dentro de paciente.
+- Estado 2026-04-27: analizado con `scripts/validate_gse245552_paired_scrna.py`. Resultado fuerte en proxies mieloides/CAF: `myeloid SPP1/CXCL12-lite` sube 13/13 pares, `myeloid HLA-DRB5-lite` sube 12/13; tumor `MYC/glycolysis-lite` no sube globalmente.
+- Limitacion: se usaron proxies marker-based; falta anotacion celular curada/pseudobulk.
+- Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE245552
+
+### GSE217414
+- Tipo: spatial transcriptomics Visium.
+- Tema: 4 metastasis hepaticas de cancer colorrectal.
+- Uso: validacion espacial externa del modelo `CAF/SPP1-CXCL12/HLA-DRB5 -> MYC/glycolysis`.
+- Valor: dataset CRLM spatial independiente, pequeno y manejable; RAW procesado ~113 MB.
+- Estado 2026-04-27: analizado con `scripts/validate_gse217414_spatial_external.py`. Resultado: `CAF -> SPP1/CXCL12-lite`, `CAF -> HLA-DRB5-lite`, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y `HLA-DRB5-lite -> MYC/glycolysis-lite` positivos en 4/4 muestras.
+- Limitacion: Visium mezcla celulas; requiere controles por autocorrelacion espacial.
+- Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217414
+
 ### TCGA COAD/READ vía GDC
 - Tipo: bulk multi-omics de tumor primario.
 - Uso: validación débil de firmas, correlación `MET-MYC`, asociación con pronóstico o estado.

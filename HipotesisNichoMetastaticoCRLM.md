@@ -165,3 +165,36 @@ Control desolapado:
 - `SPP1/CXCL12-lite` mantiene la senal despues de remover `SPP1` y `MIF`: `CAF -> SPP1/CXCL12-lite` ratio medio 1.513, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` ratio medio 1.602.
 - `HLA-DRB5-lite` se debilita despues de remover genes compartidos: fuerte en L1, debil/marginal en L2.
 - Ajuste de prioridad: el brazo `SPP1/CXCL12` pasa a ser la extension 2026 principal; `HLA-DRB5` queda como rama secundaria que necesita mejor especificidad.
+
+## Validacion externa paired y spatial 2026
+
+Actualizacion: 2026-04-27 17:53:00 -03:00
+
+Se agregaron dos pruebas externas:
+
+1. `GSE245552` paired scRNA.
+2. `GSE217414` external Visium CRLM.
+
+Resultado integrado:
+
+- En `GSE245552`, `myeloid_proxy__score_spp1_cxcl12_axis_desoverlap_2026` sube en LM vs primario con ratio 1.844, p = 1.34e-04 y 13/13 pares positivos.
+- En `GSE245552`, `myeloid_proxy__score_hla_drb5_macrophage_axis_desoverlap_2026` sube con ratio 1.478, p = 1.72e-03 y 12/13 pares positivos.
+- En `GSE245552`, `tumor_epithelial_proxy__score_myc_glycolysis_desoverlap_2026` no sube: ratio 0.967, p = 0.692.
+- En `GSE217414`, `CAF -> SPP1/CXCL12-lite` es positivo en 4/4 spatial sections, ratio medio 1.346.
+- En `GSE217414`, `CAF -> HLA-DRB5-lite` es positivo en 4/4, ratio medio 1.391.
+- En `GSE217414`, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` es positivo en 4/4, ratio medio 1.776.
+- En `GSE217414`, `HLA-DRB5-lite -> MYC/glycolysis-lite` es positivo en 4/4, ratio medio 1.467.
+
+Nueva formulacion lider:
+
+`CRLM may contain a reproducible stromal-myeloid-metabolic niche where CAF/SPP1-CXCL12/HLA-DRB5 programs are enriched in liver metastasis and locally adjacent to MYC/glycolysis tumor programs.`
+
+Cambio conceptual:
+
+- El nucleo mas robusto ya no es `HGF` aislado.
+- El nucleo mas robusto tampoco es `tumor MYC/glycolysis` como promedio global.
+- El nucleo actual es `SPP1/CXCL12/HLA-DRB5` en la interfaz estromal-mieloide, con acoplamiento espacial a `MYC/glycolysis`.
+
+Criterio de paper:
+
+La hipotesis puede volverse paper-grade si sobrevive a controles negativos, nulos espaciales mas estrictos y anotacion celular/pseudobulk por paciente.
