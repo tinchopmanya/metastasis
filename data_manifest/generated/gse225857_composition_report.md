@@ -1,6 +1,6 @@
 # GSE225857 cell composition analysis
 
-Generated at: 2026-04-26 01:31:24 UTC
+Generated at: 2026-04-27 03:17:37 UTC
 
 ## Purpose
 
@@ -16,7 +16,7 @@ hypothesis using single-cell metadata from GSE225857.
 
 ## Cell composition by tissue
 
-| Cell type | Category | CCT | LCT | % in LCT | Fold enrichment |
+| Cell type | Category | CCT | LCT | % in LCT | Fold enrichment (LCT/CCT) |
 | --- | --- | --- | --- | --- | --- |
 | `E06_endothelial_CLEC4G` | Endothelial | 1 | 41 | 98% | 23.97 |
 | `Tu02_DEFA5` | Tumor | 132 | 4615 | 97% | 20.44 |
@@ -42,36 +42,45 @@ hypothesis using single-cell metadata from GSE225857.
 | `F03_fibroblast_CXCL14` | Fibroblast | 2367 | 146 | 6% | 0.04 |
 | `Tu06_NKD1` | Tumor | 2761 | 48 | 2% | 0.01 |
 
-## Key findings
+## Key findings for hypothesis validation
 
 ### MCAM+ fibroblasts (F02_fibroblast_MCAM)
 
-- 3387 cells in liver vs 692 in primary.
+- 3387 cells in liver metastasis vs 692 in primary colon.
 - 83% of all MCAM+ CAFs are in liver metastasis.
-- Fold enrichment: 2.86x.
+- Fold enrichment in LCT: 2.86x.
 - **Prediction confirmed**: MCAM+ CAFs are enriched in liver metastasis.
 
 ### CXCL14+ fibroblasts (F03_fibroblast_CXCL14)
 
 - 2367 cells in primary vs 146 in liver.
-- Only 6% in liver. Fold: 0.04x.
-- **Confirmed**: F3+ fibroblasts enriched in primary, opposite to MCAM+.
+- Only 6% in liver metastasis.
+- **Consistent**: F3+ fibroblasts enriched in primary, as reported in the paper.
 
-### Liver-dominant tumor subtype (Tu02_DEFA5)
+### Liver-dominant tumor subtypes
 
-- 4615 cells in liver (97%), only 132 in primary.
-- Fold enrichment: 20.4x.
+- `Tu02_DEFA5`: 97% in liver (4615 cells), fold enrichment 20.4x.
+- `Tu08_GNG13`: 85% in liver (465 cells), fold enrichment 3.4x.
 
-## Hypothesis assessment from composition
+## Hypothesis assessment from composition data
 
-1. **MCAM+ CAFs liver-enriched**: CONFIRMED (83% in LCT, fold 2.9x).
-2. **Distinct fibroblast programs**: CONFIRMED (CXCL14+ in CCT, MCAM+ in LCT).
-3. **Liver-specific tumor subtypes**: CONFIRMED (Tu02_DEFA5 97% in LCT).
+The cell composition data supports several predictions:
 
-## Requires expression matrix (~86 MB)
+1. **MCAM+ CAFs are liver-metastasis-enriched**: confirmed (83% in LCT).
+2. **Distinct fibroblast programs in primary vs metastasis**: confirmed
+   (CXCL14+ dominant in CCT, MCAM+/PRELP+ dominant in LCT).
+3. **Specific tumor subtypes dominate liver metastasis**: confirmed
+   (Tu02_DEFA5 is 97% liver-specific).
+
+## What this does NOT tell us (requires expression matrix)
 
 - Whether HGF is expressed specifically in MCAM+ CAFs.
 - Whether MET is expressed specifically in tumor cells.
-- Whether MET-MYC correlation exists within tumor cells.
-- Run: `python scripts/download_gse225857.py --non-immune`
-- Then: `python scripts/validate_hgf_met_singlecell.py`
+- Whether MET-MYC correlation exists within the tumor compartment.
+- These require the count matrix (~86 MB), available at:
+  `GSM7058755_non_immune_counts.txt.gz`
+
+## Next step
+
+Download the expression matrix and run `scripts/validate_hgf_met_singlecell.py`
+to check cell-type-specific expression of HGF, MET, MYC, and glycolysis genes.

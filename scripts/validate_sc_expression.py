@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import math
 import sys
 from collections import Counter, defaultdict
@@ -37,6 +38,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_META = ROOT / "data_manifest" / "generated" / "gse225857_non_immune_meta.tsv"
 DEFAULT_COUNTS = ROOT / "data_manifest" / "generated" / "gse225857_non_immune_counts.tsv"
+DEFAULT_EXTRACTED = ROOT / "data_manifest" / "generated" / "gse225857_extracted_genes.json"
 DEFAULT_OUT_DIR = ROOT / "data_manifest" / "generated"
 
 # Genes of interest
@@ -141,6 +143,70 @@ def load_gene_expression(
         print(f"  Scanned {total_rows} rows, found {found}/{len(genes)} genes", flush=True)
 
     return cell_ids, gene_expr
+
+
+def load_extracted_gene_expression(
+    extracted_path: Path,
+    genes: list[str],
+) -> tuple[list[str], dict[str, dict[str, float]]]:
+    """Load previously extracted sparse gene expression JSON.
+
+    This is the preferred path for repeat runs because it avoids re-reading a
+    very large count matrix and protects the report from partial TSV downloads.
+    """
+    print(f"  Reading extracted gene cache: {extracted_path.name}", flush=True)
+    data = json.loads(extracted_path.read_text(encoding="utf-8"))
+    cell_ids = [clean_field(cell_id) for cell_id in data.get("cell_ids", [])]
+    raw_genes = data.get("genes", {})
+    wanted = {gene.upper() for gene in genes}
+    gene_expr: dict[str, dict[str, float]] = {}
+
+    for gene, expr in raw_genes.items():
+        gene_upper = gene.upper()
+        if gene_upper not in wanted:
+            continue
+        gene_expr[gene_upper] = {
+            clean_field(cell_id): float(value)
+            for cell_id, value in expr.items()
+            if float(value) > 0
+        }
+        print(f"    Found {gene_upper}: {len(gene_expr[gene_upper])} non-zero cells", flush=True)
+
+    print(f"  Cache has {len(cell_ids)} cells", flush=True)
+    return cell_ids, gene_expr
+
+
+def harmonize_cell_ids(
+    cell_ids: list[str],
+    gene_expr: dict[str, dict[str, float]],
+    metadata_ids: set[str],
+) -> tuple[list[str], dict[str, dict[str, float]]]:
+    """Map count/cache cell IDs onto metadata cell IDs.
+
+    GSE225857 count matrices use a dot between sample tag and barcode, while
+    metadata uses a dash. This normalization preserves exact IDs when possible
+    and otherwise replaces the first dot with a dash.
+    """
+    id_map: dict[str, str] = {}
+    for cell_id in cell_ids:
+        if cell_id in metadata_ids:
+            id_map[cell_id] = cell_id
+            continue
+        candidate = cell_id.replace(".", "-", 1)
+        if candidate in metadata_ids:
+            id_map[cell_id] = candidate
+
+    mapped_cell_ids = [id_map[cell_id] for cell_id in cell_ids if cell_id in id_map]
+    mapped_expr: dict[str, dict[str, float]] = {}
+    for gene, expr in gene_expr.items():
+        mapped_expr[gene] = {
+            id_map[cell_id]: value
+            for cell_id, value in expr.items()
+            if cell_id in id_map
+        }
+
+    print(f"  Matched {len(mapped_cell_ids)}/{len(cell_ids)} expression cells to metadata", flush=True)
+    return mapped_cell_ids, mapped_expr
 
 
 def classify_cell(cluster: str) -> str:
@@ -500,6 +566,9 @@ def main() -> int:
     )
     parser.add_argument("--meta", type=Path, default=DEFAULT_META)
     parser.add_argument("--counts", type=Path, default=DEFAULT_COUNTS)
+    parser.add_argument("--extracted", type=Path, default=DEFAULT_EXTRACTED)
+    parser.add_argument("--force-counts", action="store_true",
+                        help="Read the full count matrix even if extracted JSON exists.")
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
     args = parser.parse_args()
 
@@ -508,7 +577,7 @@ def main() -> int:
         print("Run: python scripts/download_gse225857.py --meta-only", file=sys.stderr)
         return 1
 
-    if not args.counts.exists():
+    if args.force_counts and not args.counts.exists():
         print(f"ERROR: Count matrix not found: {args.counts}", file=sys.stderr)
         print("Run: python scripts/download_gse225857.py --non-immune", file=sys.stderr)
         return 1
@@ -520,9 +589,17 @@ def main() -> int:
 
     # Load expression for genes of interest
     print("\nStep 2: Loading expression data...", flush=True)
-    cell_ids, gene_expr = load_gene_expression(
-        args.counts, GENES_OF_INTEREST, set(cells_meta.keys())
-    )
+    if args.extracted.exists() and not args.force_counts:
+        cell_ids, gene_expr = load_extracted_gene_expression(args.extracted, GENES_OF_INTEREST)
+    else:
+        if not args.counts.exists():
+            print(f"ERROR: Count matrix not found: {args.counts}", file=sys.stderr)
+            print("Run: python scripts/download_gse225857.py --non-immune", file=sys.stderr)
+            return 1
+        cell_ids, gene_expr = load_gene_expression(
+            args.counts, GENES_OF_INTEREST, set(cells_meta.keys())
+        )
+    cell_ids, gene_expr = harmonize_cell_ids(cell_ids, gene_expr, set(cells_meta.keys()))
     print(f"  Found {len(gene_expr)}/{len(GENES_OF_INTEREST)} genes", flush=True)
 
     # Compute expression by category and cell type
@@ -579,8 +656,10 @@ def main() -> int:
         ("MET", "SLC2A1", "Tumor"),
         ("MYC", "SLC2A1", "Tumor"),
         ("MYC", "PGK1", "Tumor"),
+        ("MYC", "TPI1", "Tumor"),
         ("HGF", "MCAM", "Fibroblast"),
         ("HGF", "COL1A1", "Fibroblast"),
+        ("HGF", "FAP", "Fibroblast"),
     ]
 
     for gene_x, gene_y, compartment in correlation_pairs:

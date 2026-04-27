@@ -286,4 +286,11 @@ def main() -> int:
     for e in sorted(enrichments, key=lambda x: -x["fold_enrichment_LCT"]
                      if x["fold_enrichment_LCT"] != float("inf") else 999):
         if e["total"] >= 100:
-            fold_str = f"{e['fold_enrichment_LCT']:.1f}" if e
+            fold_str = f"{e['fold_enrichment_LCT']:.1f}" if e["fold_enrichment_LCT"] != float("inf") else "inf"
+            print(f"  {e['celltype']}: {e['pct_in_LCT']:.0f}% in LCT, fold={fold_str}", flush=True)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

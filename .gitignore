@@ -30,3 +30,13 @@ tmp/
 cache/
 downloads/
 exports/
+
+# Large data files (downloaded, not versioned)
+*.tmp
+data_manifest/generated/tcga_coad_expression.tsv
+data_manifest/generated/hgnc_approved_symbols.tsv
+data_manifest/generated/gse225857_non_immune_counts.tsv
+data_manifest/generated/gse225857_non_immune_counts.tsv.gz
+data_manifest/generated/gse225857_non_immune_counts.tsv.gz.tmp
+data_manifest/generated/gse225857_immune_counts.tsv
+data_manifest/generated/gse225857_immune_meta.tsv

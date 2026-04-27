@@ -212,4 +212,93 @@ Validaciones posibles:
 ## Orden recomendado de trabajo
 
 ### Bloque 1: dos a tres horas
-Crear la matriz de hipótesis y datasets. Este es el bloque 
+Crear la matriz de hipótesis y datasets. Este es el bloque de mayor retorno porque convierte literatura dispersa en una base de decisión.
+
+Resultado esperado:
+
+- `HipotesisNichoMetastaticoCRLM.md`
+- `DatasetsCRLM.md`
+- actualización de `Conlusion.md`
+
+### Bloque 2: tres a seis horas
+Profundizar en las tres hipótesis más fuertes. Para cada una:
+
+- paper principal
+- evidencia independiente
+- genes centrales
+- células implicadas
+- qué dataset permite probarla
+- qué resultado computacional la fortalecería o debilitaría
+
+Resultado esperado:
+
+- `InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
+- `ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
+
+### Bloque 3: seis a doce horas
+Empezar trabajo técnico. Prioridad conservadora:
+
+1. Descargar metadata y tablas disponibles.
+2. Construir manifest de datasets.
+3. Preparar scripts de análisis exploratorio.
+4. Intentar una primera validación de firmas en datos públicos accesibles.
+
+Resultado esperado:
+
+- carpeta `data_manifest/`
+- carpeta `scripts/`
+- primer script reproducible de extracción/validación
+- un reporte de hallazgos y bloqueos
+
+### Bloque 4: línea técnica paralela
+Usar TCIA para recurrencia post-hepatectomía. Esta línea es valiosa, pero la pondría como segunda prioridad porque se vuelve más pesada en datos e infraestructura.
+
+Resultado esperado:
+
+- manifest del dataset TCIA
+- revisión del paper base
+- plan de pipeline radiomics/deep learning
+
+## Qué no haría todavía
+- No intentaría prometer descubrimiento clínico.
+- No descargaría imágenes pesadas antes de tener clara la hipótesis.
+- No haría un modelo predictivo primero si todavía no sabemos qué queremos validar.
+- No abriría diez tipos de cáncer a la vez.
+- No convertiría esto en una lista gigante de genes sin mecanismo.
+
+## Mi apuesta concreta
+Si tengo varias horas para avanzar, empezaría por una ola 003 y construiría una matriz de hipótesis del nicho metastásico hepático.
+
+La hipótesis que hoy parece más fuerte como punto de partida es:
+
+`CAFs/mCAFs en el hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales de alta plasticidad, con señalización HGF-MET, activación MYC y glicólisis local.`
+
+Por qué esta hipótesis:
+
+- es concreta
+- conecta célula tumoral y microambiente
+- tiene soporte single-cell y spatial reciente
+- se puede validar con datasets públicos
+- apunta a mecanismos, no sólo predicción
+
+## Próxima acción recomendada
+Abrir la ola 003:
+
+`nicho metastásico hepático en cáncer colorrectal`
+
+Primeros archivos a crear:
+
+- `InvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
+- `ResumenInvestigacionSobreNichoMetastaticoHepaticoEnCancerColorrectal.md`
+- `HipotesisNichoMetastaticoCRLM.md`
+- `DatasetsCRLM.md`
+
+## Fuentes clave para arrancar
+- GSE225857: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE225857
+- Single-cell and spatial transcriptome analysis of liver metastatic colorectal cancer: https://pmc.ncbi.nlm.nih.gov/articles/PMC10275599/
+- Spatially resolved single-cell landscape with HGF-MET-MYC-glycolysis axis: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/
+- TCIA Colorectal-Liver-Metastases: https://www.cancerimagingarchive.net/collection/colorectal-liver-metastases/
+- Preoperative CT and survival data for CRLM: https://pmc.ncbi.nlm.nih.gov/articles/PMC10847495/
+- NCI PDQ Colon Cancer Treatment: https://www.cancer.gov/types/colorectal/hp/colon-treatment-pdq
+- SEER Colorectal Cancer Stat Facts: https://seer.cancer.gov/statfacts/html/colorect.html
+- AI in CRLM review: https://pubmed.ncbi.nlm.nih.gov/40240167/

@@ -272,4 +272,13 @@ def main() -> int:
             return 1
 
     if not genes:
-        print("No genes extracted from any source
+        print("No genes extracted from any source.", file=sys.stderr, flush=True)
+        return 1
+
+    write_universe(genes, out_path, source, args.project)
+    print(f"Wrote {len(genes)} genes to {out_path.relative_to(ROOT)}", flush=True)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

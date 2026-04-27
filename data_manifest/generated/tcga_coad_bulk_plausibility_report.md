@@ -1,6 +1,6 @@
 # CRLM bulk plausibility report: TCGA-COAD
 
-Generated at: 2026-04-26 00:26:32 UTC
+Generated at: 2026-04-27 03:17:33 UTC
 
 ## Purpose
 
@@ -24,11 +24,11 @@ the hypothesis.
 | --- | --- | --- | --- | --- |
 | `caf_core` | 7 | -0.000 | 0.853 | [-2.34, 2.43] |
 | `cxcl13_t_cells` | 6 | -0.000 | 0.858 | [-3.08, 2.23] |
-| `hgf_met_axis` | 2 | -0.000 | 0.678 | [-1.59, 1.71] |
-| `macrophage_lipid_candidate` | 8 | 0.000 | 0.711 | [-1.88, 1.99] |
-| `mcam_caf` | 4 | -0.000 | 0.881 | [-2.69, 2.64] |
+| `hgf_met_axis` | 2 | 0.000 | 0.678 | [-1.59, 1.71] |
+| `macrophage_lipid_candidate` | 8 | -0.000 | 0.711 | [-1.88, 1.99] |
+| `mcam_caf` | 4 | 0.000 | 0.881 | [-2.69, 2.64] |
 | `myc_glycolysis_core` | 7 | -0.000 | 0.613 | [-1.78, 1.73] |
-| `plasticity_emt` | 6 | 0.000 | 0.436 | [-1.30, 1.17] |
+| `plasticity_emt` | 6 | -0.000 | 0.436 | [-1.30, 1.17] |
 
 ## Key correlations
 
