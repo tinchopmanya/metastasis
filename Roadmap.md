@@ -134,6 +134,20 @@ Lectura estrategica:
 
 El resultado mejora la calidad de la evidencia porque compara contra una redistribucion aleatoria dentro de muestra. La apuesta actual debe ser `CAF-high spatial niche`, no `HGF` como marcador unico. El siguiente avance con mayor retorno es validacion independiente o especificidad CRLM/metastasis general.
 
+Noveno avance tecnico ejecutado:
+
+- `scripts/analyze_tcga_coad_clinical.py` creado.
+- Clinica TCGA-COAD descargada desde UCSC Xena `COAD_clinicalMatrix`.
+- 329 muestras unidas con scores de firmas.
+- Nuevas salidas: `tcga_coad_clinical_signature_associations.tsv`, `tcga_coad_signature_survival.tsv`, `tcga_coad_clinical_association_report.md`.
+- `mcam_caf` y `caf_core` se asocian con N positivo, invasion linfatica y estadio avanzado.
+- `caf_core` alto y `mcam_caf` alto muestran peor supervivencia exploratoria por mediana.
+- El composite completo `CAF/MET/MYC/glicolisis` no es significativo en supervivencia bulk.
+
+Lectura estrategica:
+
+El componente `CAF-high/MCAM` tiene una sombra clinica en primarios TCGA-COAD. Eso fortalece el foco en CAF/MCAM, pero tambien advierte que el mecanismo completo no debe venderse como biomarcador bulk lineal. La proxima prioridad sigue siendo especificidad metastasica externa.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 

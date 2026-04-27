@@ -19,6 +19,7 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Uso: spatial validation en artículos recientes; el estudio 2025 lo usa para mapear `mCAF`, `High-M CRC`, `HGF`, `MET`, `MYC` y glicólisis.
 - Valor: permite probar co-localización espacial.
 - Limitación: no es por sí solo un atlas grande de CRLM; sirve más como validación espacial. GEO informa un TAR procesado de aproximadamente 41.2 GB, por lo que no entra en la primera fase liviana.
+- Estado 2026-04-27: GEO lo describe como Visium de cuatro pacientes con cancer colorrectal primario. No usarlo como validacion CRLM directa sin aclarar esa limitacion. Sigue siendo util como validacion espacial CRC general si se encuentra una ruta liviana para P1/P4.
 - Link: https://www.omicsdi.org/dataset/geo/GSE226997
 
 ### GSE231559 / GSE234804
@@ -33,6 +34,7 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Uso: validación débil de firmas, correlación `MET-MYC`, asociación con pronóstico o estado.
 - Valor: gran baseline de CRC primario.
 - Limitación: no es cohorte CRLM pura; etiquetas metastásicas no son ideales.
+- Estado 2026-04-27: usado para plausibilidad bulk y clinica exploratoria. `mcam_caf`/`caf_core` se asocian con N positivo e invasion linfatica; el composite completo no fue prognostico en bulk.
 - Link: https://portal.gdc.cancer.gov/
 
 ### TCIA Colorectal-Liver-Metastases

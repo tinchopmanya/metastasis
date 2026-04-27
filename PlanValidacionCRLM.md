@@ -158,6 +158,28 @@ Decision:
 - El foco tecnico pasa de `HGF` aislado a programa espacial `CAF-high`.
 - La proxima validacion debe buscar reproducibilidad externa o especificidad CRLM, no acumular mas correlaciones internas del mismo dataset.
 
+Noveno avance tecnico ejecutado: 2026-04-27
+
+- `scripts/analyze_tcga_coad_clinical.py` creado.
+- Se descargo/uso UCSC Xena `TCGA.COAD.sampleMap/COAD_clinicalMatrix`.
+- Se unieron 329 muestras con `tcga_coad_signature_scores.tsv`.
+- Se evaluaron estadio avanzado, M positivo, N positivo, invasion linfatica, invasion venosa y supervivencia global.
+
+Resultados:
+
+- `mcam_caf` en N positivo vs N0: diferencia media 0.332, p = 6.95e-04.
+- `caf_core` en N positivo vs N0: diferencia media 0.301, p = 8.57e-04.
+- `mcam_caf` en invasion linfatica positiva: diferencia media 0.358, p = 1.15e-03.
+- `caf_core` en invasion linfatica positiva: diferencia media 0.312, p = 2.27e-03.
+- Supervivencia por mediana: `caf_core` p = 0.020, `mcam_caf` p = 0.027.
+- `caf_met_myc_glycolysis_composite` no fue significativo en supervivencia bulk: p = 0.493.
+
+Decision:
+
+- El componente `CAF-high/MCAM` sube prioridad.
+- El eje completo debe seguir analizandose como mecanismo espacial dependiente de contexto.
+- TCGA-COAD aporta plausibilidad clinica, no validacion CRLM.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

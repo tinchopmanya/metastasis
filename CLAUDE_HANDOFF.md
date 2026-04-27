@@ -241,6 +241,30 @@ Interpretacion actual:
 - La tesis refinada es: `CAF-high spatial niches in CRLM associate with MET+ MYC/glycolytic tumor neighborhoods`.
 - No afirmar causalidad clinica ni "descubrimiento confirmado"; si afirmar que la hipotesis gano prioridad computacional.
 
+## Bloque completado: asociacion clinica TCGA-COAD
+
+- `scripts/analyze_tcga_coad_clinical.py` creado.
+- Clinica descargada desde UCSC Xena `TCGA.COAD.sampleMap/COAD_clinicalMatrix`.
+- 329 muestras unidas con scores de firmas.
+- Reporte: `data_manifest/generated/tcga_coad_clinical_association_report.md`.
+- Tablas: `tcga_coad_clinical_signature_associations.tsv`, `tcga_coad_signature_survival.tsv`.
+- Documentos: `InvestigacionSobreAsociacionClinicaTCGACOAD.md`, `ResumenInvestigacionSobreAsociacionClinicaTCGACOAD.md`.
+
+Resultados clave:
+
+- `mcam_caf` en N positivo vs N0: p=6.95e-04.
+- `caf_core` en N positivo vs N0: p=8.57e-04.
+- `mcam_caf` en invasion linfatica positiva: p=1.15e-03.
+- `caf_core` en invasion linfatica positiva: p=2.27e-03.
+- Supervivencia exploratoria: `caf_core` p=0.020, `mcam_caf` p=0.027.
+- Composite `CAF/MET/MYC/glycolysis` no significativo en supervivencia bulk: p=0.493.
+
+Interpretacion:
+
+- El componente CAF/MCAM tiene senal clinica en primarios.
+- El mecanismo completo no funciona como biomarcador bulk simple.
+- Mantener la tesis como nicho espacial y buscar especificidad metastasica externa.
+
 ## Proximo objetivo recomendado
 Validacion cruzada y extension.
 
@@ -249,7 +273,7 @@ Ruta recomendada:
 1. Buscar validacion independiente del patron `CAF-high -> MET/MYC/glycolysis`.
 2. Revisar GSE226997 o datasets 2025 sin descargar 41 GB completos si existe una ruta liviana.
 3. Cruzar con META-PRISM para especificidad CRLM vs metastasis general.
-4. Considerar analisis de supervivencia en TCGA-COAD con firmas ya validadas.
+4. Considerar TCIA/recurrencia solo despues de una validacion metastasica adicional.
 
 ## Criterios de exito del proximo bloque
 El bloque cuenta como exitoso si deja:

@@ -1,6 +1,6 @@
 # Conclusión dinámica vigente
 
-Fecha de actualización: 2026-04-27 00:40:23 -03:00
+Fecha de actualización: 2026-04-27 02:22:16 -03:00
 
 ## Línea activa
 La línea activa queda fijada en:
@@ -54,8 +54,14 @@ CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorece
 - `CAF-high` también enriquece vecinos `MYC` y `glycolysis_score` contra el nulo con p empírico 0.002.
 - `HGF-high -> MET` no supera el nulo en LCT (p empírico 0.994 y 0.936).
 
+### Clinica TCGA-COAD (329 muestras unidas)
+- `mcam_caf` es mas alto en N positivo vs N0 (p = 6.95e-04) y en invasion linfatica positiva vs negativa (p = 1.15e-03).
+- `caf_core` muestra el mismo patron: N positivo vs N0 (p = 8.57e-04) e invasion linfatica (p = 2.27e-03).
+- `caf_core` alto y `mcam_caf` alto muestran peor supervivencia exploratoria por mediana (log-rank p = 0.020 y 0.027).
+- El composite `CAF/MET/MYC/glicolisis` no muestra supervivencia significativa en bulk (p = 0.493), y `HGF-MET` aislado tampoco (p = 0.531).
+
 ## Estado de la hipótesis: fuerte, pero refinada
-La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell, spatial y permutaciones. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot, sino por un programa CAF compuesto. CAF alto predice vecindad con MET/MYC/glicólisis mejor que HGF alto.
+La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell, spatial, permutaciones y clinica exploratoria. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot ni por un score bulk simple, sino por un programa CAF compuesto. CAF/MCAM gana prioridad porque predice vecindad con MET/MYC/glicólisis en spatial y se asocia con agresividad clinica en TCGA-COAD.
 
 ## Mejor output próximo
 El siguiente avance útil es validación cruzada:

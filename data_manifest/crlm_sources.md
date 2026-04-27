@@ -21,3 +21,8 @@ This manifest tracks the public resources that can be used to test the active hy
 
 ## Current policy
 Start with lightweight metadata, marker extraction, and gene-set scoring. Avoid heavy image downloads until the biological hypothesis has survived first-pass checks.
+
+## Source triage update: 2026-04-27
+
+- `GSE226997`: GEO describes the series as Visium spatial transcriptomics of four primary CRC patients and exposes a 41.2 GB processed TAR. It is useful for CRC spatial plausibility, but not a direct CRLM validation cohort unless a subset or derived table can be accessed without the full TAR.
+- `TCGA-COAD`: clinical matrix from UCSC Xena was added as a lightweight primary-tumor clinical screen. It supports CAF/MCAM aggressiveness signals, but does not replace metastatic validation.
