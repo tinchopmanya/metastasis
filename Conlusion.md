@@ -1,6 +1,6 @@
 # Conclusión dinámica vigente
 
-Fecha de actualización: 2026-04-27 00:29:09 -03:00
+Fecha de actualización: 2026-04-27 00:40:23 -03:00
 
 ## Línea activa
 La línea activa queda fijada en:
@@ -8,7 +8,7 @@ La línea activa queda fijada en:
 `nicho metastásico hepático en cáncer colorrectal`
 
 ## Hipótesis principal
-CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas, con señalización `HGF-MET`, activación `MYC` y glicólisis local.
+CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas. La versión refinada ya no depende de `HGF` como marcador único: el patrón fuerte es un nicho espacial `CAF-high` asociado a células tumorales `MET+` con activación `MYC` y glicólisis local.
 
 ## Por qué esta hipótesis manda ahora
 - Es mecanística: conecta estroma, tumor, metabolismo, espacialidad e inmunidad.
@@ -50,9 +50,12 @@ CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorece
 - En metástasis hepática, `MYC~glycolysis_score` spot-level promedio r = 0.645.
 - Análisis de vecindad: spots vecinos a CAF alto tienen MET casi 2x sobre fondo en LCT (ratio medio 1.948).
 - Vecinos de HGF alto no muestran enriquecimiento de MET en LCT (ratio medio 0.844).
+- Permutaciones dentro de muestra (500 por test): `CAF -> MET` conserva p empírico 0.002 en L1 y L2.
+- `CAF-high` también enriquece vecinos `MYC` y `glycolysis_score` contra el nulo con p empírico 0.002.
+- `HGF-high -> MET` no supera el nulo en LCT (p empírico 0.994 y 0.936).
 
 ## Estado de la hipótesis: fuerte, pero refinada
-La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell y spatial. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot, sino por un programa CAF compuesto. CAF alto predice vecindad con MET/MYC/glicólisis mejor que HGF alto.
+La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell, spatial y permutaciones. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot, sino por un programa CAF compuesto. CAF alto predice vecindad con MET/MYC/glicólisis mejor que HGF alto.
 
 ## Mejor output próximo
 El siguiente avance útil es validación cruzada:
@@ -78,10 +81,10 @@ El siguiente avance útil es validación cruzada:
 ## Próximo paso técnico
 Extensión y validación cruzada:
 
-1. Escribir un modelo refinado: PRELP/MCAM fibroblasts como fuentes CAF/HGF, tumor MET+ como receptor, MYC-glicólisis como respuesta.
-2. Cruzar con META-PRISM para especificidad CRLM vs metástasis general.
-3. Evaluar asociación pronóstica de firmas en TCGA-COAD (supervivencia).
-4. Buscar validación independiente en GSE226997 o datasets 2025.
+1. Buscar validación independiente del patrón `CAF-high -> MET/MYC/glicólisis`.
+2. Revisar GSE226997 o datasets 2025 buscando una ruta liviana antes de descargas gigantes.
+3. Cruzar con META-PRISM para especificidad CRLM vs metástasis general.
+4. Evaluar asociación pronóstica de firmas en TCGA-COAD (supervivencia).
 5. Mantener TCIA como línea secundaria para recurrencia post-hepatectomía.
 
 ## Cuidado epistemológico

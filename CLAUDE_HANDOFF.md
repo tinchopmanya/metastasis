@@ -219,14 +219,36 @@ Interpretacion:
 - Se debilita un modelo simplista de co-expresion directa `HGF~MET` en el mismo spot.
 - La hipotesis refinada debe formularse como programa CAF compuesto: PRELP/MCAM fibroblasts + CAF-high neighborhoods + tumor MET+ + respuesta MYC/glicolisis.
 
+## Bloque completado: permutaciones espaciales GSE225857
+
+- `scripts/analyze_gse225857_spatial.py` extendido con prueba nula por permutaciones.
+- CLI nuevo: `--permutations` y `--seed`.
+- Salida nueva: `data_manifest/generated/gse225857_spatial_adjacency_permutation.tsv`.
+- Reporte actualizado: `data_manifest/generated/gse225857_spatial_report.md`.
+- Documento de investigacion: `InvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md`.
+- Resumen: `ResumenInvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md`.
+
+Resultados clave en LCT:
+
+- `CAF -> MET`: L1 ratio 2.029 vs null 0.998, p empirico 0.002; L2 ratio 1.866 vs null 1.009, p empirico 0.002.
+- `CAF -> MYC` y `CAF -> glycolysis_score`: p empirico 0.002 en L1 y L2.
+- `HGF -> MET`: L1 ratio 0.874, p 0.994; L2 ratio 0.814, p 0.936.
+
+Interpretacion actual:
+
+- La senal espacial fuerte es `CAF-high`, no `HGF` aislado.
+- `HGF` sigue como parte plausible del circuito paracrino por la evidencia single-cell.
+- La tesis refinada es: `CAF-high spatial niches in CRLM associate with MET+ MYC/glycolytic tumor neighborhoods`.
+- No afirmar causalidad clinica ni "descubrimiento confirmado"; si afirmar que la hipotesis gano prioridad computacional.
+
 ## Proximo objetivo recomendado
 Validacion cruzada y extension.
 
 Ruta recomendada:
 
-1. Buscar datos espaciales en GSE225857 para co-localizacion mCAF-tumor.
-2. Cruzar con META-PRISM para especificidad CRLM vs metastasis general.
-3. Evaluar validacion independiente en GSE226997 o datasets 2025.
+1. Buscar validacion independiente del patron `CAF-high -> MET/MYC/glycolysis`.
+2. Revisar GSE226997 o datasets 2025 sin descargar 41 GB completos si existe una ruta liviana.
+3. Cruzar con META-PRISM para especificidad CRLM vs metastasis general.
 4. Considerar analisis de supervivencia en TCGA-COAD con firmas ya validadas.
 
 ## Criterios de exito del proximo bloque
@@ -294,6 +316,6 @@ Decidir asi:
 ## Mensaje para continuar
 La siguiente accion ideal es:
 
-`Crear el primer universo genico TCGA/GDC liviano y correr check_gene_availability.py contra ese universo.`
+`Buscar validacion independiente o especificidad del patron CAF-high -> MET/MYC/glycolysis, empezando por una revision liviana de GSE226997, datasets 2025 o META-PRISM.`
 
 Si eso se bloquea, documentar el bloqueo y crear un plan alternativo reproducible.

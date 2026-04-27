@@ -1,6 +1,6 @@
 # GSE225857 spatial spot-level validation
 
-Generated at: 2026-04-27 03:28:57 UTC
+Generated at: 2026-04-27 03:39:44 UTC
 
 ## Purpose
 Test spatial plausibility of the mCAF-HGF-MET-MYC-glycolysis hypothesis using GSE225857 Visium spot-level data.
@@ -88,6 +88,29 @@ Test spatial plausibility of the mCAF-HGF-MET-MYC-glycolysis hypothesis using GS
 - Mean LCT neighbor/background ratio for `caf_score -> MET`: 1.948
 - Mean LCT neighbor/background ratio for `HGF -> MET`: 0.844
 - Ratios above 1.0 suggest target signal is higher near source-high spots than background.
+
+## Permutation Check
+
+Target values were shuffled within each sample while keeping source-high spots, neighbors, and background fixed.
+
+| Sample | Tissue | Source | Target | Observed ratio | Null mean | z | Empirical p >= observed |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| L1 | LCT | `caf_score` | `MET` | 2.029 | 0.998 | 19.177 | 0.002 |
+| L1 | LCT | `caf_score` | `MYC` | 1.355 | 1.000 | 14.167 | 0.002 |
+| L1 | LCT | `caf_score` | `glycolysis_score` | 1.624 | 0.999 | 23.389 | 0.002 |
+| L1 | LCT | `HGF` | `MET` | 0.874 | 1.000 | -2.661 | 0.994 |
+| L1 | LCT | `HGF` | `MYC` | 0.807 | 1.001 | -8.753 | 1.000 |
+| L1 | LCT | `HGF` | `glycolysis_score` | 0.810 | 1.000 | -7.318 | 1.000 |
+| L2 | LCT | `caf_score` | `MET` | 1.866 | 1.009 | 9.992 | 0.002 |
+| L2 | LCT | `caf_score` | `MYC` | 1.682 | 1.000 | 20.145 | 0.002 |
+| L2 | LCT | `caf_score` | `glycolysis_score` | 1.817 | 1.001 | 24.911 | 0.002 |
+| L2 | LCT | `HGF` | `MET` | 0.814 | 0.995 | -1.438 | 0.936 |
+| L2 | LCT | `HGF` | `MYC` | 0.802 | 1.001 | -4.435 | 1.000 |
+| L2 | LCT | `HGF` | `glycolysis_score` | 0.872 | 0.998 | -2.757 | 0.996 |
+
+- LCT `caf_score -> MET` empirical p-values: 0.002, 0.002
+- LCT `HGF -> MET` empirical p-values: 0.994, 0.936
+- Low empirical p-values strengthen spatial enrichment beyond random redistribution of target expression.
 
 ## Next Step
 Use the spatial and single-cell outputs together to prioritize a focused write-up of the revised niche model: PRELP/MCAM fibroblast HGF sources, MET+ tumor receivers, and MYC-glycolysis tumor response.

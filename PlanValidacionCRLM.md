@@ -135,6 +135,29 @@ Interpretación:
 - El modelo queda refinado hacia un programa CAF compuesto: PRELP/MCAM fibroblasts y otros CAF states crean contexto espacial; MET+ tumor y MYC-glicólisis aparecen cerca de zonas CAF altas.
 - El siguiente paso no es más descarga, sino síntesis: escribir el modelo refinado y después buscar validación externa en META-PRISM o datasets 2025.
 
+Octavo avance técnico ejecutado: 2026-04-27
+
+- `scripts/analyze_gse225857_spatial.py` extendido con prueba nula por permutaciones.
+- Se agregaron argumentos `--permutations` y `--seed` para reproducibilidad.
+- Se mantuvieron fijos los spots source-high, vecinos y fondo; se barajo el target dentro de cada muestra.
+- Ejecucion principal: 500 permutaciones por combinacion muestra/fuente/target.
+- Nueva tabla: `data_manifest/generated/gse225857_spatial_adjacency_permutation.tsv`.
+- Reporte actualizado: `data_manifest/generated/gse225857_spatial_report.md`.
+
+Resultados:
+
+- L1 `CAF -> MET`: ratio observado 2.029, media nula 0.998, z 19.177, p empirico 0.002.
+- L2 `CAF -> MET`: ratio observado 1.866, media nula 1.009, z 9.992, p empirico 0.002.
+- L1/L2 `CAF -> MYC` y `CAF -> glycolysis_score`: p empirico 0.002 en todas las pruebas.
+- L1 `HGF -> MET`: ratio 0.874, p empirico 0.994.
+- L2 `HGF -> MET`: ratio 0.814, p empirico 0.936.
+
+Decision:
+
+- La hipotesis avanza, pero refinada.
+- El foco tecnico pasa de `HGF` aislado a programa espacial `CAF-high`.
+- La proxima validacion debe buscar reproducibilidad externa o especificidad CRLM, no acumular mas correlaciones internas del mismo dataset.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

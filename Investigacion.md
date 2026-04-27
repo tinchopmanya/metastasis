@@ -58,6 +58,9 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [DatasetsCRLM.md](./DatasetsCRLM.md)
 - [SenalesPrioritariasCRLM.md](./SenalesPrioritariasCRLM.md)
 - [PlanValidacionCRLM.md](./PlanValidacionCRLM.md)
+- [InvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md](./InvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md)
+- [ResumenInvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md](./ResumenInvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md)
 - [Conlusion.md](./Conlusion.md)
 - Hipótesis de trabajo actual: CAFs/mCAFs del hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas, con señalización `HGF-MET`, activación `MYC` y glicólisis local.
-- Próximo paso sugerido: ejecutar validación computacional liviana de firmas `mCAF`, `High-M CRC`, `HGF-MET`, `MYC` y glicólisis en datasets públicos accesibles.
+- Resultado tecnico vigente: bulk, single-cell, spatial y permutaciones apoyan un nicho `CAF-high -> MET/MYC/glicolisis`; `HGF` aislado no captura por si solo la arquitectura espacial.
+- Próximo paso sugerido: buscar validacion independiente/especificidad en otro dataset o cohorte metastasica, manteniendo la hipotesis refinada como programa CAF compuesto.

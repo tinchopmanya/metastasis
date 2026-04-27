@@ -27,6 +27,27 @@ Razones:
 - Se conecta con metabolismo y plasticidad, no sólo con expresión diferencial.
 - Puede cruzarse con otras hipótesis, especialmente MCAM+ CAFs y macrófagos lipídicos.
 
+## Refinamiento tras validacion espacial por permutaciones
+
+Actualizacion: 2026-04-27 00:40:23 -03:00
+
+La hipotesis lider ya no debe leerse como una flecha simple `HGF -> MET`. La evidencia acumulada favorece una formulacion mas robusta:
+
+`CAF-high spatial niches in CRLM associate with MET+ MYC/glycolytic tumor neighborhoods.`
+
+Soporte nuevo:
+
+- En GSE225857 Visium, vecinos de `CAF-high` enriquecen `MET` en LCT con ratios 2.029 y 1.866.
+- Contra 500 permutaciones dentro de muestra, `CAF -> MET` conserva p empirico 0.002 en L1 y L2.
+- `CAF-high` tambien enriquece vecinos `MYC` y `glycolysis_score` con p empirico 0.002.
+- `HGF-high` no enriquece vecinos `MET` en LCT; ratios 0.874 y 0.814.
+
+Interpretacion:
+
+- `HGF` sigue siendo plausible como parte del circuito paracrino por la evidencia single-cell.
+- El marcador espacial mas fuerte es el programa CAF compuesto, no `HGF` aislado.
+- Las validaciones futuras deben puntuar firmas CAF/PRELP/MCAM y no depender de un solo ligando.
+
 ## Primer experimento computacional sugerido
 Construir gene sets mínimos:
 

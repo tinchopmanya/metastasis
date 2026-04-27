@@ -16,6 +16,7 @@ import argparse
 import csv
 import gzip
 import math
+import random
 import ssl
 import urllib.request
 from collections import defaultdict
@@ -291,6 +292,54 @@ def percentile(values: list[float], pct: float) -> float:
     return ordered[max(0, min(idx, len(ordered) - 1))]
 
 
+def stable_seed(seed: int, label: str) -> int:
+    value = seed
+    for idx, char in enumerate(label, start=1):
+        value += idx * ord(char)
+    return value
+
+
+def adjacency_regions(
+    sample_rows: list[dict[str, str | float]],
+    source: str,
+) -> tuple[float, set[int], set[int], set[int]]:
+    coord_to_idx: dict[tuple[int, int], int] = {}
+    for idx, row in enumerate(sample_rows):
+        coord_to_idx[(int(row["array_row"]), int(row["array_col"]))] = idx
+
+    source_values = [float(row[source]) for row in sample_rows]
+    threshold = percentile(source_values, 0.75)
+    high_idxs = {
+        idx for idx, row in enumerate(sample_rows)
+        if float(row[source]) >= threshold and float(row[source]) > 0
+    }
+    neighbor_idxs: set[int] = set()
+    for idx in high_idxs:
+        row = sample_rows[idx]
+        coord = (int(row["array_row"]), int(row["array_col"]))
+        for dr, dc in HEX_NEIGHBOR_OFFSETS:
+            neighbor = coord_to_idx.get((coord[0] + dr, coord[1] + dc))
+            if neighbor is not None and neighbor not in high_idxs:
+                neighbor_idxs.add(neighbor)
+
+    background_idxs = {
+        idx for idx in range(len(sample_rows))
+        if idx not in high_idxs and idx not in neighbor_idxs
+    }
+    return threshold, high_idxs, neighbor_idxs, background_idxs
+
+
+def ratio_for_indices(values: list[float], neighbor_idxs: set[int], background_idxs: set[int]) -> tuple[float, float, float]:
+    neighbor_mean = mean([values[idx] for idx in neighbor_idxs])
+    background_mean = mean([values[idx] for idx in background_idxs])
+    ratio = (
+        neighbor_mean / background_mean
+        if background_mean and not math.isnan(background_mean)
+        else float("nan")
+    )
+    return neighbor_mean, background_mean, ratio
+
+
 def compute_adjacency(rows: list[dict[str, str | float]]) -> list[dict[str, str | float]]:
     results: list[dict[str, str | float]] = []
     by_sample: dict[str, list[dict[str, str | float]]] = defaultdict(list)
@@ -299,39 +348,16 @@ def compute_adjacency(rows: list[dict[str, str | float]]) -> list[dict[str, str 
 
     for sample_id, sample_rows in sorted(by_sample.items()):
         tissue = str(sample_rows[0]["tissue"])
-        coord_to_idx: dict[tuple[int, int], int] = {}
-        for idx, row in enumerate(sample_rows):
-            coord_to_idx[(int(row["array_row"]), int(row["array_col"]))] = idx
-
         for source in ADJACENCY_SOURCES:
-            source_values = [float(row[source]) for row in sample_rows]
-            threshold = percentile(source_values, 0.75)
-            high_idxs = {
-                idx for idx, row in enumerate(sample_rows)
-                if float(row[source]) >= threshold and float(row[source]) > 0
-            }
-            neighbor_idxs: set[int] = set()
-            for idx in high_idxs:
-                row = sample_rows[idx]
-                coord = (int(row["array_row"]), int(row["array_col"]))
-                for dr, dc in HEX_NEIGHBOR_OFFSETS:
-                    neighbor = coord_to_idx.get((coord[0] + dr, coord[1] + dc))
-                    if neighbor is not None and neighbor not in high_idxs:
-                        neighbor_idxs.add(neighbor)
-
-            background_idxs = {
-                idx for idx in range(len(sample_rows))
-                if idx not in high_idxs and idx not in neighbor_idxs
-            }
+            threshold, high_idxs, neighbor_idxs, background_idxs = adjacency_regions(sample_rows, source)
 
             for target in ADJACENCY_TARGETS:
-                high_mean = mean([float(sample_rows[idx][target]) for idx in high_idxs])
-                neighbor_mean = mean([float(sample_rows[idx][target]) for idx in neighbor_idxs])
-                background_mean = mean([float(sample_rows[idx][target]) for idx in background_idxs])
-                enrichment = (
-                    neighbor_mean / background_mean
-                    if background_mean and not math.isnan(background_mean)
-                    else float("nan")
+                target_values = [float(row[target]) for row in sample_rows]
+                high_mean = mean([target_values[idx] for idx in high_idxs])
+                neighbor_mean, background_mean, enrichment = ratio_for_indices(
+                    target_values,
+                    neighbor_idxs,
+                    background_idxs,
                 )
                 results.append({
                     "sample_id": sample_id,
@@ -346,6 +372,77 @@ def compute_adjacency(rows: list[dict[str, str | float]]) -> list[dict[str, str 
                     "target_mean_in_neighbors": neighbor_mean,
                     "target_mean_in_background": background_mean,
                     "neighbor_vs_background_ratio": enrichment,
+                })
+
+    return results
+
+
+def compute_adjacency_permutations(
+    rows: list[dict[str, str | float]],
+    permutations: int,
+    seed: int,
+) -> list[dict[str, str | float]]:
+    if permutations <= 0:
+        return []
+
+    results: list[dict[str, str | float]] = []
+    by_sample: dict[str, list[dict[str, str | float]]] = defaultdict(list)
+    for row in rows:
+        by_sample[str(row["sample_id"])].append(row)
+
+    for sample_id, sample_rows in sorted(by_sample.items()):
+        tissue = str(sample_rows[0]["tissue"])
+        for source in ADJACENCY_SOURCES:
+            threshold, high_idxs, neighbor_idxs, background_idxs = adjacency_regions(sample_rows, source)
+            for target in ADJACENCY_TARGETS:
+                target_values = [float(row[target]) for row in sample_rows]
+                observed_neighbor_mean, observed_background_mean, observed_ratio = ratio_for_indices(
+                    target_values,
+                    neighbor_idxs,
+                    background_idxs,
+                )
+                rng = random.Random(stable_seed(seed, f"{sample_id}:{source}:{target}"))
+                null_ratios: list[float] = []
+                shuffled = target_values[:]
+                for _ in range(permutations):
+                    rng.shuffle(shuffled)
+                    _, _, null_ratio = ratio_for_indices(shuffled, neighbor_idxs, background_idxs)
+                    if not math.isnan(null_ratio):
+                        null_ratios.append(null_ratio)
+
+                null_mean = mean(null_ratios)
+                null_sd = (
+                    math.sqrt(sum((value - null_mean) ** 2 for value in null_ratios) / (len(null_ratios) - 1))
+                    if len(null_ratios) > 1 and not math.isnan(null_mean)
+                    else float("nan")
+                )
+                z_score = (
+                    (observed_ratio - null_mean) / null_sd
+                    if null_sd and not math.isnan(observed_ratio) and not math.isnan(null_mean)
+                    else float("nan")
+                )
+                empirical_p = (
+                    (1 + sum(value >= observed_ratio for value in null_ratios)) / (len(null_ratios) + 1)
+                    if null_ratios and not math.isnan(observed_ratio)
+                    else float("nan")
+                )
+                results.append({
+                    "sample_id": sample_id,
+                    "tissue": tissue,
+                    "source": source,
+                    "target": target,
+                    "source_threshold": threshold,
+                    "high_source_spots": len(high_idxs),
+                    "neighbor_spots": len(neighbor_idxs),
+                    "background_spots": len(background_idxs),
+                    "observed_neighbor_mean": observed_neighbor_mean,
+                    "observed_background_mean": observed_background_mean,
+                    "observed_neighbor_vs_background_ratio": observed_ratio,
+                    "null_permutations": len(null_ratios),
+                    "null_ratio_mean": null_mean,
+                    "null_ratio_sd": null_sd,
+                    "z_score": z_score,
+                    "empirical_p_ge_observed": empirical_p,
                 })
 
     return results
@@ -372,6 +469,7 @@ def write_report(
     summaries: list[dict[str, str | float]],
     correlations: list[dict[str, str | float]],
     adjacency: list[dict[str, str | float]],
+    permutations: list[dict[str, str | float]],
     out_path: Path,
 ) -> None:
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -483,6 +581,43 @@ def write_report(
         f"- Mean LCT neighbor/background ratio for `HGF -> MET`: {fmt(mean(hgf_met_adj))}",
         "- Ratios above 1.0 suggest target signal is higher near source-high spots than background.",
         "",
+        "## Permutation Check",
+        "",
+        "Target values were shuffled within each sample while keeping source-high spots, neighbors, and background fixed.",
+        "",
+        "| Sample | Tissue | Source | Target | Observed ratio | Null mean | z | Empirical p >= observed |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
+    ])
+
+    for row in permutations:
+        if row["tissue"] != "LCT":
+            continue
+        if row["target"] not in {"MET", "MYC", "glycolysis_score"}:
+            continue
+        lines.append(
+            f"| {row['sample_id']} | {row['tissue']} | `{row['source']}` | `{row['target']}` | "
+            f"{fmt(float(row['observed_neighbor_vs_background_ratio']))} | "
+            f"{fmt(float(row['null_ratio_mean']))} | {fmt(float(row['z_score']))} | "
+            f"{fmt(float(row['empirical_p_ge_observed']))} |"
+        )
+
+    caf_met_perm = [
+        float(row["empirical_p_ge_observed"]) for row in permutations
+        if row["tissue"] == "LCT" and row["source"] == "caf_score" and row["target"] == "MET"
+        and not math.isnan(float(row["empirical_p_ge_observed"]))
+    ]
+    hgf_met_perm = [
+        float(row["empirical_p_ge_observed"]) for row in permutations
+        if row["tissue"] == "LCT" and row["source"] == "HGF" and row["target"] == "MET"
+        and not math.isnan(float(row["empirical_p_ge_observed"]))
+    ]
+
+    lines.extend([
+        "",
+        f"- LCT `caf_score -> MET` empirical p-values: {', '.join(fmt(value) for value in caf_met_perm) or 'NA'}",
+        f"- LCT `HGF -> MET` empirical p-values: {', '.join(fmt(value) for value in hgf_met_perm) or 'NA'}",
+        "- Low empirical p-values strengthen spatial enrichment beyond random redistribution of target expression.",
+        "",
         "## Next Step",
         "Use the spatial and single-cell outputs together to prioritize a focused write-up of the revised niche model: PRELP/MCAM fibroblast HGF sources, MET+ tumor receivers, and MYC-glycolysis tumor response.",
         "",
@@ -495,6 +630,8 @@ def main() -> int:
     parser.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW_DIR)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
     parser.add_argument("--samples", nargs="*", default=list(SAMPLES.keys()))
+    parser.add_argument("--permutations", type=int, default=500)
+    parser.add_argument("--seed", type=int, default=13)
     args = parser.parse_args()
 
     all_rows: list[dict[str, str | float]] = []
@@ -510,14 +647,17 @@ def main() -> int:
     summaries = summarize_rows(all_rows)
     correlations = compute_correlations(all_rows)
     adjacency = compute_adjacency(all_rows)
+    permutations = compute_adjacency_permutations(all_rows, args.permutations, args.seed)
     write_tsv(summaries, args.out_dir / "gse225857_spatial_sample_summary.tsv")
     write_tsv(correlations, args.out_dir / "gse225857_spatial_correlations.tsv")
     write_tsv(adjacency, args.out_dir / "gse225857_spatial_adjacency.tsv")
+    write_tsv(permutations, args.out_dir / "gse225857_spatial_adjacency_permutation.tsv")
     write_tsv(all_rows, args.out_dir / "gse225857_spatial_spot_scores.tsv")
-    write_report(summaries, correlations, adjacency, args.out_dir / "gse225857_spatial_report.md")
+    write_report(summaries, correlations, adjacency, permutations, args.out_dir / "gse225857_spatial_report.md")
 
     print(f"Samples: {len(summaries)}")
     print(f"Spots: {len(all_rows)}")
+    print(f"Permutations per test: {args.permutations}")
     print("Report: gse225857_spatial_report.md")
     return 0
 

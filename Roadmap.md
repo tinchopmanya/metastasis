@@ -121,6 +121,19 @@ Lectura estratégica:
 
 La hipótesis se fortalece, pero se refina. No conviene seguir diciendo "HGF solo explica el nicho". La señal fuerte es un programa CAF espacial compuesto, donde CAF alto predice proximidad a MET/MYC/glicólisis. HGF sigue siendo parte del mecanismo, pero no captura por sí solo toda la arquitectura espacial.
 
+Octavo avance técnico ejecutado:
+
+- `scripts/analyze_gse225857_spatial.py` extendido con permutaciones espaciales.
+- Nueva salida: `data_manifest/generated/gse225857_spatial_adjacency_permutation.tsv`.
+- Reporte espacial actualizado con seccion de permutaciones.
+- En LCT, `CAF -> MET` supera el nulo en L1 y L2: ratios 2.029 y 1.866, p empirico 0.002 en ambas muestras.
+- En LCT, `CAF -> MYC` y `CAF -> glycolysis_score` tambien superan el nulo con p empirico 0.002.
+- En LCT, `HGF -> MET` no supera el nulo: ratios 0.874 y 0.814, p empirico 0.994 y 0.936.
+
+Lectura estrategica:
+
+El resultado mejora la calidad de la evidencia porque compara contra una redistribucion aleatoria dentro de muestra. La apuesta actual debe ser `CAF-high spatial niche`, no `HGF` como marcador unico. El siguiente avance con mayor retorno es validacion independiente o especificidad CRLM/metastasis general.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 
