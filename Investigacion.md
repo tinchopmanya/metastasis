@@ -62,7 +62,9 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [ResumenInvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md](./ResumenInvestigacionSobreValidacionEspacialPorPermutacionesGSE225857.md)
 - [InvestigacionSobreAsociacionClinicaTCGACOAD.md](./InvestigacionSobreAsociacionClinicaTCGACOAD.md)
 - [ResumenInvestigacionSobreAsociacionClinicaTCGACOAD.md](./ResumenInvestigacionSobreAsociacionClinicaTCGACOAD.md)
+- [InvestigacionSobreValidacionExternaGSE234804.md](./InvestigacionSobreValidacionExternaGSE234804.md)
+- [ResumenInvestigacionSobreValidacionExternaGSE234804.md](./ResumenInvestigacionSobreValidacionExternaGSE234804.md)
 - [Conlusion.md](./Conlusion.md)
 - Hipótesis de trabajo actual: CAFs/mCAFs del hígado crean nichos metabólicos e inmunomoduladores que favorecen células tumorales colorrectales plásticas, con señalización `HGF-MET`, activación `MYC` y glicólisis local.
-- Resultado tecnico vigente: bulk, single-cell, spatial, permutaciones y clinica exploratoria apoyan prioridad alta para `CAF-high/MCAM`; el circuito `HGF-MET-MYC-glicolisis` debe tratarse como mecanismo espacial, no como biomarcador bulk simple.
-- Próximo paso sugerido: buscar validacion independiente/especificidad en otro dataset o cohorte metastasica, manteniendo la hipotesis refinada como programa CAF compuesto.
+- Resultado tecnico vigente: GSE225857 apoya una arquitectura espacial `CAF-high -> MET/MYC/glicolisis`, TCGA apoya sombra clinica CAF/MCAM, pero GSE234804 no replica la senal como promedio sample-level LM vs CRC.
+- Próximo paso sugerido: buscar validacion cell-type-resolved o spatial externa; evitar mas promedios bulk/sample-level como prueba principal.

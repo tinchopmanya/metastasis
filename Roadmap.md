@@ -148,6 +148,20 @@ Lectura estrategica:
 
 El componente `CAF-high/MCAM` tiene una sombra clinica en primarios TCGA-COAD. Eso fortalece el foco en CAF/MCAM, pero tambien advierte que el mecanismo completo no debe venderse como biomarcador bulk lineal. La proxima prioridad sigue siendo especificidad metastasica externa.
 
+Decimo avance tecnico ejecutado:
+
+- `scripts/triage_geo_external_validation.py` creado.
+- Se hizo triage de `GSE225857`, `GSE226997`, `GSE231559`, `GSE234804` y `GSE178318`.
+- `GSE234804` quedo como mejor candidato externo inmediato: 13 H5Seurat individuales, 568.8 MB total.
+- `scripts/validate_gse234804_h5seurat.py` creado.
+- Se procesaron 9 muestras externas: 3 CRC y 6 LM, 32,435 celulas.
+- Resultado: `mcam_caf`, `caf_core` y `myc_glycolysis_core` no aumentan en LM a nivel muestra.
+- `MET` sube modestamente en LM, pero sin soporte fuerte; `HGF` permanece muy bajo.
+
+Lectura estrategica:
+
+GSE234804 no confirma la hipotesis como firma sample-level. Esto no mata el modelo espacial, pero lo estrecha: si hay aporte importante, esta en la organizacion local/celular, no en un promedio global LM-vs-CRC. Proxima prioridad: validacion externa con cell-type labels o spatial real.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 

@@ -26,3 +26,4 @@ Start with lightweight metadata, marker extraction, and gene-set scoring. Avoid 
 
 - `GSE226997`: GEO describes the series as Visium spatial transcriptomics of four primary CRC patients and exposes a 41.2 GB processed TAR. It is useful for CRC spatial plausibility, but not a direct CRLM validation cohort unless a subset or derived table can be accessed without the full TAR.
 - `TCGA-COAD`: clinical matrix from UCSC Xena was added as a lightweight primary-tumor clinical screen. It supports CAF/MCAM aggressiveness signals, but does not replace metastatic validation.
+- `GSE234804`: H5Seurat files are individually downloadable through GSM supplementary URLs. Sample-level CRC-vs-LM validation did not replicate CAF/MCAM or MYC-glycolysis enrichment in LM, so it should not be used as bulk-like confirmation without cell-type annotations.

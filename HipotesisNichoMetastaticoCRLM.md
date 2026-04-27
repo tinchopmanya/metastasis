@@ -48,6 +48,24 @@ Interpretacion:
 - El marcador espacial mas fuerte es el programa CAF compuesto, no `HGF` aislado.
 - Las validaciones futuras deben puntuar firmas CAF/PRELP/MCAM y no depender de un solo ligando.
 
+## Presion de falsacion externa GSE234804
+
+Actualizacion: 2026-04-27 03:32:49 -03:00
+
+Se probo `GSE234804` como dataset externo CRLM sample-level: 3 CRC vs 6 LM, 32,435 celulas en H5Seurat. El resultado no confirma una version promedio de la hipotesis:
+
+- `score_mcam_caf`: LM 0.057 vs CRC 0.103.
+- `score_caf_core`: LM 0.046 vs CRC 0.065.
+- `score_myc_glycolysis_core`: LM 2.109 vs CRC 3.312.
+- `MET`: LM 0.341 vs CRC 0.236.
+- `HGF`: LM 0.014 vs CRC 0.011.
+
+Decision interpretativa:
+
+- La hipotesis no debe formularse como "LM tiene mas CAF/MCAM/MYC-glicolisis en promedio".
+- La version defendible queda restringida a arquitectura local/celular: `CAF-high neighborhoods` asociados con tumor `MET+` y respuesta `MYC/glicolisis`.
+- El siguiente test critico debe usar anotaciones celulares o spatial externo.
+
 ## Primer experimento computacional sugerido
 Construir gene sets mínimos:
 

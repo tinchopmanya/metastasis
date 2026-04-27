@@ -265,15 +265,41 @@ Interpretacion:
 - El mecanismo completo no funciona como biomarcador bulk simple.
 - Mantener la tesis como nicho espacial y buscar especificidad metastasica externa.
 
+## Bloque completado: triage externo y GSE234804
+
+- `scripts/triage_geo_external_validation.py` creado.
+- Triage GEO ejecutado para `GSE225857`, `GSE226997`, `GSE231559`, `GSE234804`, `GSE178318`.
+- Salidas: `geo_external_filelist.tsv`, `geo_external_validation_triage.tsv`, `geo_external_validation_triage_report.md`.
+- `GSE234804` quedo como mejor candidato externo inmediato: H5Seurat individuales CRC/LM, 568.8 MB total.
+- `GSE226997` queda como baja prioridad ahora: 41.2 GB y CRC primario, no CRLM directa.
+- `scripts/validate_gse234804_h5seurat.py` creado.
+- Se procesaron 3 CRC y 6 LM de GSE234804, 32,435 celulas.
+- Salidas: `gse234804_sample_signature_scores.tsv`, `gse234804_lm_vs_crc_comparisons.tsv`, `gse234804_external_validation_report.md`.
+
+Resultados GSE234804:
+
+- `score_mcam_caf`: LM 0.057 vs CRC 0.103.
+- `score_caf_core`: LM 0.046 vs CRC 0.065.
+- `score_myc_glycolysis_core`: LM 2.109 vs CRC 3.312.
+- `MET`: LM 0.341 vs CRC 0.236.
+- `HGF`: LM 0.014 vs CRC 0.011.
+
+Interpretacion:
+
+- GSE234804 no replica el modelo como firma sample-level LM-vs-CRC.
+- Esto no mata la hipotesis espacial, pero elimina una lectura demasiado amplia.
+- La tesis defendible ahora es arquitectura espacial/cell-state-specific, no biomarcador promedio.
+- Proxima validacion debe tener anotaciones celulares o coordenadas espaciales.
+
 ## Proximo objetivo recomendado
 Validacion cruzada y extension.
 
 Ruta recomendada:
 
-1. Buscar validacion independiente del patron `CAF-high -> MET/MYC/glycolysis`.
-2. Revisar GSE226997 o datasets 2025 sin descargar 41 GB completos si existe una ruta liviana.
-3. Cruzar con META-PRISM para especificidad CRLM vs metastasis general.
-4. Considerar TCIA/recurrencia solo despues de una validacion metastasica adicional.
+1. Buscar validacion independiente con cell-type labels o spatial real.
+2. Explorar si GSE234804 tiene anotaciones celulares recuperables en suplementos/paper.
+3. Revisar GSE231559 para mapeo fenotipo/cell-state.
+4. Buscar scCRLM/Cancer Diversity Asia como ruta spatial externa manejable.
 
 ## Criterios de exito del proximo bloque
 El bloque cuenta como exitoso si deja:

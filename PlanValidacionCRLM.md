@@ -180,6 +180,30 @@ Decision:
 - El eje completo debe seguir analizandose como mecanismo espacial dependiente de contexto.
 - TCGA-COAD aporta plausibilidad clinica, no validacion CRLM.
 
+Decimo avance tecnico ejecutado: 2026-04-27
+
+- `scripts/triage_geo_external_validation.py` creado para evitar descargas pesadas sin plan.
+- `GSE234804` priorizado como mejor ruta externa inmediata por H5Seurat individuales CRC/LM.
+- `scripts/validate_gse234804_h5seurat.py` creado.
+- Se usaron `h5py` y `numpy` para leer H5Seurat desde Python.
+- Se procesaron 3 CRC y 6 LM de GSE234804, excluyendo `PC*`.
+- Tablas: `gse234804_sample_signature_scores.tsv`, `gse234804_lm_vs_crc_comparisons.tsv`.
+- Reporte: `gse234804_external_validation_report.md`.
+
+Resultado:
+
+- `score_mcam_caf`: LM 0.057 vs CRC 0.103.
+- `score_caf_core`: LM 0.046 vs CRC 0.065.
+- `score_myc_glycolysis_core`: LM 2.109 vs CRC 3.312.
+- `MET`: LM 0.341 vs CRC 0.236.
+- `HGF`: LM 0.014 vs CRC 0.011.
+
+Decision:
+
+- GSE234804 no valida el modelo como firma sample-level LM-vs-CRC.
+- Este resultado fuerza a mantener la hipotesis como arquitectura espacial/cell-state-specific.
+- La siguiente validacion debe tener anotaciones celulares o coordenadas; no alcanza con promedios por muestra.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

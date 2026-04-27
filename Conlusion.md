@@ -1,6 +1,6 @@
 # Conclusión dinámica vigente
 
-Fecha de actualización: 2026-04-27 02:22:16 -03:00
+Fecha de actualización: 2026-04-27 03:32:49 -03:00
 
 ## Línea activa
 La línea activa queda fijada en:
@@ -60,8 +60,17 @@ CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorece
 - `caf_core` alto y `mcam_caf` alto muestran peor supervivencia exploratoria por mediana (log-rank p = 0.020 y 0.027).
 - El composite `CAF/MET/MYC/glicolisis` no muestra supervivencia significativa en bulk (p = 0.493), y `HGF-MET` aislado tampoco (p = 0.531).
 
+### Validacion externa GSE234804 H5Seurat (3 CRC, 6 LM)
+- Se procesaron 9 muestras externas: 3 CRC y 6 liver metastasis, 32,435 celulas en total.
+- A nivel muestra, `mcam_caf` no aumenta en LM: LM mean 0.057 vs CRC mean 0.103.
+- `caf_core` tampoco aumenta en LM: 0.046 vs 0.065.
+- `myc_glycolysis_core` es menor en LM: 2.109 vs 3.312.
+- `MET` es modestamente mayor en LM: 0.341 vs 0.236, pero sin soporte estadistico fuerte.
+- `HGF` es muy bajo/casi igual: 0.014 vs 0.011.
+- Lectura: GSE234804 no confirma la hipotesis como firma sample-level LM-vs-CRC.
+
 ## Estado de la hipótesis: fuerte, pero refinada
-La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell, spatial, permutaciones y clinica exploratoria. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot ni por un score bulk simple, sino por un programa CAF compuesto. CAF/MCAM gana prioridad porque predice vecindad con MET/MYC/glicólisis en spatial y se asocia con agresividad clinica en TCGA-COAD.
+La hipótesis `mCAF-HGF-MET-MYC-glycolysis` sigue siendo prometedora como arquitectura espacial/celular, pero no como firma promedio universal. GSE225857 apoya con fuerza el patron local `CAF-high -> MET/MYC/glicolisis`; TCGA-COAD apoya que CAF/MCAM tiene sombra clinica; GSE234804, en cambio, no replica una elevacion sample-level de CAF/MCAM o MYC-glicolisis en LM. Esto obliga a formular el posible hallazgo como nicho espacial especifico, no como biomarcador bulk.
 
 ## Mejor output próximo
 El siguiente avance útil es validación cruzada:
@@ -87,11 +96,10 @@ El siguiente avance útil es validación cruzada:
 ## Próximo paso técnico
 Extensión y validación cruzada:
 
-1. Buscar validación independiente del patrón `CAF-high -> MET/MYC/glicólisis`.
-2. Revisar GSE226997 o datasets 2025 buscando una ruta liviana antes de descargas gigantes.
-3. Cruzar con META-PRISM para especificidad CRLM vs metástasis general.
-4. Evaluar asociación pronóstica de firmas en TCGA-COAD (supervivencia).
-5. Mantener TCIA como línea secundaria para recurrencia post-hepatectomía.
+1. Buscar anotaciones celulares o spatial externo para validar arquitectura, no promedio de muestra.
+2. Explorar GSE231559 o scCRLM/Cancer Diversity Asia para una ruta cell-type/spatial manejable.
+3. Reanalizar GSE225857 con nulos espaciales mas estrictos y/o regiones tumor-high/CAF-high.
+4. Mantener META-PRISM y TCIA como lineas secundarias, no como prueba inmediata del mecanismo espacial.
 
 ## Cuidado epistemológico
 Esta hipótesis es fuerte como programa de descubrimiento, no como afirmación clínica. Todavía no debemos decir que el eje es causal en pacientes ni que existe una intervención validada. La salida correcta por ahora es priorización de hipótesis y validación computacional reproducible.

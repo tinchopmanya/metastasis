@@ -27,6 +27,7 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Uso: reconstruir cell states y firmas `High-M CRC`/`mCAF`.
 - Valor: forman parte del atlas de 35 datasets del paper líder.
 - Limitación: hay que inspeccionar disponibilidad, metadata y consistencia.
+- Estado 2026-04-27: triage GEO ejecutado. `GSE234804` tiene H5Seurat individuales manejables y fue analizado en 3 CRC y 6 LM. Resultado sample-level: no aumenta `CAF/MCAM` ni `MYC-glicolisis` en LM; sigue siendo util si se consiguen anotaciones celulares. `GSE231559` queda como candidato secundario por 10x dividido, pero requiere mapeo fenotipico.
 - Link de estudio integrador: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/
 
 ### TCGA COAD/READ vía GDC
