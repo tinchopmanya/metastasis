@@ -112,6 +112,29 @@ Siguiente paso técnico:
 - Cruzar resultados con META-PRISM para especificidad CRLM vs metástasis general.
 - Buscar validación independiente en GSE226997 o datasets 2025.
 
+Séptimo avance técnico ejecutado: 2026-04-27
+
+- `scripts/analyze_gse225857_spatial.py` creado.
+- GSE225857 spatial filelist revisado: 6 muestras Visium (`C1-C4`, `L1-L2`) con matrices individuales manejables.
+- Se descargaron sólo `barcodes`, `features`, `matrix.mtx` y `tissue_positions`; se omitieron imágenes.
+- 6 muestras analizadas, 22,260 spots in-tissue.
+- Reporte: `data_manifest/generated/gse225857_spatial_report.md`.
+- Tablas: `gse225857_spatial_sample_summary.tsv`, `gse225857_spatial_correlations.tsv`, `gse225857_spatial_adjacency.tsv`, `gse225857_spatial_spot_scores.tsv`.
+
+Resultados espaciales principales:
+
+- LCT `caf_score~MET` spot-level promedio r = 0.286.
+- LCT `MYC~glycolysis_score` spot-level promedio r = 0.645.
+- Vecinos de spots CAF alto tienen MET enriquecido sobre fondo en LCT: ratio medio 1.948.
+- Vecinos de spots CAF alto también enriquecen MYC y glicólisis en LCT.
+- Vecinos de spots HGF alto no enriquecen MET en LCT: ratio medio 0.844.
+
+Interpretación:
+
+- La lectura spatial apoya un nicho CAF-tumor, pero no un modelo simple de co-expresión `HGF~MET` en el mismo spot.
+- El modelo queda refinado hacia un programa CAF compuesto: PRELP/MCAM fibroblasts y otros CAF states crean contexto espacial; MET+ tumor y MYC-glicólisis aparecen cerca de zonas CAF altas.
+- El siguiente paso no es más descarga, sino síntesis: escribir el modelo refinado y después buscar validación externa en META-PRISM o datasets 2025.
+
 ## Objetivo
 Validar de forma liviana y reproducible si la hipótesis `mCAF-HGF-MET-MYC-glycolysis` merece seguir recibiendo prioridad.
 

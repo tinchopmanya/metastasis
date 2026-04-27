@@ -40,3 +40,4 @@ data_manifest/generated/gse225857_non_immune_counts.tsv.gz
 data_manifest/generated/gse225857_non_immune_counts.tsv.gz.tmp
 data_manifest/generated/gse225857_immune_counts.tsv
 data_manifest/generated/gse225857_immune_meta.tsv
+data_manifest/generated/gse225857_spatial_raw/

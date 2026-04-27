@@ -197,6 +197,28 @@ Refinamiento de hipotesis:
 - En higado: F01_PRELP (5,091 celulas, mean 0.667) + F02_MCAM (3,387 celulas, mean 0.371) = >90% del HGF.
 - MYC es 45% mas alto en LCT que CCT, sugiriendo seleccion/induccion en el nicho metastasico.
 
+## Bloque completado: spatial Visium GSE225857
+
+- `scripts/analyze_gse225857_spatial.py` creado y ejecutado.
+- Se reviso `filelist.txt` de GEO y se encontro que GSE225857 tiene 6 muestras Visium individuales manejables.
+- Se descargaron barcodes, features, matrix.mtx y tissue_positions para `C1-C4` y `L1-L2`.
+- No se descargaron imagenes.
+- 22,260 spots in-tissue analizados.
+- Reporte: `data_manifest/generated/gse225857_spatial_report.md`.
+
+Resultados:
+
+- LCT `caf_score~MET` spot-level promedio r=0.286.
+- LCT `MYC~glycolysis_score` spot-level promedio r=0.645.
+- Vecinos de spots CAF alto tienen MET enriquecido sobre fondo en LCT: ratio medio 1.948.
+- Vecinos de spots HGF alto no enriquecen MET en LCT: ratio medio 0.844.
+
+Interpretacion:
+
+- Se fortalece un modelo de nicho CAF-tumor.
+- Se debilita un modelo simplista de co-expresion directa `HGF~MET` en el mismo spot.
+- La hipotesis refinada debe formularse como programa CAF compuesto: PRELP/MCAM fibroblasts + CAF-high neighborhoods + tumor MET+ + respuesta MYC/glicolisis.
+
 ## Proximo objetivo recomendado
 Validacion cruzada y extension.
 

@@ -107,6 +107,20 @@ Próximo avance técnico pendiente:
 - Cruzar con META-PRISM para verificar especificidad CRLM vs metástasis general.
 - Considerar validación en dataset independiente (GSE226997 o papers 2025).
 
+Séptimo avance técnico ejecutado:
+
+- `scripts/analyze_gse225857_spatial.py` creado y ejecutado.
+- 6 muestras Visium de GSE225857 procesadas (`C1-C4`, `L1-L2`), 22,260 spots.
+- Se descargaron matrices y coordenadas, sin imágenes.
+- En LCT: `caf_score~MET` promedio r = 0.286.
+- En LCT: `MYC~glycolysis_score` promedio r = 0.645.
+- Vecinos de CAF alto tienen MET casi 2x sobre fondo en LCT (ratio 1.948).
+- Vecinos de HGF alto no enriquecen MET (ratio 0.844).
+
+Lectura estratégica:
+
+La hipótesis se fortalece, pero se refina. No conviene seguir diciendo "HGF solo explica el nicho". La señal fuerte es un programa CAF espacial compuesto, donde CAF alto predice proximidad a MET/MYC/glicólisis. HGF sigue siendo parte del mecanismo, pero no captura por sí solo toda la arquitectura espacial.
+
 ## Decisión estratégica
 La dirección más prometedora ahora no es seguir ampliando el panorama general de metástasis. Ya hay suficiente señal para avanzar con una línea concreta:
 

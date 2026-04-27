@@ -1,6 +1,6 @@
 # Conclusión dinámica vigente
 
-Fecha de actualización: 2026-04-26
+Fecha de actualización: 2026-04-27 00:29:09 -03:00
 
 ## Línea activa
 La línea activa queda fijada en:
@@ -44,8 +44,15 @@ CAFs/mCAFs hepáticos crean nichos metabólicos e inmunomoduladores que favorece
 - MYC es 45% más alto en metástasis hepática que en tumor primario.
 - MET-MYC es débil per-cell (r=0.14) pero robusto estadísticamente, sugiriendo heterogeneidad espacial.
 
-## Estado de la hipótesis: 5/5 predicciones confirmadas
-La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa todas las pruebas de plausibilidad en bulk y single-cell. Justifica inversión en validación cruzada y análisis espacial.
+### Spatial GSE225857 Visium (6 muestras, 22,260 spots)
+- Se descargaron sólo matrices, barcodes, features y posiciones; no imágenes.
+- En metástasis hepática, `caf_score~MET` spot-level promedio r = 0.286.
+- En metástasis hepática, `MYC~glycolysis_score` spot-level promedio r = 0.645.
+- Análisis de vecindad: spots vecinos a CAF alto tienen MET casi 2x sobre fondo en LCT (ratio medio 1.948).
+- Vecinos de HGF alto no muestran enriquecimiento de MET en LCT (ratio medio 0.844).
+
+## Estado de la hipótesis: fuerte, pero refinada
+La hipótesis `mCAF-HGF-MET-MYC-glycolysis` pasa pruebas de plausibilidad en bulk, single-cell y spatial. El refinamiento importante es que el nicho no parece explicarse por `HGF` aislado spot-a-spot, sino por un programa CAF compuesto. CAF alto predice vecindad con MET/MYC/glicólisis mejor que HGF alto.
 
 ## Mejor output próximo
 El siguiente avance útil es validación cruzada:
@@ -71,7 +78,7 @@ El siguiente avance útil es validación cruzada:
 ## Próximo paso técnico
 Extensión y validación cruzada:
 
-1. Buscar datos espaciales en GSE225857 para co-localización mCAF-tumor.
+1. Escribir un modelo refinado: PRELP/MCAM fibroblasts como fuentes CAF/HGF, tumor MET+ como receptor, MYC-glicólisis como respuesta.
 2. Cruzar con META-PRISM para especificidad CRLM vs metástasis general.
 3. Evaluar asociación pronóstica de firmas en TCGA-COAD (supervivencia).
 4. Buscar validación independiente en GSE226997 o datasets 2025.

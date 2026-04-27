@@ -9,7 +9,9 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Tema: CRC primario, metástasis hepática, tejidos normales adyacentes y sangre periférica.
 - Uso: validar heterogeneidad celular, fibroblastos `MCAM+`, células T `CXCL13+`, diferencias primario-metástasis.
 - Valor: dataset directamente alineado con CRLM.
-- Limitación: pocos pacientes; requiere cuidado con batch y tratamiento. GEO informa un TAR procesado de aproximadamente 607 MB, por lo que se posterga su descarga hasta refinar marcadores.
+- Estado: ya usado para composición celular, expresión single-cell y análisis Visium spot-level.
+- Resultado espacial: vecinos de spots CAF alto enriquecen MET/MYC/glicólisis en hígado; HGF alto aislado no explica MET espacial.
+- Limitación: pocos pacientes; requiere cuidado con batch y tratamiento. GEO informa un TAR procesado de aproximadamente 607 MB, pero se evitó descargarlo usando archivos individuales por muestra.
 - Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE225857
 
 ### GSE226997
