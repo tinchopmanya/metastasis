@@ -88,3 +88,80 @@ Luego:
 - https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE225857
 - https://pmc.ncbi.nlm.nih.gov/articles/PMC10275599/
 - https://link.springer.com/article/10.1186/s12967-025-07581-1
+
+## Refinamiento por literatura 2026: modelo CAF-high en capas
+
+Actualizacion: 2026-04-27 16:22:03 -03:00
+
+La busqueda PubMed 2025-2026 mueve la hipotesis lider hacia un modelo mas amplio:
+
+`CAF-high layered niche model in CRLM`
+
+Formulacion:
+
+`Niches CAF-high in CRLM may coordinate a tumor metabolic interface (MET/MYC/glycolysis/one-carbon metabolism) and an immunosuppressive myeloid/T-cell interface (SPP1/CXCL12/MIF/CD44/FN1/HLA-DRB5/CD74/CXCR4/LGALS9).`
+
+Por que sube prioridad:
+
+- El resultado propio en GSE225857 ya sostiene `CAF-high -> MET/MYC/glycolysis` contra permutaciones.
+- La literatura 2026 sostiene de manera independiente una arquitectura mCAF - SPP1+ macrophage - T-cell stress/exhaustion.
+- `SPP1/CXCL12` aparece como eje funcional de inmunoresistencia y exclusion CD8.
+- `HLA-DRB5+` macrophages agregan una segunda rama mieloide espacial.
+- La proteogenomica CRLM 2026 expande la rama metabolica hacia `SHMT1`, `PIM/NDRG1` y subtipos metabolicos.
+
+Nueva matriz corta de hipotesis:
+
+| Prioridad | Hipotesis | Mecanismo | Genes/vias | Proximo test |
+| --- | --- | --- | --- | --- |
+| 1 | `CAF-high layered niche` | CAF-high organiza interfaz metabolica tumoral e interfaz inmunosupresora mieloide/T | `MET`, `MYC`, `SPP1`, `CXCL12`, `MIF`, `CD44`, `HLA-DRB5` | Spatial GSE225857 con vecindad/capas |
+| 2 | `SPP1/CXCL12 CAF-myeloid axis` | SPP1 induce CXCL12 en CAFs y favorece EMT/exclusion CD8 | `SPP1`, `CXCL12`, `CD44`, `MIF`, `FN1`, `HIF1A`, `CTNNB1` | Score por spot y vecinos CAF-high |
+| 3 | `HLA-DRB5 macrophage immune axis` | Macrofagos HLA-DRB5+ comunican con T/NK y moldean inmunidad | `HLA-DRB5`, `LGALS9`, `PTPRC`, `CD74`, `CXCR4` | Proximidad a CD8/T exhaustion y CAF |
+| 4 | `SPP1+ macrophage-FADS1+ tumor` | Macrofago SPP1+ secreta PDGFB y activa tumor FADS1+/PDGFRB/EMT | `SPP1`, `PDGFB`, `PDGFRB`, `FADS1`, `VIM`, `ZEB1` | Test cell-type/spatial si los genes estan detectables |
+| 5 | `Metabolic vulnerabilities 2026` | CRLM tiene vulnerabilidades de carbono/one-carbon y PIM/NDRG1 | `SHMT1`, `FTCD`, `GPD1`, `SOD2`, `EIF4B`, `NDRG1`, `PIM1/2/3` | Score en tumor/metastasis y relacion con CAF-high |
+
+Criterio de hallazgo fuerte:
+
+- Si los scores 2026 muestran una disposicion espacial reproducible en capas alrededor de CAF-high y tumor, la hipotesis gana novedad computacional.
+- Si los scores aparecen mezclados sin estructura o dependen solo de composicion celular, la hipotesis baja a "convergencia bibliografica", no hallazgo.
+
+Fuentes 2026 principales:
+
+- https://pubmed.ncbi.nlm.nih.gov/41807965/
+- https://pubmed.ncbi.nlm.nih.gov/41051794/
+- https://pubmed.ncbi.nlm.nih.gov/41715121/
+- https://pubmed.ncbi.nlm.nih.gov/41655559/
+- https://pubmed.ncbi.nlm.nih.gov/41195591/
+- https://pubmed.ncbi.nlm.nih.gov/41940986/
+
+## Primera validacion espacial del modelo en capas
+
+Actualizacion: 2026-04-27 16:50:00 -03:00
+
+Se ejecuto `scripts/analyze_gse225857_spatial_2026.py` sobre 22,260 spots Visium de GSE225857, con 500 permutaciones por prueba LCT.
+
+Resultado principal:
+
+- `caf_core -> spp1_cxcl12_caf_myeloid_axis`: L1 ratio 1.497, L2 ratio 1.522, p empirico 0.002 en ambas.
+- `caf_core -> hla_drb5_macrophage_axis`: L1 ratio 1.564, L2 ratio 1.403, p empirico 0.002 en ambas.
+- `caf_core -> myc_glycolysis_core`: L1 ratio 1.423, L2 ratio 1.847, p empirico 0.002.
+- `spp1_cxcl12_axis -> myc_glycolysis_core`: L1 ratio 1.578, L2 ratio 1.932, p empirico 0.002.
+- `hla_drb5_axis -> myc_glycolysis_core`: L1 ratio 1.548, L2 ratio 1.563, p empirico 0.002.
+
+Decision:
+
+La hipotesis `CAF-high layered niche` sube prioridad. La formulacion mas honesta ahora es:
+
+`En GSE225857, los nichos CAF-high de CRLM se acoplan a programas metabolicos tumorales y a programas mieloides/inmunomoduladores 2026, sugiriendo un macro-nicho estromal-inmune-metabolico.`
+
+Cuidado:
+
+- Esto no prueba capas microscopicas separadas.
+- Visium mezcla celulas.
+- Las firmas 2026 comparten genes y pueden inflar correlaciones.
+- La validacion externa sigue siendo necesaria.
+
+Control desolapado:
+
+- `SPP1/CXCL12-lite` mantiene la senal despues de remover `SPP1` y `MIF`: `CAF -> SPP1/CXCL12-lite` ratio medio 1.513, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` ratio medio 1.602.
+- `HLA-DRB5-lite` se debilita despues de remover genes compartidos: fuerte en L1, debil/marginal en L2.
+- Ajuste de prioridad: el brazo `SPP1/CXCL12` pasa a ser la extension 2026 principal; `HLA-DRB5` queda como rama secundaria que necesita mejor especificidad.

@@ -357,3 +357,63 @@ Primeros archivos a crear:
 - NCI PDQ Colon Cancer Treatment: https://www.cancer.gov/types/colorectal/hp/colon-treatment-pdq
 - SEER Colorectal Cancer Stat Facts: https://seer.cancer.gov/statfacts/html/colorect.html
 - AI in CRLM review: https://pubmed.ncbi.nlm.nih.gov/40240167/
+
+## Undecimo avance tecnico ejecutado
+
+Actualizacion: 2026-04-27 16:22:03 -03:00
+
+- `scripts/search_pubmed_crlm_latest.py` creado y robustecido con reintentos/lotes chicos para PubMed E-utilities.
+- Se genero `data_manifest/generated/pubmed_crlm_latest_2025_2026.tsv`.
+- Se genero `data_manifest/generated/pubmed_crlm_latest_2025_2026_report.md`.
+- Snapshot: 185 PMIDs unicos detectados, 184 con detalle recuperado.
+- Tags dominantes: `immune_myeloid` 88, `glycolysis_metabolism` 87, `therapy_resistance` 72, `single_cell` 55, `hgf_met_myc` 27, `caf` 25, `spatial` 22.
+- La literatura 2026 empuja el foco hacia `SPP1/CXCL12`, macrofagos `SPP1+`/`HLA-DRB5+`, T-cell exclusion/exhaustion, metabolismo de carbono y respuestas terapeuticas.
+- Se crearon `InvestigacionSobreLiteratura2026NichoCRLM.md` y `ResumenInvestigacionSobreLiteratura2026NichoCRLM.md`.
+- `data_manifest/signatures.yml` fue ampliado con firmas 2026 para la proxima pasada espacial.
+
+Lectura estrategica nueva:
+
+`HGF-MET-MYC-glycolysis` sigue como rama metabolica tumoral, pero el roadmap pasa a un modelo `CAF-high layered niche`.
+
+Proximo bloque autonomo:
+
+1. Regenerar firmas y disponibilidad.
+2. Reanalizar GSE225857 spatial con scores 2026.
+3. Probar si los nichos `CAF-high` separan o acoplan una interfaz metabolica tumoral y una interfaz inmunosupresora mieloide/T-cell.
+4. Solo despues buscar validacion espacial externa.
+
+## Duodecimo avance tecnico ejecutado
+
+Actualizacion: 2026-04-27 16:50:00 -03:00
+
+- `scripts/analyze_gse225857_spatial_2026.py` creado.
+- Se reutilizaron los archivos Visium de GSE225857.
+- 6 muestras procesadas, 22,260 spots in-tissue.
+- 17 firmas 2026 scoreadas por spot, incluyendo controles desolapados.
+- 500 permutaciones por prueba en LCT.
+- Nuevas salidas:
+- `data_manifest/generated/gse225857_spatial_2026_signature_availability.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_spot_scores.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_correlations.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_adjacency_permutation.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_report.md`
+- Documento nuevo: `InvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md`.
+- Resumen nuevo: `ResumenInvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md`.
+
+Resultado clave:
+
+- `CAF -> SPP1/CXCL12`: ratio medio LCT 1.509, p empirico 0.002 en L1/L2.
+- `CAF -> HLA-DRB5-like`: ratio medio LCT 1.484, p empirico 0.002 en L1/L2.
+- `SPP1/CXCL12 -> MYC/glycolysis`: ratio medio LCT 1.755, p empirico 0.002 en L1/L2.
+- `HLA-DRB5-like -> MYC/glycolysis`: ratio medio LCT 1.556, p empirico 0.002 en L1/L2.
+
+Lectura estrategica:
+
+El proyecto ya tiene una primera evidencia propia que conecta el frente 2026 con el resultado espacial anterior. No es causalidad ni capa celular fina; es un macro-nicho `CAF-high` con acoplamiento estromal-inmune-metabolico. El siguiente avance debe ser endurecer la prueba: firmas desolapadas, deconvolucion o validacion espacial externa.
+
+Control desolapado agregado:
+
+- Se agregaron `caf_core_desoverlap_2026`, `spp1_cxcl12_axis_desoverlap_2026`, `hla_drb5_macrophage_axis_desoverlap_2026` y `myc_glycolysis_desoverlap_2026`.
+- El control mantiene fuerte la rama `SPP1/CXCL12-lite`: `CAF -> SPP1/CXCL12-lite` ratio medio 1.513; `SPP1/CXCL12-lite -> MYC/glycolysis-lite` ratio medio 1.602.
+- La rama `HLA-DRB5-lite` se debilita y queda lesion-dependiente: fuerte en L1, debil/marginal en L2.
+- Decision: priorizar `SPP1/CXCL12` como eje 2026 robusto; mantener `HLA-DRB5` como candidato secundario hasta nueva validacion.

@@ -1,0 +1,34 @@
+# Resumen de validacion espacial 2026 del nicho en capas en GSE225857
+
+Fecha: 2026-04-27 16:50:00 -03:00
+
+## Resumen corto
+Se ejecuto una nueva validacion espacial en GSE225857 para probar si el nicho `CAF-high` previamente asociado a `MET/MYC/glicolisis` tambien se acopla a los ejes 2026 `SPP1/CXCL12` y `HLA-DRB5` mieloide/inmune. Se creo `scripts/analyze_gse225857_spatial_2026.py`, que scorea 17 firmas en 22,260 spots Visium, incluyendo controles desolapados, y corre pruebas de vecindad con 500 permutaciones por test en las dos muestras de metastasis hepatica (`L1`, `L2`).
+
+El resultado principal es positivo: `caf_core` predice vecinos altos en `spp1_cxcl12_caf_myeloid_axis` con ratios 1.497 en L1 y 1.522 en L2, p empirico 0.002 en ambas. Tambien predice `hla_drb5_macrophage_axis` con ratios 1.564 y 1.403, p 0.002. Ademas, los ejes 2026 se acoplan a `myc_glycolysis_core`: `SPP1/CXCL12 -> MYC/glycolysis` ratio medio 1.755 y `HLA-DRB5 -> MYC/glycolysis` ratio medio 1.556. El control desolapado mantiene fuerte la rama `SPP1/CXCL12-lite` (`CAF -> SPP1/CXCL12-lite` ratio medio 1.513; `SPP1/CXCL12-lite -> MYC/glycolysis-lite` ratio medio 1.602), pero debilita la rama `HLA-DRB5-lite`, especialmente en L2. Esto sugiere que el mismo territorio spatial donde aparecia CAF/MET/MYC concentra de forma robusta un programa SPP1/CXCL12 y de forma mas heterogenea una rama HLA-DRB5-like.
+
+La lectura correcta no es "descubrimos SPP1" ni "probamos causalidad". La lectura fuerte es que hay un macro-nicho espacial superpuesto: CAF-high, mieloide/SPP1-CXCL12/HLA-DRB5 y tumor metabolico MET/MYC/glicolisis parecen co-enriquecerse en LCT. La rama T `CXCL13` fue menos consistente entre L1 y L2, lo que sugiere heterogeneidad inmune por lesion.
+
+Conclusion: la hipotesis sube prioridad, sobre todo en la rama `CAF/SPP1-CXCL12/metabolismo tumoral`. La rama `HLA-DRB5` queda secundaria y lesion-dependiente. El siguiente paso debe intentar deconvolucion/capas y buscar validacion spatial externa.
+
+## Resumen extendido
+La literatura 2026 habia empujado el proyecto desde un eje lineal `HGF-MET-MYC-glycolysis` hacia un modelo `CAF-high layered niche`, donde el componente metabolico tumoral convive con una interfaz inmunosupresora mieloide/T-cell. Para no dejar esa idea en el plano bibliografico, se hizo una validacion espacial nueva sobre GSE225857 Visium.
+
+El script nuevo, `scripts/analyze_gse225857_spatial_2026.py`, reutiliza las matrices y coordenadas ya descargadas de GSE225857. Scorea firmas 2026 derivadas de `data_manifest/signatures.yml`, incluyendo `spp1_cxcl12_caf_myeloid_axis`, `hla_drb5_macrophage_axis`, `spp1_macrophage_fads1_pdgfb_axis`, `glut1_invasive_margin_axis` y `crlm_metabolic_vulnerabilities_2026`. Se procesaron las seis muestras Visium, con foco interpretativo en las dos metastasis hepaticas (`L1` y `L2`). La prueba espacial define spots source-high por percentil 75, identifica vecinos hexagonales y compara el target en vecinos contra background. Luego usa 500 permutaciones dentro de cada muestra para estimar un nulo empirico.
+
+La disponibilidad fue suficiente para una primera pasada. `spp1_cxcl12_caf_myeloid_axis` estuvo completo (7/7 genes), `caf_core` completo (7/7), `mcam_caf` completo (4/4), `glut1_invasive_margin_axis` completo (5/5). Algunas firmas quedaron incompletas: `myc_glycolysis_core` uso 5/7 genes porque faltaron `TPI1` y `LDHA`; `hla_drb5_macrophage_axis` uso 6/7 porque falto `LGALS9`; `stromal_myeloid_risk_2026` uso 2/3 porque falto `KLF2`; y la firma metabolica 2026 uso 8/9 porque falto `SHMT1`.
+
+El primer resultado fuerte fue por correlaciones spot-level en LCT. `caf_core` correlaciono con `spp1_cxcl12_axis` en L1 r=0.756 y L2 r=0.674. `mcam_caf` correlaciono con el mismo eje en L1 r=0.739 y L2 r=0.668. `caf_core` tambien correlaciono con `hla_drb5_axis` en L1 r=0.748 y L2 r=0.530. Los ejes inmunes/mieloides tambien se relacionaron con metabolismo tumoral: `spp1_cxcl12_axis ~ myc_glycolysis_core` fue 0.702 en L1 y 0.630 en L2; `hla_drb5_axis ~ myc_glycolysis_core` fue 0.652 y 0.458.
+
+El segundo resultado fuerte fue por vecindad/permutacion. `caf_core -> spp1_cxcl12_axis` dio ratios 1.497 y 1.522 en L1/L2, con p empirico 0.002. `caf_core -> hla_drb5_axis` dio 1.564 y 1.403, p 0.002. `caf_core -> myc_glycolysis_core` dio 1.423 y 1.847, p 0.002. La asociacion tambien aparecio usando `mcam_caf` como fuente. Ademas, `spp1_cxcl12_axis -> myc_glycolysis_core` dio 1.578 y 1.932, p 0.002, y `hla_drb5_axis -> myc_glycolysis_core` dio 1.548 y 1.563, p 0.002.
+
+Se agrego un control desolapado para evitar que genes compartidos inflaran el resultado. Ese control removio `SPP1` y `MIF` de los ejes compartidos, `PDGFRB` de CAF y `SLC2A1` de la firma MYC/glicolisis. El resultado fue muy informativo: `CAF -> SPP1/CXCL12-lite` siguio fuerte (L1 1.599, L2 1.426) y `SPP1/CXCL12-lite -> MYC/glycolysis-lite` tambien (L1 1.471, L2 1.734). En cambio, `CAF -> HLA-DRB5-lite` fue fuerte en L1 (1.894) pero casi desaparecio en L2 (1.045), y `HLA-DRB5-lite -> MYC/glycolysis-lite` fue mas debil (1.222 y 1.052). Esto refina la interpretacion: el brazo SPP1/CXCL12 es el mas robusto; HLA-DRB5 queda como heterogeneo o dependiente de contexto.
+
+La parte mas delicada es la interpretacion. Estos resultados apoyan un acoplamiento espacial amplio entre CAF, mieloide/inmunosupresion y metabolismo tumoral. Pero Visium no separa celulas individuales; cada spot mezcla tipos celulares. Por eso, hablar de "capas" todavia puede ser demasiado fuerte. La evidencia actual dice mejor: macro-nicho estromal-inmune-metabolico. Para demostrar capas finas haria falta deconvolucion espacial, histologia, mayor resolucion o dataset externo.
+
+Tambien hay cautelas biologicas. Los pares individuales `SPP1~CXCL12`, `SPP1~CD44` y `MIF~CXCR4` fueron debiles comparados con los scores de firma. Eso indica que el fenomeno no depende de un unico ligando-receptor, sino de programas compuestos. Ademas, algunas firmas comparten genes (`SPP1`, `MIF`, etc.), por lo que una parte de la correlacion puede venir de overlap tecnico. El siguiente analisis debe construir versiones "desolapadas" de firmas 2026.
+
+Recomendacion: seguir. Esta es probablemente la señal mas interesante del proyecto hasta ahora, porque conecta datos propios con el frente 2026. No es hallazgo clinico ni causal, pero si una hipotesis espacial fuerte y falsable: en CRLM, los nichos CAF-high pueden concentrar simultaneamente una respuesta tumoral metabolica y una respuesta SPP1/CXCL12 robusta, con rama HLA-DRB5 variable. Si se valida externamente, podria convertirse en un aporte real.
+
+## Recomendacion operativa
+Buscar spatial externo o aplicar deconvolucion para distinguir tumor, CAF, macrofago y T-cell dentro del macro-nicho. Priorizar la rama `SPP1/CXCL12-lite`; tratar `HLA-DRB5-lite` como secundaria hasta validarla mejor.

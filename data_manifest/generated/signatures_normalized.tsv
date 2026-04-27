@@ -39,3 +39,73 @@ plasticity_emt	Tumor plasticity and partial EMT candidates.	3	ZEB1	ZEB1	yes
 plasticity_emt	Tumor plasticity and partial EMT candidates.	4	EPCAM	EPCAM	yes
 plasticity_emt	Tumor plasticity and partial EMT candidates.	5	CDH1	CDH1	yes
 plasticity_emt	Tumor plasticity and partial EMT candidates.	6	LGR5	LGR5	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	1	SPP1	SPP1	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	2	CXCL12	CXCL12	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	3	CD44	CD44	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	4	MIF	MIF	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	5	FN1	FN1	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	6	HIF1A	HIF1A	yes
+spp1_cxcl12_caf_myeloid_axis	2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.	7	CTNNB1	CTNNB1	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	1	SPP1	SPP1	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	2	PDGFB	PDGFB	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	3	PDGFRB	PDGFRB	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	4	FADS1	FADS1	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	5	VIM	VIM	yes
+spp1_macrophage_fads1_pdgfb_axis	2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.	6	ZEB1	ZEB1	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	1	HLA-DRB5	HLA-DRB5	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	2	CD74	CD74	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	3	CXCR4	CXCR4	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	4	LGALS9	LGALS9	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	5	PTPRC	PTPRC	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	6	SPP1	SPP1	yes
+hla_drb5_macrophage_axis	2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.	7	MIF	MIF	yes
+stromal_myeloid_risk_2026	Minimal stromal-myeloid recurrence/DFS signature proposed in 2026 CRLM literature.	1	KLF2	KLF2	yes
+stromal_myeloid_risk_2026	Minimal stromal-myeloid recurrence/DFS signature proposed in 2026 CRLM literature.	2	ZBTB20	ZBTB20	yes
+stromal_myeloid_risk_2026	Minimal stromal-myeloid recurrence/DFS signature proposed in 2026 CRLM literature.	3	ARL4C	ARL4C	yes
+sema3c_nrp2_lmic_axis	CAF-derived SEMA3C to NRP2/MAPK axis linked to liver metastasis-initiating cells.	1	SEMA3C	SEMA3C	yes
+sema3c_nrp2_lmic_axis	CAF-derived SEMA3C to NRP2/MAPK axis linked to liver metastasis-initiating cells.	2	NRP2	NRP2	yes
+sema3c_nrp2_lmic_axis	CAF-derived SEMA3C to NRP2/MAPK axis linked to liver metastasis-initiating cells.	3	MAPK1	MAPK1	yes
+sema3c_nrp2_lmic_axis	CAF-derived SEMA3C to NRP2/MAPK axis linked to liver metastasis-initiating cells.	4	MAPK3	MAPK3	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	1	SHMT1	SHMT1	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	2	FTCD	FTCD	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	3	GPD1	GPD1	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	4	SOD2	SOD2	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	5	EIF4B	EIF4B	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	6	NDRG1	NDRG1	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	7	PIM1	PIM1	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	8	PIM2	PIM2	yes
+crlm_metabolic_vulnerabilities_2026	2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.	9	PIM3	PIM3	yes
+radioresistance_morf4l1	2026 CRLM radiotherapy resistance candidate centered on MORF4L1 and DDR/metabolic survival.	1	MORF4L1	MORF4L1	yes
+radioresistance_morf4l1	2026 CRLM radiotherapy resistance candidate centered on MORF4L1 and DDR/metabolic survival.	2	RAD51	RAD51	yes
+radioresistance_morf4l1	2026 CRLM radiotherapy resistance candidate centered on MORF4L1 and DDR/metabolic survival.	3	BRCA1	BRCA1	yes
+radioresistance_morf4l1	2026 CRLM radiotherapy resistance candidate centered on MORF4L1 and DDR/metabolic survival.	4	HIF1A	HIF1A	yes
+marco_cash_macrophage_axis	2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.	1	MARCO	MARCO	yes
+marco_cash_macrophage_axis	2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.	2	TOX	TOX	yes
+marco_cash_macrophage_axis	2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.	3	DNAJB1	DNAJB1	yes
+marco_cash_macrophage_axis	2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.	4	CD8A	CD8A	yes
+marco_cash_macrophage_axis	2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.	5	KLRD1	KLRD1	yes
+glut1_invasive_margin_axis	2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.	1	SLC2A1	SLC2A1	yes
+glut1_invasive_margin_axis	2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.	2	CD8A	CD8A	yes
+glut1_invasive_margin_axis	2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.	3	GZMB	GZMB	yes
+glut1_invasive_margin_axis	2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.	4	PRF1	PRF1	yes
+glut1_invasive_margin_axis	2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.	5	MKI67	MKI67	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	1	COL1A1	COL1A1	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	2	COL1A2	COL1A2	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	3	ACTA2	ACTA2	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	4	FAP	FAP	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	5	POSTN	POSTN	yes
+caf_core_desoverlap_2026	CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.	6	PDGFRA	PDGFRA	yes
+spp1_cxcl12_axis_desoverlap_2026	SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.	1	CXCL12	CXCL12	yes
+spp1_cxcl12_axis_desoverlap_2026	SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.	2	CD44	CD44	yes
+spp1_cxcl12_axis_desoverlap_2026	SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.	3	FN1	FN1	yes
+spp1_cxcl12_axis_desoverlap_2026	SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.	4	HIF1A	HIF1A	yes
+spp1_cxcl12_axis_desoverlap_2026	SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.	5	CTNNB1	CTNNB1	yes
+hla_drb5_macrophage_axis_desoverlap_2026	HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.	1	HLA-DRB5	HLA-DRB5	yes
+hla_drb5_macrophage_axis_desoverlap_2026	HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.	2	CD74	CD74	yes
+hla_drb5_macrophage_axis_desoverlap_2026	HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.	3	CXCR4	CXCR4	yes
+hla_drb5_macrophage_axis_desoverlap_2026	HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.	4	LGALS9	LGALS9	yes
+hla_drb5_macrophage_axis_desoverlap_2026	HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.	5	PTPRC	PTPRC	yes
+myc_glycolysis_desoverlap_2026	MYC/glycolysis core excluding SLC2A1 to avoid overlap with GLUT1 invasive-margin signature.	1	MYC	MYC	yes
+myc_glycolysis_desoverlap_2026	MYC/glycolysis core excluding SLC2A1 to avoid overlap with GLUT1 invasive-margin signature.	2	HK2	HK2	yes
+myc_glycolysis_desoverlap_2026	MYC/glycolysis core excluding SLC2A1 to avoid overlap with GLUT1 invasive-margin signature.	3	PGK1	PGK1	yes
+myc_glycolysis_desoverlap_2026	MYC/glycolysis core excluding SLC2A1 to avoid overlap with GLUT1 invasive-margin signature.	4	ENO1	ENO1	yes

@@ -1,5 +1,5 @@
-active_hypothesis: mCAF-HGF-MET-MYC-glycolysis
-updated_at: "2026-04-25 01:06:15 -03:00"
+active_hypothesis: CAF-high layered CRLM niche with MET/MYC-glycolysis and SPP1/CXCL12-myeloid/T-cell interfaces
+updated_at: "2026-04-27 16:22:03 -03:00"
 
 signatures:
   hgf_met_axis:
@@ -70,7 +70,129 @@ signatures:
       - CDH1
       - LGR5
 
+  spp1_cxcl12_caf_myeloid_axis:
+    description: 2026 CRLM stromal-myeloid axis linking SPP1, CAF CXCL12, CD44, MIF, and FN1.
+    genes:
+      - SPP1
+      - CXCL12
+      - CD44
+      - MIF
+      - FN1
+      - HIF1A
+      - CTNNB1
+
+  spp1_macrophage_fads1_pdgfb_axis:
+    description: 2026 candidate macrophage-tumor circuit SPP1+ macrophage to FADS1+ tumor via PDGFB-PDGFRB.
+    genes:
+      - SPP1
+      - PDGFB
+      - PDGFRB
+      - FADS1
+      - VIM
+      - ZEB1
+
+  hla_drb5_macrophage_axis:
+    description: 2026 SPP1+/HLA-DRB5+ macrophage immune communication candidates.
+    genes:
+      - HLA-DRB5
+      - CD74
+      - CXCR4
+      - LGALS9
+      - PTPRC
+      - SPP1
+      - MIF
+
+  stromal_myeloid_risk_2026:
+    description: Minimal stromal-myeloid recurrence/DFS signature proposed in 2026 CRLM literature.
+    genes:
+      - KLF2
+      - ZBTB20
+      - ARL4C
+
+  sema3c_nrp2_lmic_axis:
+    description: CAF-derived SEMA3C to NRP2/MAPK axis linked to liver metastasis-initiating cells.
+    genes:
+      - SEMA3C
+      - NRP2
+      - MAPK1
+      - MAPK3
+
+  crlm_metabolic_vulnerabilities_2026:
+    description: 2026 proteogenomic CRLM metabolism candidates including one-carbon and PIM-NDRG1 biology.
+    genes:
+      - SHMT1
+      - FTCD
+      - GPD1
+      - SOD2
+      - EIF4B
+      - NDRG1
+      - PIM1
+      - PIM2
+      - PIM3
+
+  radioresistance_morf4l1:
+    description: 2026 CRLM radiotherapy resistance candidate centered on MORF4L1 and DDR/metabolic survival.
+    genes:
+      - MORF4L1
+      - RAD51
+      - BRCA1
+      - HIF1A
+
+  marco_cash_macrophage_axis:
+    description: 2026 chemotherapy-associated steatohepatitis macrophage/T/NK axis relevant to CRLM recurrence.
+    genes:
+      - MARCO
+      - TOX
+      - DNAJB1
+      - CD8A
+      - KLRD1
+
+  glut1_invasive_margin_axis:
+    description: 2026 compartment-specific GLUT1/CD8 invasive-margin candidate for CRLM.
+    genes:
+      - SLC2A1
+      - CD8A
+      - GZMB
+      - PRF1
+      - MKI67
+
+  caf_core_desoverlap_2026:
+    description: CAF core without PDGFRB or genes shared with 2026 myeloid/tumor axes.
+    genes:
+      - COL1A1
+      - COL1A2
+      - ACTA2
+      - FAP
+      - POSTN
+      - PDGFRA
+
+  spp1_cxcl12_axis_desoverlap_2026:
+    description: SPP1/CXCL12-adjacent stromal axis excluding SPP1 and MIF to reduce overlap with macrophage signatures.
+    genes:
+      - CXCL12
+      - CD44
+      - FN1
+      - HIF1A
+      - CTNNB1
+
+  hla_drb5_macrophage_axis_desoverlap_2026:
+    description: HLA-DRB5 macrophage axis excluding SPP1 and MIF to reduce overlap with SPP1/CXCL12 signatures.
+    genes:
+      - HLA-DRB5
+      - CD74
+      - CXCR4
+      - LGALS9
+      - PTPRC
+
+  myc_glycolysis_desoverlap_2026:
+    description: MYC/glycolysis core excluding SLC2A1 to avoid overlap with GLUT1 invasive-margin signature.
+    genes:
+      - MYC
+      - HK2
+      - PGK1
+      - ENO1
+
 next_refinement:
-  - Extract marker lists directly from PMC12605286 tables/supplements.
-  - Extract marker lists directly from PMC10275599/GSE225857.
-  - Replace broad signatures with paper-derived top markers before formal scoring.
+  - Compare full 2026 signatures against desoverlap controls in GSE225857 spatial.
+  - Test whether CAF-high neighborhoods split into metabolic tumor and immunosuppressive myeloid/T-cell interfaces after removing shared genes.
+  - Extract marker lists directly from 2026 CRLM spatial/single-cell papers and replace broad signatures with paper-derived top markers.

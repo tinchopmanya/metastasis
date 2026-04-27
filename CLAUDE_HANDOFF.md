@@ -369,3 +369,115 @@ La siguiente accion ideal es:
 `Buscar validacion independiente o especificidad del patron CAF-high -> MET/MYC/glycolysis, empezando por una revision liviana de GSE226997, datasets 2025 o META-PRISM.`
 
 Si eso se bloquea, documentar el bloqueo y crear un plan alternativo reproducible.
+
+## Actualizacion para Claude: ola 003E literatura 2026
+
+Fecha: 2026-04-27 16:22:03 -03:00
+
+Se hizo una busqueda PubMed reproducible 2025-2026:
+
+```powershell
+python scripts/search_pubmed_crlm_latest.py --retmax 80
+```
+
+Archivos nuevos:
+
+- `scripts/search_pubmed_crlm_latest.py`
+- `data_manifest/generated/pubmed_crlm_latest_2025_2026.tsv`
+- `data_manifest/generated/pubmed_crlm_latest_2025_2026_report.md`
+- `InvestigacionSobreLiteratura2026NichoCRLM.md`
+- `ResumenInvestigacionSobreLiteratura2026NichoCRLM.md`
+
+Resultado estrategico:
+
+La hipotesis ya no debe presentarse como `HGF-MET-MYC-glycolysis` lineal. La formulacion vigente es:
+
+`CAF-high layered niche model in CRLM`
+
+En palabras:
+
+`Niches CAF-high in CRLM may coordinate a tumor metabolic interface (MET/MYC/glycolysis/one-carbon metabolism) and an immunosuppressive myeloid/T-cell interface (SPP1/CXCL12/MIF/CD44/FN1/HLA-DRB5/CD74/CXCR4/LGALS9).`
+
+Papers 2026 clave:
+
+- PMID 41807965: mCAF - SPP1+ macrophage - T-cell stress/exhaustion spatial niche.
+- PMID 41051794: SPP1 induces CXCL12 in CAFs and drives immunotherapy resistance.
+- PMID 41715121: SPP1+ and HLA-DRB5+ macrophages as spatial immune modulators.
+- PMID 41655559: SPP1+ macrophage - FADS1+ tumor crosstalk via PDGFB-PDGFRB.
+- PMID 41195591: proteogenomic CRLM metabolism, SHMT1/formate/AMPK and PIM/NDRG1.
+- PMID 41940986: compartment-specific GLUT1 at invasive margin.
+
+Firmas nuevas agregadas a `data_manifest/signatures.yml`:
+
+- `spp1_cxcl12_caf_myeloid_axis`
+- `spp1_macrophage_fads1_pdgfb_axis`
+- `hla_drb5_macrophage_axis`
+- `stromal_myeloid_risk_2026`
+- `sema3c_nrp2_lmic_axis`
+- `crlm_metabolic_vulnerabilities_2026`
+- `radioresistance_morf4l1`
+- `marco_cash_macrophage_axis`
+- `glut1_invasive_margin_axis`
+
+Proxima accion ideal:
+
+1. Ejecutar `python scripts/prepare_signatures.py`.
+2. Ejecutar `python scripts/check_gene_availability.py --universe tcga_coad=data_manifest/gene_universes/tcga_coad_genes.txt`.
+3. Extender `scripts/analyze_gse225857_spatial.py` para scorear firmas dinamicas desde `signatures_normalized.tsv`.
+4. Probar si `CAF-high` se asocia espacialmente con `SPP1/CXCL12` y `HLA-DRB5` ademas de `MET/MYC/glycolysis`.
+5. Buscar arquitectura en capas, no solo correlaciones.
+
+Regla interpretativa:
+
+No decir "descubrimos SPP1"; eso ya esta publicado. El posible aporte es integrar el nicho metabolico y el nicho inmunosupresor en un modelo espacial reproducible.
+
+## Actualizacion para Claude: ola 003F validacion espacial 2026
+
+Fecha: 2026-04-27 16:50:00 -03:00
+
+Se ejecuto la primera validacion tecnica del pivot 2026.
+
+Nuevo script:
+
+```powershell
+python scripts/analyze_gse225857_spatial_2026.py --permutations 500
+```
+
+Salidas:
+
+- `data_manifest/generated/gse225857_spatial_2026_signature_availability.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_spot_scores.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_correlations.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_adjacency_permutation.tsv`
+- `data_manifest/generated/gse225857_spatial_2026_report.md`
+
+Documentos:
+
+- `InvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md`
+- `ResumenInvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md`
+
+Resultados LCT principales:
+
+- `CAF -> SPP1/CXCL12`: L1 ratio 1.497, L2 ratio 1.522, p empirico 0.002.
+- `CAF -> HLA-DRB5-like`: L1 ratio 1.564, L2 ratio 1.403, p empirico 0.002.
+- `SPP1/CXCL12 -> MYC/glycolysis`: L1 ratio 1.578, L2 ratio 1.932, p empirico 0.002.
+- `HLA-DRB5-like -> MYC/glycolysis`: L1 ratio 1.548, L2 ratio 1.563, p empirico 0.002.
+
+Interpretacion:
+
+Hay evidencia de un macro-nicho estromal-inmune-metabolico `CAF-high` en GSE225857 LCT. Todavia no decir que hay capas microscopicas separadas ni causalidad. Visium mezcla celulas y las firmas 2026 tienen overlap de genes.
+
+Proxima accion recomendada:
+
+Se crearon firmas desolapadas 2026 y se repitio el analisis.
+
+Resultado del control:
+
+- `CAF -> SPP1/CXCL12-lite`: ratio medio LCT 1.513.
+- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: ratio medio LCT 1.602.
+- `CAF -> HLA-DRB5-lite`: ratio medio 1.470, pero impulsado por L1; L2 queda debil/no robusto.
+- `HLA-DRB5-lite -> MYC/glycolysis-lite`: ratio medio 1.137.
+
+Interpretacion actual:
+
+La rama `SPP1/CXCL12` es robusta aun sin genes compartidos. La rama `HLA-DRB5` es realista como candidata secundaria, pero lesion-dependiente. Priorizar SPP1/CXCL12 para el siguiente bloque.

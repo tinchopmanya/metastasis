@@ -303,4 +303,64 @@ Crear:
 - `scripts/prepare_signatures.ps1` o un script Python/R si se decide análisis real
 - `data_manifest/crlm_sources.md`
 
-La primera ejecución técnica debe ser pequeña: metadata, gene sets y manifest. Nada pesado todavía.
+## Fase 6: validacion espacial del modelo en capas 2026
+
+Actualizacion: 2026-04-27 16:22:03 -03:00
+
+La literatura 2026 cambia la proxima validacion. Ya no basta con repetir `CAF -> MET/MYC/glycolysis`; ahora hay que testear si el mismo nicho `CAF-high` contiene o bordea una capa inmunosupresora mieloide/T-cell.
+
+Firmas agregadas para esta fase:
+
+- `spp1_cxcl12_caf_myeloid_axis`
+- `spp1_macrophage_fads1_pdgfb_axis`
+- `hla_drb5_macrophage_axis`
+- `stromal_myeloid_risk_2026`
+- `sema3c_nrp2_lmic_axis`
+- `crlm_metabolic_vulnerabilities_2026`
+- `radioresistance_morf4l1`
+- `marco_cash_macrophage_axis`
+- `glut1_invasive_margin_axis`
+
+Preguntas testeables:
+
+- Los spots `CAF-high` tienen vecinos altos en `SPP1/CXCL12/MIF/CD44/FN1`?
+- Los scores mieloides `SPP1/HLA-DRB5` aparecen junto a `MET/MYC/glycolysis` o en una capa separada?
+- El score `stromal_myeloid_risk_2026` se ubica en interfaz tumor-estroma?
+- El componente `SLC2A1/GLUT1` se comporta como tumor-core, immune-margin o ambos?
+- Las firmas metabolicas 2026 (`SHMT1`, `PIM/NDRG1`, etc.) se asocian con tumor `MET/MYC` o con otro compartimento?
+
+Analisis recomendado:
+
+1. Extender `scripts/analyze_gse225857_spatial.py` para aceptar firmas dinamicas desde `signatures_normalized.tsv`.
+2. Calcular scores por spot para las nuevas firmas.
+3. Reutilizar el modulo de vecindad/permutaciones con fuentes `CAF-high`, `SPP1/CXCL12-high`, `HLA-DRB5-high` y targets `MET`, `MYC`, `glycolysis`, `CD8/T`.
+4. Exportar tabla de resultados por muestra y un reporte markdown.
+5. Si el patron sale fuerte, buscar dataset spatial externo; si sale debil, documentar falsacion parcial.
+
+Criterio de avance:
+
+La hipotesis avanza si las nuevas firmas muestran estructura espacial no aleatoria y consistente con capas o interfaces. Baja prioridad si las senales son solo composicion celular global, batch o ruido de genes muy escasos.
+
+Nota historica: la primera ejecucion tecnica ya fue completada con metadata, gene sets y manifest; mantener la misma filosofia de validacion liviana antes de descargar datos pesados.
+
+## Fase 6A completada: primera pasada espacial 2026
+
+Actualizacion: 2026-04-27 16:50:00 -03:00
+
+Se ejecuto la fase 6A con `scripts/analyze_gse225857_spatial_2026.py`.
+
+Resultado:
+
+- 22,260 spots Visium scoreados.
+- 17 firmas 2026 evaluadas, incluyendo controles desolapados.
+- 500 permutaciones por prueba en LCT.
+- `CAF -> SPP1/CXCL12` y `CAF -> HLA-DRB5-like` positivos en L1/L2.
+- `SPP1/CXCL12 -> MYC/glycolysis` y `HLA-DRB5-like -> MYC/glycolysis` positivos en L1/L2.
+
+Siguiente fase:
+
+1. Profundizar la rama `SPP1/CXCL12-lite`, que sobrevivio al control desolapado.
+2. Refinar la rama `HLA-DRB5-lite`, que quedo lesion-dependiente.
+3. Agregar controles negativos o targets no relacionados.
+4. Evaluar deconvolucion espacial si hay marcadores suficientes.
+5. Buscar validacion espacial externa.
