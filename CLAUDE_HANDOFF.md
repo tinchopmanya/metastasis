@@ -648,3 +648,40 @@ Siguiente accion ideal:
 3. Residualizar por UMI/coordenadas/region histologica.
 4. Hacer random controls full-transcriptome emparejados por expresion.
 5. Preparar una figura que conecte literatura gap, spatial proxy y flux validation.
+
+## Actualizacion para Claude: ola 003J auditoria robusta lactato/HLA-DRB5
+
+Fecha: 2026-04-29 03:23:00 -03:00
+
+Se ejecuto la auditoria reviewer-hostile del eje `HLA-DRB5-like -> pyruvate/transamination`.
+
+Nuevo script:
+
+```powershell
+python scripts/audit_lactate_axis_robustness.py --permutations 200 --ablation-permutations 100 --random-controls 100 --block-sizes 8,12,16,20
+```
+
+Salidas clave:
+
+- `data_manifest/generated/lactate_axis_robustness_report.md`
+- `data_manifest/generated/lactate_axis_robustness_blocksize_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_ablation_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_random_controls_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_residualized_summary.tsv`
+
+Resultado:
+
+- Sobrevive block-size y ablation sin `PTPRC`.
+- Falla `HLA-DRB5-only`; no es un gen aislado.
+- Falla random controls full-transcriptome: 0/6 en pyruvate/transamination, original y no-PTPRC.
+- Falla residualizacion por profundidad/coordenadas: 0/6 o 1/6 significativo.
+
+Nueva decision:
+
+No vender nicho lactato/HLA-DRB5 con proxies transcriptomicos. La rama queda como co-ocurrencia regional interesante.
+
+Siguiente trabajo ideal:
+
+`spFBA/FES or stop`
+
+Si los mapas de flux reales rescatan lactate uptake/transamination cerca de `HLA-DRB5-like`, vuelve a ser candidato fuerte. Si no, cerrar esta rama como artefacto regional y volver al nucleo estromal/mieloide local.

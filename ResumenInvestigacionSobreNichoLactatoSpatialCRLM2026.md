@@ -35,3 +35,7 @@ Fuentes principales:
 - https://www.nature.com/articles/s41540-026-00654-x
 - https://link.springer.com/article/10.1186/s12967-026-07853-4
 - https://link.springer.com/article/10.1186/s12967-025-07581-1
+
+## Nota post-auditoria
+
+La auditoria robusta posterior bajo la prioridad de este resultado: la senal no supera random controls full-transcriptome y desaparece al residualizar por profundidad/coordenadas. Mantener como hipotesis para spFBA/FES, no como claim de descubrimiento.

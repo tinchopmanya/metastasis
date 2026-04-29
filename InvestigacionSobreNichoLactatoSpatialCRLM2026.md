@@ -118,3 +118,18 @@ Si ese bloque sale positivo, el titulo tentativo de paper podria ser:
 `Spatial HLA-DRB5-like myeloid niches associate with non-canonical lactate-carbon routing in colorectal liver metastasis.`
 
 Si sale negativo, igual habremos aprendido algo importante: el puente inmune-metabolico no esta en HLA-DRB5 sino que el lactato CRLM es un programa tumoral/organ-specific independiente del nicho mieloide.
+
+## Actualizacion post-auditoria robusta
+
+Fecha: 2026-04-29 03:23:00 -03:00
+
+Se ejecuto una auditoria mas dura en `InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md`.
+
+Resultado correctivo:
+
+- La senal `HLA-DRB5-like -> pyruvate/transamination` sobrevive block-size y ablation sin `PTPRC`.
+- `HLA-DRB5-only` falla, por lo que no debe presentarse como efecto del gen aislado.
+- Los random controls full-transcriptome no son superados.
+- La residualizacion por profundidad/coordenadas elimina la significancia.
+
+Por lo tanto, esta investigacion queda como generadora de hipotesis, no como evidencia suficiente. La unica ruta valida para continuar es `spFBA/FES or stop`.

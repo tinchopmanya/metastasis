@@ -1,0 +1,5 @@
+source_variant	target	n_samples	positive_delta_samples	positive_ratio_samples	block_delta_p_le_0_05	mean_ratio	mean_delta	mean_block_p
+hla_drb5_no_ptprc	glutamate_transamination	6	4	1	0	0.45565494715245913	0.0013707461655128976	0.5775577557755776
+hla_drb5_no_ptprc	pyruvate_mito_entry	6	4	1	1	-0.9685798518695378	0.004652677532574268	0.4141914191419142
+hla_drb5_original	glutamate_transamination	6	4	1	0	0.07854419385114124	0.0019708618176325606	0.5957095709570958
+hla_drb5_original	pyruvate_mito_entry	6	4	0	0	-0.004545424973414373	0.0024806094228758935	0.5264026402640264

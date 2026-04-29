@@ -540,3 +540,45 @@ Proximo bloque autonomo:
 3. Residualizar por UMI/coordenadas/region.
 4. Random controls full-transcriptome para proxies metabolicos.
 5. Leave-one-gene-out de los genes pyruvato/transaminacion.
+
+## Decimosexto avance tecnico ejecutado
+
+Actualizacion: 2026-04-29 03:23:00 -03:00
+
+Se ejecuto una auditoria robusta del eje `HLA-DRB5-like -> pyruvate/transamination`.
+
+Nuevo script:
+
+```powershell
+python scripts/audit_lactate_axis_robustness.py --permutations 200 --ablation-permutations 100 --random-controls 100 --block-sizes 8,12,16,20
+```
+
+Nuevas salidas:
+
+- `data_manifest/generated/lactate_axis_robustness_report.md`
+- `data_manifest/generated/lactate_axis_robustness_blocksize_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_ablation_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_random_controls_summary.tsv`
+- `data_manifest/generated/lactate_axis_robustness_residualized_summary.tsv`
+
+Documentos nuevos:
+
+- `InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md`
+- `ResumenInvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md`
+
+Resultado:
+
+- La senal sobrevive sensibilidad a block-size y ablation sin `PTPRC`.
+- `HLA-DRB5-only` falla: el efecto no es de un gen aislado, sino de un modulo inmune mas amplio.
+- Random controls full-transcriptome: 0/6 muestras superan controles para pyruvate/transamination, con o sin `PTPRC`.
+- Residualizacion por profundidad/coordenadas: 0/6 o 1/6 significativas.
+
+Decision estrategica:
+
+La rama lactato/HLA-DRB5 queda degradada a:
+
+`co-ocurrencia regional interesante, no nicho metabolico especifico demostrado`
+
+Siguiente paso:
+
+`spFBA/FES or stop`. Si los mapas de flux reales no rescatan el efecto, cerrar esta rama y volver al nucleo `stromal/myeloid local architecture`.

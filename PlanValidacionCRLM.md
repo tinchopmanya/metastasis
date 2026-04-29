@@ -493,3 +493,34 @@ Siguiente validacion dura:
 3. Residualizar por UMI, coordenadas, region histologica y tumor/stroma/hepatocyte score.
 4. Generar random controls full-transcriptome para proxies metabolicos.
 5. Leave-one-gene-out para `MPC1`, `MPC2`, `PDHA1`, `PDHB`, `GOT1`, `GOT2`, `GLUD1`, `GLS`.
+
+## Fase 6F completada: auditoria robusta lactato/HLA-DRB5
+
+Actualizacion: 2026-04-29 03:23:00 -03:00
+
+Se ejecuto:
+
+```powershell
+python scripts/audit_lactate_axis_robustness.py --permutations 200 --ablation-permutations 100 --random-controls 100 --block-sizes 8,12,16,20
+```
+
+Resultado:
+
+- Block-size sensitivity: `HLA-DRB5-like -> pyruvate_mito_entry` queda positivo 6/6 y significativo en 4/6 a 6/6 segun block-size; `glutamate_transamination` queda positivo 6/6 y significativo en 2/6 a 5/6.
+- Ablation: sacar `PTPRC` mantiene pyruvate y transamination positivos 6/6 y significativos 5/6.
+- `HLA-DRB5-only` falla: 1/6 positivo, 0/6 significativo.
+- Random controls full-transcriptome: 0/6 efectos superan controles emparejados por expresion/dropout.
+- Residualizacion por profundidad/coordenadas: 0/6 o 1/6 efectos significativos.
+
+Decision:
+
+No avanzar con mas proxies transcriptomicos para esta rama. La pregunta queda:
+
+`El flux real rescata la hipotesis o la cerramos?`
+
+Siguiente fase:
+
+1. Localizar datos spFBA/FES 2026.
+2. Si hay FES procesados, mapearlos a spots/regions y ejecutar el mismo esquema de vecinos.
+3. Si no hay FES procesados, evaluar si es viable reproducir spFBA con datos raw/procesados disponibles.
+4. Mantener como criterio de avance: superar residualizacion y nulos espaciales, no solo ratios brutos.

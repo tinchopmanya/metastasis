@@ -1,6 +1,6 @@
 # Conclusion dinamica vigente
 
-Fecha de actualizacion: 2026-04-29 02:58:54 -03:00
+Fecha de actualizacion: 2026-04-29 03:23:00 -03:00
 
 ## Linea activa
 
@@ -8,38 +8,66 @@ La linea activa sigue siendo:
 
 `cancer colorrectal -> metastasis hepatica -> nicho metastasico hepatico`
 
-Pero el borde mas prometedor cambio. Ya no conviene poner el centro en `CAF -> MET`. La ruta mas interesante ahora es:
+La rama que estabamos persiguiendo era:
 
 `HLA-DRB5-like myeloid neighborhoods -> pyruvate/transamination metabolism -> possible non-canonical lactate-carbon handling in CRLM`
 
-## Terreno virgen o no
+Despues de la auditoria robusta, esa rama queda viva solo como hipotesis a validar con flux real, no como hallazgo transcriptomico especifico.
 
-No estamos en terreno virgen por piezas aisladas.
+## Estado real
 
-Ya existen:
+No estamos en terreno virgen por componentes aislados.
+
+Ya existen en la literatura:
 
 - `SPP1+` y `HLA-DRB5+` macrophages en CRLM.
 - nichos mCAF/SPP1/T-cell exhaustion.
 - `HGF-MET-MYC-glycolysis` en paisajes spatial CRLM.
 - lactate uptake y reruteo no canonico de carbono en CRLM por spFBA 2026.
 
-Si estamos en una zona menos recorrida y potencialmente valiosa:
+La zona potencialmente novedosa sigue siendo el puente:
 
-`conectar espacialmente un estado mieloide HLA-DRB5-like con los programas pyruvate/transamination que podrian reflejar la economia de lactato no canonica descrita por spFBA.`
+`modulo inmune HLA-DRB5-like <-> metabolismo lactato/pyruvato no canonico`
 
-La novedad posible no es un gen ni una via suelta. Es el puente inmune-metabolico.
+Pero el proxy transcriptomico espacial no lo demuestra todavia.
 
-## Hipotesis vigente
+## Lo que aprendimos hoy
 
-Formulacion actual:
+El screen inicial habia encontrado:
 
-`Spatial HLA-DRB5-like myeloid niches may mark immune-metabolic regions of colorectal liver metastasis enriched for pyruvate mitochondrial entry and glutamate transamination programs, consistent with non-canonical lactate-carbon routing.`
+- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
+- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
 
-Traduccion:
+La auditoria robusta agrego:
 
-En CRLM, los vecindarios `HLA-DRB5-like` no solo podrian representar inmunomodulacion. Tambien podrian marcar zonas donde el tejido tumoral/estromal cercano activa rutas de pyruvato y transaminacion compatibles con el uso no canonico de lactato/pyruvato.
+- sensibilidad a block-size 8/12/16/20;
+- ablation de `PTPRC`, `CD74`, target leave-one-gene-out;
+- random controls full-transcriptome emparejados por expresion/dropout;
+- residualizacion por profundidad total y coordenadas espaciales.
 
-## Evidencia propia acumulada
+Resultado honesto:
+
+- La senal sobrevive varios tamanos de bloque.
+- La senal sobrevive sacar `PTPRC`.
+- La senal no pertenece a `HLA-DRB5` aislado: `HLA-DRB5-only` falla.
+- La senal no supera random controls full-transcriptome: 0/6 en pyruvate y transamination, con o sin `PTPRC`.
+- La senal desaparece al residualizar por profundidad/coordenadas: 0/6 o 1/6 segun variante.
+
+## Hipotesis vigente revisada
+
+Formulacion anterior, demasiado fuerte:
+
+`HLA-DRB5-like myeloid niches may mark immune-metabolic CRLM regions enriched for non-canonical lactate-carbon routing.`
+
+Formulacion correcta ahora:
+
+`HLA-DRB5-like immune regions co-occur with broad regional metabolic expression programs in CRLM, but transcript proxies do not yet prove a specific lactate/pyruvate niche.`
+
+La pregunta que queda abierta:
+
+`Los mapas reales de flux spFBA/FES muestran lactate uptake/transamination cerca de modulos HLA-DRB5-like, incluso despues de controlar profundidad, coordenadas y region?`
+
+## Evidencia que sigue fuerte
 
 ### GSE245552 paired scRNA
 
@@ -56,71 +84,45 @@ Lectura: la rama mieloide sube en metastasis hepatica pareada; el programa tumor
 - `CAF -> HLA-DRB5-lite`: sobrevive en 5/6 muestras.
 - `CAF -> MET`: solo 2/6, por eso baja prioridad como claim central.
 
-Lectura: el patron mas defendible es local y espacial, no bulk ni lineal.
-
-### Nuevo screen lactato/pyruvato spatial
-
-Script:
-
-```powershell
-python scripts/analyze_spatial_lactate_axis.py --permutations 500 --block-size 12
-```
-
-Dataset combinado:
-
-- `GSE225857`: 2 muestras LCT/CRLM.
-- `GSE217414`: 4 muestras CRLM.
-- Total: 6 muestras spatial.
-
-Resultados:
-
-- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
-- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
-- `HLA-DRB5-like -> lactate_import_anabolic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.564.
-- `HLA-DRB5-like -> lactate_export_glycolytic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.375.
-- `CXCL12/FN1/CD44-like` tambien da ratios altos, pero sus efectos pyruvato/transaminacion sobreviven solo 2/6 bajo nulo por bloques.
-
-Lectura: la rama `HLA-DRB5-like` es mas interesante para una hipotesis inmune-metabolica especifica que la rama `CXCL12/FN1/CD44-like`, que parece mas vulnerable a gradientes regionales amplios.
+Lectura: el patron estromal/mieloide local sigue siendo el mejor nucleo. El brazo metabolico especifico necesita flux real.
 
 ## Decision
 
-La mejor apuesta actual para buscar algo digno de paper es:
+La rama lactato/HLA-DRB5 no se abandona, pero queda degradada:
 
-`HLA-DRB5-like immune-metabolic niche in CRLM lactate-carbon routing`
+`de posible hallazgo -> a hipotesis que solo se puede rescatar con spFBA/FES`
 
-No decir todavia:
+No decir:
 
-- que hay causalidad;
+- que descubrimos un nicho lactato/HLA-DRB5;
 - que HLA-DRB5 regula lactato;
-- que tenemos flux real;
-- que el mecanismo esta validado clinicamente;
-- que esto es terapeuticamente accionable.
+- que los proxies de pyruvato/transaminacion son especificos;
+- que hay mecanismo causal.
 
 Si decir:
 
-- que encontramos una hipotesis mas novedosa y falsable;
-- que la senal aparece en 6 muestras spatial de 2 datasets;
-- que los mejores efectos sobreviven permutacion por bloques en 5/6;
-- que el siguiente paso ya no es mas correlacion bonita, sino spFBA/FES o flux-like validation.
+- que detectamos una co-ocurrencia regional reproducible;
+- que esa co-ocurrencia no supera controles transcriptomicos duros;
+- que esto obliga a validar con flux, no con mas proxies;
+- que el trabajo se volvio mas serio porque ya falsamos la version facil.
 
 ## Proximo paso tecnico
 
-1. Conseguir o reproducir mapas spFBA/FES de lactate uptake, pyruvate/transamination, alphaKG/malate y reductive TCA.
-2. Testear si `HLA-DRB5-like` predice esos mapas en vecinos espaciales.
-3. Residualizar por UMI/profundidad, coordenadas, region histologica y tumor/stroma/hepatocyte scores.
-4. Crear random controls full-transcriptome emparejados por expresion para los proxies metabolicos.
-5. Leave-one-gene-out para `MPC1`, `MPC2`, `PDHA1`, `PDHB`, `GOT1`, `GOT2`, `GLUD1`, `GLS`.
-6. Si el puente se sostiene, preparar una figura tipo paper: literatura gap -> spatial proxy -> block null -> spFBA validation.
+Siguiente movimiento:
 
-## Cuidado epistemologico
+`spFBA/FES or stop`
 
-La frase correcta hoy:
+Tareas:
 
-`Estamos cerca de una hipotesis computacional publicable, no de un descubrimiento cerrado. El camino mas virgen es probar si HLA-DRB5-like myeloid niches predicen el metabolismo no canonico de lactato/pyruvato en CRLM.`
+1. Buscar/descargar/reconstruir mapas spFBA/FES del paper 2026.
+2. Testear lactate uptake, pyruvate/transamination, alphaKG/malate y reductive TCA contra modulos `HLA-DRB5-like`.
+3. Aplicar nulo por bloques y residualizacion por profundidad/coordenadas/region.
+4. Si FES sobrevive, la rama vuelve a ser candidata a paper.
+5. Si FES falla, cerrar lactato/HLA-DRB5 como artefacto regional y volver al nucleo `stromal/myeloid local architecture`.
 
-La version honesta del entusiasmo:
+## Frase final
 
-`Esto huele a borde de hallazgo, pero todavia necesita flux real para convertirse en paper fuerte.`
+`Hoy no descubrimos el mecanismo; descubrimos que la version facil no aguanta. Eso es progreso real. El unico camino no recorrido que queda vale la pena solo si pasamos a flux real.`
 
 ## Fuentes clave
 

@@ -1,0 +1,5 @@
+source_variant	target	n_samples	beats_random_delta_p_0_05	mean_observed_ratio	mean_random_p
+hla_drb5_no_ptprc	glutamate_transamination	6	0	1.7046953182757507	0.40924092409240925
+hla_drb5_no_ptprc	pyruvate_mito_entry	6	0	1.5565206908141302	0.41914191419141916
+hla_drb5_original	glutamate_transamination	6	0	1.7644547150491068	0.34653465346534656
+hla_drb5_original	pyruvate_mito_entry	6	0	1.570862446831506	0.35313531353135313

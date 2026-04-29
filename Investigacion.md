@@ -23,7 +23,7 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - Una recomendación operativa clara al final.
 
 ## Ola activa actual
-- Ola 003I: `nicho lactato/HLA-DRB5 spatial CRLM 2026`
+- Ola 003J: `auditoria robusta del nicho lactato/HLA-DRB5 CRLM 2026`
 
 ## Olas registradas
 
@@ -74,10 +74,12 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
 - [InvestigacionSobreNichoLactatoSpatialCRLM2026.md](./InvestigacionSobreNichoLactatoSpatialCRLM2026.md)
 - [ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md](./ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md)
+- [InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md](./InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md)
+- [ResumenInvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md](./ResumenInvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md)
 - [Conlusion.md](./Conlusion.md)
-- Hipotesis de trabajo actual: los vecindarios `HLA-DRB5-like` podrian marcar una rama inmune-metabolica asociada a `pyruvate_mito_entry` y `glutamate_transamination`, compatible con el reruteo no canonico de lactato/pyruvato sugerido por spFBA 2026.
-- Resultado tecnico vigente: en 6 muestras spatial CRLM, `HLA-DRB5-like -> glutamate_transamination` y `HLA-DRB5-like -> pyruvate_mito_entry` son positivos en 6/6 y sobreviven permutacion por bloques en 5/6; la rama `CXCL12/FN1/CD44-like` queda mas explicable por gradientes regionales.
-- Proximo paso sugerido: obtener/reproducir mapas spFBA/FES, testear `HLA-DRB5-like -> lactate uptake/transamination flux`, aplicar random controls full-transcriptome y residualizar por UMI/coordenadas/region.
+- Hipotesis de trabajo actual: la senal `HLA-DRB5-like -> pyruvate/transamination` existe como co-ocurrencia regional, pero no esta demostrada como nicho metabolico especifico por transcript proxies.
+- Resultado tecnico vigente: la senal sobrevive block-size y ablation sin `PTPRC`, pero falla random controls full-transcriptome (0/6) y residualizacion por profundidad/coordenadas (0/6 o 1/6). El gen `HLA-DRB5` solo tambien falla.
+- Proximo paso sugerido: `spFBA/FES or stop`: obtener/reproducir mapas de flux y probar lactate uptake/transamination real; si no sobrevive ahi, cerrar la rama lactato/HLA-DRB5 como artefacto regional.
 
 ### Ola 003E
 - Fecha de apertura: 2026-04-27 16:22:03 -03:00
@@ -143,3 +145,14 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [data_manifest/generated/spatial_lactate_axis_report.md](./data_manifest/generated/spatial_lactate_axis_report.md)
 - [data_manifest/generated/spatial_lactate_axis_summary.tsv](./data_manifest/generated/spatial_lactate_axis_summary.tsv)
 - Resultado: `HLA-DRB5-like -> glutamate_transamination` y `HLA-DRB5-like -> pyruvate_mito_entry` sobreviven nulo por bloques en 5/6 muestras spatial CRLM. Es la ruta mas novedosa actual porque conecta un estado mieloide espacial 2026 con el metabolismo lactato/pyruvato no canonico de spFBA 2026.
+
+### Ola 003J
+- Fecha de apertura: 2026-04-29 03:23:00 -03:00
+- Tema: auditoria robusta del nicho lactato/HLA-DRB5 CRLM 2026.
+- Estado: abierta como fase de falsacion de la rama lactato/HLA-DRB5.
+- Archivos asociados:
+- [InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md](./InvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md)
+- [ResumenInvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md](./ResumenInvestigacionSobreAuditoriaRobustaNichoLactatoCRLM2026.md)
+- [scripts/audit_lactate_axis_robustness.py](./scripts/audit_lactate_axis_robustness.py)
+- [data_manifest/generated/lactate_axis_robustness_report.md](./data_manifest/generated/lactate_axis_robustness_report.md)
+- Resultado: el patron `HLA-DRB5-like -> pyruvate/transamination` sobrevive block-size y ablation sin `PTPRC`, pero no supera random controls full-transcriptome ni residualizacion por profundidad/coordenadas. La rama queda degradada a co-ocurrencia regional hasta que spFBA/FES real la rescate.
