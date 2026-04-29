@@ -450,3 +450,43 @@ Proximo bloque autonomo:
 3. Pseudobulk/anotacion celular para GSE245552.
 4. Tabla comun GSE225857 + GSE217414.
 5. Figuras de manuscrito.
+
+## Decimocuarto avance tecnico ejecutado
+
+Actualizacion: 2026-04-29 02:47:00 -03:00
+
+Se organizo trabajo con agente padre, agente investigador y agente auditor.
+
+Nuevo roadmap:
+
+- `RoadmapAgentesAutonomosCRLM.md`
+
+Agente investigador:
+
+- Confirmo que `SPP1/CXCL12`, `HLA-DRB5+ macrophages`, mCAFs, `SPP1+ TAM`, T-cell stress/exhaustion y `HGF-MET-MYC-glycolysis` ya estan publicados.
+- Recomendo mover la novedad hacia arquitectura local/metabolica y spFBA/lactate consumption.
+
+Agente auditor:
+
+- Marco nulo espacial global debil, circularidad por `MYC`, leakage `PTPRC`, falta de normalizacion por UMI y proxies scRNA gruesos.
+- Recomendo controles negativos, nulos por bloques/estratificados, ablation y pseudobulk.
+
+Scripts nuevos:
+
+- `scripts/consolidate_spatial_niche_effects.py`
+- `scripts/audit_spatial_signature_specificity.py`
+- `scripts/audit_spatial_block_permutation.py`
+
+Resultado:
+
+- Consolidacion bruta: 7/7 efectos spatial positivos en 6/6 muestras.
+- Auditoria de especificidad: los efectos sobreviven ablacion, pero no superan random controls dentro del panel extraido.
+- Nulo por bloques: `SPP1/CXCL12-lite -> MYC/glycolysis-lite` sobrevive 6/6; `HLA-DRB5-lite -> MYC/glycolysis-lite` 5/6; `CAF -> MET` solo 2/6.
+
+Decision estrategica:
+
+La linea sigue viva, pero debe reescribirse:
+
+`stromal/myeloid-like regions -> local MYC/glycolysis adjacency`
+
+No seguir vendiendo `CAF -> MET` como eje central hasta que supere nulos espaciales mas estrictos.

@@ -1,6 +1,6 @@
 # Conclusion dinamica vigente
 
-Fecha de actualizacion: 2026-04-27 17:53:00 -03:00
+Fecha de actualizacion: 2026-04-29 02:47:00 -03:00
 
 ## Linea activa
 
@@ -12,25 +12,25 @@ La linea activa sigue siendo:
 
 No estamos en terreno virgen por componentes aislados. `CAF`, `SPP1`, `CXCL12`, `HLA-DRB5`, `MET`, `MYC` y glicolisis ya aparecen con fuerza en la literatura CRLM 2025-2026.
 
-Si estamos en una zona con potencial de hallazgo computacional:
+Si estamos en una zona con potencial de hallazgo computacional, pero mas estrecha de lo que parecia antes de los controles:
 
-`un modelo multi-dataset donde el modulo estromal-mieloide SPP1/CXCL12/HLA-DRB5 se activa en metastasis hepatica y se acopla espacialmente a programas tumorales MYC/glycolysis.`
+`un modelo multi-dataset donde regiones CXCL12/FN1/CD44-like y HLA-DRB5-like se acoplan espacialmente a programas tumorales MYC/glycolysis en CRLM.`
 
-La novedad posible no es un gen. Es la arquitectura reproducible.
+La novedad posible no es un gen. Es la arquitectura reproducible y su relacion con metabolismo local. La especificidad molecular fina todavia no esta demostrada.
 
 ## Hipotesis vigente
 
 La mejor formulacion actual es:
 
-`CAF-high / SPP1-CXCL12 / HLA-DRB5 layered niche model in CRLM`
+`CXCL12/FN1/CD44 - HLA-DRB5 - MYC/glycolysis spatial niche model in CRLM`
 
-En CRLM, nichos `CAF-high` parecen organizar o bordear una interfaz estromal-mieloide `SPP1/CXCL12/HLA-DRB5`, que se aproxima espacialmente a programas tumorales `MYC/glycolysis`. Sin embargo, el brazo tumoral metabolico no sube de forma uniforme en todas las celulas epiteliales metastasicas.
+En CRLM, regiones estromal-mieloides `CXCL12/FN1/CD44-like` y `HLA-DRB5-like` se aproximan espacialmente a programas tumorales `MYC/glycolysis`. Sin embargo, el brazo tumoral metabolico no sube de forma uniforme en todas las celulas epiteliales metastasicas, y los controles random iniciales sugieren que parte del patron puede ser un gradiente regional amplio.
 
 Traduccion biologica prudente:
 
 - La rama mieloide/CAF es el nucleo reproducible actual.
 - La rama tumoral `MYC/glycolysis` parece mas local/espacial que global.
-- `HGF-MET-MYC` sigue siendo una rama metabolica plausible, pero no explica sola el nicho.
+- `HGF-MET-MYC` queda como rama plausible pero ya no debe ser el claim central; `CAF -> MET` bajo nulo por bloques sobrevivio solo en 2/6 muestras.
 
 ## Evidencia propia acumulada
 
@@ -80,13 +80,39 @@ Lectura: la rama mieloide/CAF sube pareada; el tumor `MYC/glycolysis` no sube co
 
 Lectura: esta es la primera validacion espacial externa fuerte del macro-nicho.
 
+### Auditoria de agentes y controles 2026
+
+Se lanzo un agente investigador y un agente auditor.
+
+El investigador confirmo que no hay novedad en genes sueltos: `SPP1/CXCL12`, `HLA-DRB5+ macrophages`, mCAFs, `SPP1+ TAM`, T-cell stress/exhaustion y `HGF-MET-MYC-glycolysis` ya estan activos en la literatura 2026. La oportunidad real es una integracion espacial/metabolica, posiblemente conectable a spFBA/lactate consumption.
+
+El auditor marco riesgos fuertes: nulo espacial global debil, circularidad por `MYC` dentro de `MYC/glycolysis-lite`, leakage `PTPRC` entre proxy mieloide y `HLA-DRB5-lite`, falta normalizacion por UMI, y nombre excesivo de `SPP1/CXCL12-lite` porque la version desolapada no contiene `SPP1`.
+
+Se crearon tres scripts:
+
+- `scripts/consolidate_spatial_niche_effects.py`
+- `scripts/audit_spatial_signature_specificity.py`
+- `scripts/audit_spatial_block_permutation.py`
+
+Resultado consolidado:
+
+- Antes de controles duros, 7/7 efectos clave fueron positivos en 6/6 muestras spatial combinadas.
+- Con ablacion y random controls dentro del panel extraido, los efectos siguen positivos pero no superan random controls. Esto baja la especificidad molecular fina.
+- Con permutacion espacial por bloques, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` sobrevive en 6/6 muestras, ratio medio 1.718, block p <= 0.05 en 6/6.
+- Con permutacion por bloques, `HLA-DRB5-lite -> MYC/glycolysis-lite` sobrevive en 5/6, ratio medio 1.357.
+- Con permutacion por bloques, `CAF -> HLA-DRB5-lite` sobrevive en 5/6, ratio medio 1.417.
+- `CAF -> SPP1/CXCL12-lite` queda parcial: 4/6.
+- `CAF -> MET` baja prioridad: 2/6.
+
+Lectura: el patron mas defendible ya no es `CAF -> MET`, sino `stromal/myeloid-like regions -> MYC/glycolysis local adjacency`.
+
 ## Decision
 
-La hipotesis sube de prioridad.
+La hipotesis sigue viva, pero queda mas estrecha y mas honesta.
 
 La formulacion tipo paper seria:
 
-`Paired single-cell and external spatial transcriptomics support a reproducible stromal-myeloid-metabolic niche in colorectal cancer liver metastasis, centered on CAF/SPP1-CXCL12/HLA-DRB5 coupling and local MYC/glycolysis adjacency.`
+`Exploratory paired single-cell and spatial transcriptomics support a reproducible stromal-myeloid/metabolic architecture in colorectal liver metastasis, where CXCL12/FN1/CD44-like and HLA-DRB5-like regions show local adjacency to MYC/glycolysis programs.`
 
 Todavia no decir:
 
@@ -94,6 +120,7 @@ Todavia no decir:
 - que tenemos biomarcador clinico validado;
 - que `SPP1/CXCL12` o `MET/MYC` son targets probados por este repo;
 - que el hallazgo es completamente nuevo por genes individuales.
+- que `CAF -> MET` es el eje espacial central.
 
 Si decir:
 
@@ -101,22 +128,24 @@ Si decir:
 - que ya tiene soporte en mas de un dataset;
 - que el patron mas robusto es estromal-mieloide;
 - que la rama tumoral metabolica parece local y espacial.
+- que los controles iniciales obligan a validar especificidad full-transcriptome.
 
 ## Proximo paso tecnico
 
-El siguiente bloque debe ser mas duro, no mas amplio:
+El siguiente bloque debe ser mas duro:
 
-1. Agregar controles negativos y firmas aleatorias emparejadas por expresion.
-2. Probar nulos espaciales estratificados para controlar autocorrelacion tisular.
-3. Mejorar GSE245552 con anotacion celular o pseudobulk por compartimento.
-4. Consolidar GSE225857 y GSE217414 en una tabla multi-dataset de efectos.
-5. Preparar figuras: mapa conceptual, tabla de reproducibilidad, y heatmap de efectos por muestra.
+1. Full-transcriptome random controls, no solo panel extraido.
+2. Sensibilidad a block-size: 8, 12, 16, 20.
+3. Residualizacion por UMI/profundidad y coordenadas espaciales.
+4. Leave-one-gene-out formal para `MYC`, `PTPRC`, `CD74`, `FN1`, `HIF1A`, `CD44`.
+5. Integrar spFBA/lactate consumption 2026 si los datos son accesibles.
+6. Mejorar GSE245552 con anotacion celular o pseudobulk por compartimento.
 
 ## Cuidado epistemologico
 
 La frase correcta hoy:
 
-`Estamos cerca de un hallazgo computacional publicable si sobrevive a controles negativos y nulos espaciales mas exigentes.`
+`Estamos cerca de una hipotesis computacional publicable, pero todavia no de un hallazgo cerrado; la prioridad es demostrar que el patron supera controles full-transcriptome e histologia/deconvolucion-aware.`
 
 No estamos todavia en:
 

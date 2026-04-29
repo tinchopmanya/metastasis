@@ -410,3 +410,51 @@ Tareas:
 3. Implementar permutaciones estratificadas por bins de UMI/expresion total o regiones espaciales.
 4. Consolidar GSE225857 y GSE217414 en una tabla unica de efectos por muestra.
 5. En GSE245552, pasar de proxies marker-based a pseudobulk por anotacion celular curada.
+
+## Fase 6C parcial ejecutada: auditoria inicial y nulo por bloques
+
+Actualizacion: 2026-04-29 02:47:00 -03:00
+
+Se lanzaron dos agentes:
+
+- Investigador web/literatura/datasets.
+- Auditor metodologico.
+
+Conclusiones de agentes:
+
+- No hay novedad en genes sueltos; la novedad posible es una arquitectura multi-dataset local y metabolica.
+- El nulo global era debil y habia circularidad/leakage en firmas/proxies.
+- Prioridad tecnica: controles negativos, nulos espaciales mas duros, spFBA/lactate consumption y pseudobulk real.
+
+Scripts nuevos:
+
+- `scripts/consolidate_spatial_niche_effects.py`
+- `scripts/audit_spatial_signature_specificity.py`
+- `scripts/audit_spatial_block_permutation.py`
+
+Resultados:
+
+- Consolidacion bruta: 7/7 efectos positivos en 6/6 muestras spatial.
+- Ablacion/random controls: los efectos sobreviven ablacion, pero no superan random controls dentro del panel extraido.
+- Nulo por bloques: `SPP1/CXCL12-lite -> MYC/glycolysis-lite` sobrevive 6/6; `HLA-DRB5-lite -> MYC/glycolysis-lite` sobrevive 5/6; `CAF -> MET` sobrevive solo 2/6.
+
+Decision:
+
+- Bajar prioridad de `CAF -> MET` como claim central.
+- Mantener como eje lider `stromal/myeloid-like regions -> MYC/glycolysis local adjacency`.
+- Renombrar con cuidado `SPP1/CXCL12-lite`: la firma desolapada debe describirse como `CXCL12/FN1/CD44/HIF1A/CTNNB1-like` hasta validar SPP1 directamente.
+
+## Fase 6D siguiente: controles de reviewer hostil
+
+Objetivo:
+
+Convertir controles iniciales en controles paper-grade.
+
+Tareas:
+
+1. Construir random controls desde universo full-transcriptome de cada spatial dataset.
+2. Repetir nulo por bloques con varios tamanos: 8, 12, 16, 20.
+3. Residualizar scores por profundidad/UMI y coordenadas.
+4. Hacer leave-one-gene-out formal por firma.
+5. Probar spFBA/lactate consumption 2026 como puente metabolico.
+6. Rehacer paired scRNA con anotacion celular/pseudobulk para eliminar leakage de proxies.

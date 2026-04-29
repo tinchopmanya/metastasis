@@ -1,0 +1,8 @@
+effect_id	n_samples	positive_samples	survives_block_p_0_05	mean_ratio	mean_block_p	status
+caf_to_hla_drb5_lite	6	6	5	1.4169038112279038	0.047238855622089154	survives_block_null
+caf_to_met	6	6	2	1.722746924893755	0.2754491017964072	positive_but_explained_by_blocks
+caf_to_spp1_cxcl12_lite	6	6	4	1.3986553491738938	0.24251497005988024	partially_survives_block_null
+hla_drb5_lite_to_myc	6	6	5	1.329949562288353	0.06753160345974717	survives_block_null
+hla_drb5_lite_to_myc_glycolysis_lite	6	6	5	1.3570049214680806	0.046906187624750496	survives_block_null
+spp1_cxcl12_lite_to_myc	6	6	5	1.6254208822771872	0.021290751829673982	survives_block_null
+spp1_cxcl12_lite_to_myc_glycolysis_lite	6	6	6	1.717882460558987	0.002994011976047904	survives_block_null

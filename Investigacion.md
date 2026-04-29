@@ -23,7 +23,7 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - Una recomendación operativa clara al final.
 
 ## Ola activa actual
-- Ola 003G: `validacion externa paired scRNA y spatial CRLM 2026`
+- Ola 003H: `auditoria de agentes y controles spatial CRLM 2026`
 
 ## Olas registradas
 
@@ -70,10 +70,12 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [ResumenInvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md](./ResumenInvestigacionSobreValidacionEspacial2026NichoEnCapasGSE225857.md)
 - [InvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md](./InvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md)
 - [ResumenInvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md](./ResumenInvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md)
+- [InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
+- [ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
 - [Conlusion.md](./Conlusion.md)
-- Hipotesis de trabajo actual: nichos `CAF-high` en CRLM pueden organizar dos interfaces acopladas: una tumoral metabolica `MET/MYC/glycolysis` y otra inmunosupresora `SPP1/CXCL12/MIF/CD44/HLA-DRB5`.
-- Resultado tecnico vigente: GSE225857 apoya el macro-nicho espacial; GSE245552 paired scRNA apoya una rama mieloide/CAF `SPP1/CXCL12/HLA-DRB5` en metastasis hepatica; GSE217414 valida espacialmente el acoplamiento externo `CAF/SPP1-CXCL12/HLA-DRB5 -> MYC/glycolysis`.
-- Proximo paso sugerido: controles negativos, nulos espaciales mas duros y pseudobulk/anotacion celular curada.
+- Hipotesis de trabajo actual: regiones `CXCL12/FN1/CD44-like` y `HLA-DRB5-like` en CRLM muestran vecindad reproducible con `MYC/glycolysis`, pero la especificidad molecular fina todavia necesita controles full-transcriptome.
+- Resultado tecnico vigente: la consolidacion spatial fue positiva en 6/6 muestras; la permutacion por bloques salva sobre todo `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y baja prioridad de `CAF -> MET`; los random controls iniciales advierten que parte del patron puede ser gradiente regional amplio.
+- Proximo paso sugerido: full-transcriptome random controls, sensibilidad a block-size, residualizacion por UMI/coordenadas, spFBA/lactate consumption y pseudobulk celular real.
 
 ### Ola 003E
 - Fecha de apertura: 2026-04-27 16:22:03 -03:00
@@ -111,3 +113,19 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [data_manifest/generated/gse217414_spatial_external_report.md](./data_manifest/generated/gse217414_spatial_external_report.md)
 - Resultado: GSE245552 muestra que la rama mieloide/CAF `SPP1/CXCL12/HLA-DRB5` sube en metastasis hepatica pareada, mientras el proxy tumoral `MYC/glycolysis` no sube de forma uniforme. GSE217414 reproduce espacialmente `CAF -> SPP1/CXCL12-lite`, `CAF -> HLA-DRB5-lite` y el acoplamiento de ambos a `MYC/glycolysis-lite`.
 - Decision: no vender genes sueltos; avanzar hacia un modelo computacional reproducible del nicho estromal-mieloide-metabolico en CRLM.
+
+### Ola 003H
+- Fecha de apertura: 2026-04-29 02:47:00 -03:00
+- Tema: auditoria de agentes y controles spatial CRLM 2026.
+- Estado: abierta como fase de endurecimiento metodologico.
+- Archivos asociados:
+- [RoadmapAgentesAutonomosCRLM.md](./RoadmapAgentesAutonomosCRLM.md)
+- [InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
+- [ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
+- [scripts/consolidate_spatial_niche_effects.py](./scripts/consolidate_spatial_niche_effects.py)
+- [scripts/audit_spatial_signature_specificity.py](./scripts/audit_spatial_signature_specificity.py)
+- [scripts/audit_spatial_block_permutation.py](./scripts/audit_spatial_block_permutation.py)
+- [data_manifest/generated/spatial_niche_multidataset_report.md](./data_manifest/generated/spatial_niche_multidataset_report.md)
+- [data_manifest/generated/spatial_niche_specificity_report.md](./data_manifest/generated/spatial_niche_specificity_report.md)
+- [data_manifest/generated/spatial_niche_block_permutation_report.md](./data_manifest/generated/spatial_niche_block_permutation_report.md)
+- Resultado: el patron bruto spatial se consolida, pero controles random iniciales bajan la especificidad. El nulo por bloques rescata principalmente `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y `HLA-DRB5-lite -> MYC/glycolysis-lite`; `CAF -> MET` baja prioridad.

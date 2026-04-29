@@ -1,0 +1,5 @@
+effect_id	n_samples	mean_original_ratio	mean_audited_ratio	median_audited_ratio	min_audited_ratio	positive_after_ablation	global_shuffle_p_le_0_05	beats_random_p_0_05	mean_random_p	audit_status
+caf_to_cxcl12_fn1_cd44_ablation	6	1.3986553491738938	1.2899196973697664	1.3286814643602605	0.9394005380209318	5	5	0	0.8797678275290215	mixed_after_ablation
+caf_to_hla_drb5_no_ptprc	6	1.4169038112279038	1.4420310554665203	1.4220629408082535	1.1100185171486343	6	6	1	0.6691542288557214	positive_but_not_specific_vs_random
+cxcl12_fn1_cd44_to_myc_glycolysis_no_myc	6	1.717882460558987	1.5296121487275307	1.4418145617386815	1.1390182522801213	6	6	0	0.5497512437810945	positive_but_not_specific_vs_random
+hla_drb5_no_ptprc_to_myc_glycolysis_no_myc	6	1.3570049214680806	1.3842100639115043	1.350709836148829	1.104390834184104	6	6	0	0.7412935323383084	positive_but_not_specific_vs_random

@@ -544,3 +544,55 @@ Siguiente paso recomendado:
 3. Consolidar ambos datasets spatial en una tabla unica de efectos por muestra.
 4. Mejorar GSE245552 con anotacion celular/pseudobulk.
 5. Preparar figuras de manuscrito.
+
+## Actualizacion para Claude: ola 003H agentes y controles spatial
+
+Fecha: 2026-04-29 02:47:00 -03:00
+
+Se actuo como agente padre/arquitecto y se lanzaron dos agentes:
+
+- Investigador web/literatura/datasets.
+- Auditor metodologico.
+
+Roadmap nuevo:
+
+- `RoadmapAgentesAutonomosCRLM.md`
+
+Investigador:
+
+- Confirmo que no hay novedad en genes sueltos: `SPP1/CXCL12`, `HLA-DRB5`, mCAF, `SPP1+ TAM`, T-cell stress/exhaustion, `HGF-MET-MYC-glycolysis` ya estan publicados.
+- Recomendo foco en arquitectura local/metabolica y spFBA/lactate consumption 2026.
+
+Auditor:
+
+- Critico nulo espacial global, circularidad por `MYC`, leakage `PTPRC`, falta normalizacion por UMI y proxies scRNA gruesos.
+- Recomendo ablation, random controls, nulos por bloques/estratificados y pseudobulk.
+
+Scripts nuevos:
+
+```powershell
+python scripts/consolidate_spatial_niche_effects.py
+python scripts/audit_spatial_signature_specificity.py --permutations 200 --random-controls 200
+python scripts/audit_spatial_block_permutation.py --permutations 500 --block-size 12
+```
+
+Resultados:
+
+- `spatial_niche_multidataset_report.md`: 7/7 efectos positivos en 6/6 muestras spatial.
+- `spatial_niche_specificity_report.md`: los efectos sobreviven ablation, pero no superan random controls dentro del panel extraido.
+- `spatial_niche_block_permutation_report.md`: `SPP1/CXCL12-lite -> MYC/glycolysis-lite` sobrevive 6/6 bajo nulo por bloques; `HLA-DRB5-lite -> MYC/glycolysis-lite` sobrevive 5/6; `CAF -> MET` solo 2/6.
+
+Nueva decision:
+
+- Subir prioridad: `stromal/myeloid-like regions -> MYC/glycolysis local adjacency`.
+- Bajar prioridad: `CAF -> MET` como claim central.
+- Cuidar nombre: `SPP1/CXCL12-lite` desolapado realmente es `CXCL12/FN1/CD44/HIF1A/CTNNB1-like` porque no contiene `SPP1`.
+
+Siguiente trabajo ideal:
+
+1. Random controls full-transcriptome.
+2. Sensibilidad block-size 8/12/16/20.
+3. Residualizar por UMI/coordenadas.
+4. Leave-one-gene-out.
+5. Integrar spFBA/lactate consumption.
+6. GSE245552 pseudobulk con anotacion celular real.

@@ -48,6 +48,24 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Limitacion: Visium mezcla celulas; requiere controles por autocorrelacion espacial.
 - Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217414
 
+### spFBA CRC/LM 2026
+- Tipo: spatial transcriptomics + spatial Flux Balance Analysis.
+- Tema: metabolismo espacial en tumores primarios colorrectales y metastasis hepaticas.
+- Uso: validar si las regiones `MYC/glycolysis` del repo corresponden a lactate consumption, crecimiento/proliferacion o metabolismo Warburg no canonico.
+- Valor: puede convertir el brazo metabolico de una firma expresional a una pregunta de flujo/metabolismo espacial.
+- Estado 2026-04-29: priorizado por agente investigador como siguiente dataset/metodo de alto valor.
+- Limitacion: hay que localizar/validar los datos Zenodo/procesados y mapearlos a nuestra logica de nicho.
+- Link: https://www.nature.com/articles/s41540-026-00654-x
+
+### GSE206552
+- Tipo: spatial transcriptomics CRLM.
+- Tema: dinamica de senescencia celular en metastasis hepatica colorrectal.
+- Uso: candidato externo adicional para validar si el patron stromal/myeloid-metabolic se observa en otro spatial CRLM.
+- Valor: pequeno y manejable; GEO informa RAW ~100.4 MB.
+- Estado 2026-04-29: detectado en busqueda web; no analizado todavia.
+- Limitacion: parece custom CSV/H5/JSON/imagenes, requiere inspeccion de formato.
+- Link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE206552
+
 ### TCGA COAD/READ vía GDC
 - Tipo: bulk multi-omics de tumor primario.
 - Uso: validación débil de firmas, correlación `MET-MYC`, asociación con pronóstico o estado.
