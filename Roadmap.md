@@ -490,3 +490,53 @@ La linea sigue viva, pero debe reescribirse:
 `stromal/myeloid-like regions -> local MYC/glycolysis adjacency`
 
 No seguir vendiendo `CAF -> MET` como eje central hasta que supere nulos espaciales mas estrictos.
+
+## Decimoquinto avance tecnico ejecutado
+
+Actualizacion: 2026-04-29 02:58:54 -03:00
+
+Se abrio una ruta menos recorrida: conectar los nichos mieloides `HLA-DRB5-like` con metabolismo no canonico de lactato/pyruvato en CRLM.
+
+Contexto web/literatura:
+
+- El paper spFBA 2026 reporta lactate uptake en CRC/CRLM y propone reruteo no canonico de carbono hacia pyruvato, transaminacion, alphaKG/malato y biosintesis.
+- El paper CRLM 2026 de `SPP1+` y `HLA-DRB5+` macrophages caracteriza arquitectura inmune espacial, pero no cierra el puente hacia flux/metabolismo.
+- Esa grieta define la nueva apuesta: `HLA-DRB5-like immune-metabolic niche`.
+
+Nuevo script:
+
+```powershell
+python scripts/analyze_spatial_lactate_axis.py --permutations 500 --block-size 12
+```
+
+Nuevas salidas:
+
+- `data_manifest/generated/spatial_lactate_axis_effects.tsv`
+- `data_manifest/generated/spatial_lactate_axis_summary.tsv`
+- `data_manifest/generated/spatial_lactate_axis_report.md`
+
+Documentos nuevos:
+
+- `InvestigacionSobreNichoLactatoSpatialCRLM2026.md`
+- `ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md`
+
+Resultados:
+
+- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
+- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
+- `HLA-DRB5-like -> lactate_import_anabolic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.564.
+- `CXCL12/FN1/CD44-like` da ratios altos, pero sus efectos pyruvato/transaminacion quedan mas explicados por bloques espaciales.
+
+Decision estrategica:
+
+La ruta mas prometedora para algo tipo paper ya no es `CAF -> MET`, sino:
+
+`HLA-DRB5-like myeloid neighborhoods -> pyruvate/transamination programs -> possible non-canonical lactate-carbon handling`
+
+Proximo bloque autonomo:
+
+1. Conseguir/reproducir spFBA/FES de lactate uptake y transamination.
+2. Testear si `HLA-DRB5-like` predice FES en vecinos espaciales.
+3. Residualizar por UMI/coordenadas/region.
+4. Random controls full-transcriptome para proxies metabolicos.
+5. Leave-one-gene-out de los genes pyruvato/transaminacion.

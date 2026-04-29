@@ -458,3 +458,38 @@ Tareas:
 4. Hacer leave-one-gene-out formal por firma.
 5. Probar spFBA/lactate consumption 2026 como puente metabolico.
 6. Rehacer paired scRNA con anotacion celular/pseudobulk para eliminar leakage de proxies.
+
+## Fase 6E abierta: puente HLA-DRB5/lactato-pyruvato
+
+Actualizacion: 2026-04-29 02:58:54 -03:00
+
+Se ejecuto un primer screen proxy del puente metabolico recomendado por los agentes:
+
+```powershell
+python scripts/analyze_spatial_lactate_axis.py --permutations 500 --block-size 12
+```
+
+Objetivo:
+
+Probar si vecindarios `HLA-DRB5-like` o `CXCL12/FN1/CD44-like` se asocian espacialmente con proxies de lactate import/anabolism, pyruvate mitochondrial entry y glutamate transamination.
+
+Resultado:
+
+- `HLA-DRB5-like -> glutamate_transamination`: 6/6 positivo, 5/6 sobrevive nulo por bloques, ratio medio 1.764.
+- `HLA-DRB5-like -> pyruvate_mito_entry`: 6/6 positivo, 5/6 sobrevive, ratio medio 1.571.
+- `HLA-DRB5-like -> lactate_import_anabolic`: 6/6 positivo, 4/6 sobrevive, ratio medio 1.564.
+- `CXCL12/FN1/CD44-like` muestra ratios altos pero menor supervivencia bajo bloques, sugiriendo gradiente regional amplio.
+
+Decision:
+
+La hipotesis mas prometedora se estrecha a:
+
+`HLA-DRB5-like immune-metabolic niches may mark non-canonical lactate/pyruvate carbon routing in CRLM.`
+
+Siguiente validacion dura:
+
+1. Conseguir o reconstruir mapas spFBA/FES para lactate uptake, pyruvate/transamination y reductive TCA.
+2. Testear si los vecinos de `HLA-DRB5-like` predicen esos FES.
+3. Residualizar por UMI, coordenadas, region histologica y tumor/stroma/hepatocyte score.
+4. Generar random controls full-transcriptome para proxies metabolicos.
+5. Leave-one-gene-out para `MPC1`, `MPC2`, `PDHA1`, `PDHB`, `GOT1`, `GOT2`, `GLUD1`, `GLS`.

@@ -23,7 +23,7 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - Una recomendación operativa clara al final.
 
 ## Ola activa actual
-- Ola 003H: `auditoria de agentes y controles spatial CRLM 2026`
+- Ola 003I: `nicho lactato/HLA-DRB5 spatial CRLM 2026`
 
 ## Olas registradas
 
@@ -72,10 +72,12 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [ResumenInvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md](./ResumenInvestigacionSobreValidacionExternaPairedYSpatialCRLM2026.md)
 - [InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./InvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
 - [ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md](./ResumenInvestigacionSobreAuditoriaAgentesYControlesSpatialCRLM2026.md)
+- [InvestigacionSobreNichoLactatoSpatialCRLM2026.md](./InvestigacionSobreNichoLactatoSpatialCRLM2026.md)
+- [ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md](./ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md)
 - [Conlusion.md](./Conlusion.md)
-- Hipotesis de trabajo actual: regiones `CXCL12/FN1/CD44-like` y `HLA-DRB5-like` en CRLM muestran vecindad reproducible con `MYC/glycolysis`, pero la especificidad molecular fina todavia necesita controles full-transcriptome.
-- Resultado tecnico vigente: la consolidacion spatial fue positiva en 6/6 muestras; la permutacion por bloques salva sobre todo `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y baja prioridad de `CAF -> MET`; los random controls iniciales advierten que parte del patron puede ser gradiente regional amplio.
-- Proximo paso sugerido: full-transcriptome random controls, sensibilidad a block-size, residualizacion por UMI/coordenadas, spFBA/lactate consumption y pseudobulk celular real.
+- Hipotesis de trabajo actual: los vecindarios `HLA-DRB5-like` podrian marcar una rama inmune-metabolica asociada a `pyruvate_mito_entry` y `glutamate_transamination`, compatible con el reruteo no canonico de lactato/pyruvato sugerido por spFBA 2026.
+- Resultado tecnico vigente: en 6 muestras spatial CRLM, `HLA-DRB5-like -> glutamate_transamination` y `HLA-DRB5-like -> pyruvate_mito_entry` son positivos en 6/6 y sobreviven permutacion por bloques en 5/6; la rama `CXCL12/FN1/CD44-like` queda mas explicable por gradientes regionales.
+- Proximo paso sugerido: obtener/reproducir mapas spFBA/FES, testear `HLA-DRB5-like -> lactate uptake/transamination flux`, aplicar random controls full-transcriptome y residualizar por UMI/coordenadas/region.
 
 ### Ola 003E
 - Fecha de apertura: 2026-04-27 16:22:03 -03:00
@@ -129,3 +131,15 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [data_manifest/generated/spatial_niche_specificity_report.md](./data_manifest/generated/spatial_niche_specificity_report.md)
 - [data_manifest/generated/spatial_niche_block_permutation_report.md](./data_manifest/generated/spatial_niche_block_permutation_report.md)
 - Resultado: el patron bruto spatial se consolida, pero controles random iniciales bajan la especificidad. El nulo por bloques rescata principalmente `SPP1/CXCL12-lite -> MYC/glycolysis-lite` y `HLA-DRB5-lite -> MYC/glycolysis-lite`; `CAF -> MET` baja prioridad.
+
+### Ola 003I
+- Fecha de apertura: 2026-04-29 02:58:54 -03:00
+- Tema: nicho lactato/HLA-DRB5 spatial CRLM 2026.
+- Estado: abierta como pivot hacia una hipotesis inmune-metabolica mas especifica.
+- Archivos asociados:
+- [InvestigacionSobreNichoLactatoSpatialCRLM2026.md](./InvestigacionSobreNichoLactatoSpatialCRLM2026.md)
+- [ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md](./ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md)
+- [scripts/analyze_spatial_lactate_axis.py](./scripts/analyze_spatial_lactate_axis.py)
+- [data_manifest/generated/spatial_lactate_axis_report.md](./data_manifest/generated/spatial_lactate_axis_report.md)
+- [data_manifest/generated/spatial_lactate_axis_summary.tsv](./data_manifest/generated/spatial_lactate_axis_summary.tsv)
+- Resultado: `HLA-DRB5-like -> glutamate_transamination` y `HLA-DRB5-like -> pyruvate_mito_entry` sobreviven nulo por bloques en 5/6 muestras spatial CRLM. Es la ruta mas novedosa actual porque conecta un estado mieloide espacial 2026 con el metabolismo lactato/pyruvato no canonico de spFBA 2026.

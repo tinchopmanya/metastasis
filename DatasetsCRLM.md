@@ -53,7 +53,7 @@ Fecha: 2026-04-25 01:06:15 -03:00
 - Tema: metabolismo espacial en tumores primarios colorrectales y metastasis hepaticas.
 - Uso: validar si las regiones `MYC/glycolysis` del repo corresponden a lactate consumption, crecimiento/proliferacion o metabolismo Warburg no canonico.
 - Valor: puede convertir el brazo metabolico de una firma expresional a una pregunta de flujo/metabolismo espacial.
-- Estado 2026-04-29: priorizado por agente investigador como siguiente dataset/metodo de alto valor.
+- Estado 2026-04-29: priorizado por agente investigador y ahora conectado al screen `HLA-DRB5-like -> pyruvate/transamination`; siguiente paso es conseguir/reproducir FES para validar flux real.
 - Limitacion: hay que localizar/validar los datos Zenodo/procesados y mapearlos a nuestra logica de nicho.
 - Link: https://www.nature.com/articles/s41540-026-00654-x
 

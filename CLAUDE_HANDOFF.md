@@ -596,3 +596,55 @@ Siguiente trabajo ideal:
 4. Leave-one-gene-out.
 5. Integrar spFBA/lactate consumption.
 6. GSE245552 pseudobulk con anotacion celular real.
+
+## Actualizacion para Claude: ola 003I nicho lactato/HLA-DRB5
+
+Fecha: 2026-04-29 02:58:54 -03:00
+
+Se abrio una ruta mas novedosa que el eje `CAF -> MET`: conectar `HLA-DRB5-like` macrophage neighborhoods con metabolismo no canonico de lactato/pyruvato en CRLM.
+
+Razon:
+
+- spFBA 2026 reporta lactate uptake en CRC/CRLM y reruteo no canonico hacia pyruvato/transaminacion/reductive TCA.
+- Xie et al. 2026 reportan `SPP1+` y `HLA-DRB5+` macrophages como moduladores espaciales inmunes en CRLM.
+- La grieta no cerrada es el puente espacial entre estado mieloide y metabolismo/flux.
+
+Nuevo script:
+
+```powershell
+python scripts/analyze_spatial_lactate_axis.py --permutations 500 --block-size 12
+```
+
+Salidas:
+
+- `data_manifest/generated/spatial_lactate_axis_effects.tsv`
+- `data_manifest/generated/spatial_lactate_axis_summary.tsv`
+- `data_manifest/generated/spatial_lactate_axis_report.md`
+
+Documentos:
+
+- `InvestigacionSobreNichoLactatoSpatialCRLM2026.md`
+- `ResumenInvestigacionSobreNichoLactatoSpatialCRLM2026.md`
+
+Resultados clave:
+
+- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
+- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
+- `HLA-DRB5-like -> lactate_import_anabolic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.564.
+- La rama `CXCL12/FN1/CD44-like` es positiva pero menos especifica bajo nulo por bloques.
+
+Nueva hipotesis:
+
+`Spatial HLA-DRB5-like myeloid niches may mark immune-metabolic CRLM regions enriched for pyruvate mitochondrial entry and glutamate transamination programs, consistent with non-canonical lactate-carbon routing.`
+
+Advertencia:
+
+No es flux real. `LDHA/LDHB` no estaban disponibles en los feature universes probados. El claim debe formularse como proxy spatial y priorizacion de hipotesis.
+
+Siguiente accion ideal:
+
+1. Obtener o reproducir mapas spFBA/FES de lactate uptake, pyruvate/transamination y reductive TCA.
+2. Probar `HLA-DRB5-like -> FES` con nulo por bloques.
+3. Residualizar por UMI/coordenadas/region histologica.
+4. Hacer random controls full-transcriptome emparejados por expresion.
+5. Preparar una figura que conecte literatura gap, spatial proxy y flux validation.

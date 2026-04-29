@@ -1,6 +1,6 @@
 # Conclusion dinamica vigente
 
-Fecha de actualizacion: 2026-04-29 02:47:00 -03:00
+Fecha de actualizacion: 2026-04-29 02:58:54 -03:00
 
 ## Linea activa
 
@@ -8,145 +8,123 @@ La linea activa sigue siendo:
 
 `cancer colorrectal -> metastasis hepatica -> nicho metastasico hepatico`
 
-## Estado real: terreno virgen o no
+Pero el borde mas prometedor cambio. Ya no conviene poner el centro en `CAF -> MET`. La ruta mas interesante ahora es:
 
-No estamos en terreno virgen por componentes aislados. `CAF`, `SPP1`, `CXCL12`, `HLA-DRB5`, `MET`, `MYC` y glicolisis ya aparecen con fuerza en la literatura CRLM 2025-2026.
+`HLA-DRB5-like myeloid neighborhoods -> pyruvate/transamination metabolism -> possible non-canonical lactate-carbon handling in CRLM`
 
-Si estamos en una zona con potencial de hallazgo computacional, pero mas estrecha de lo que parecia antes de los controles:
+## Terreno virgen o no
 
-`un modelo multi-dataset donde regiones CXCL12/FN1/CD44-like y HLA-DRB5-like se acoplan espacialmente a programas tumorales MYC/glycolysis en CRLM.`
+No estamos en terreno virgen por piezas aisladas.
 
-La novedad posible no es un gen. Es la arquitectura reproducible y su relacion con metabolismo local. La especificidad molecular fina todavia no esta demostrada.
+Ya existen:
+
+- `SPP1+` y `HLA-DRB5+` macrophages en CRLM.
+- nichos mCAF/SPP1/T-cell exhaustion.
+- `HGF-MET-MYC-glycolysis` en paisajes spatial CRLM.
+- lactate uptake y reruteo no canonico de carbono en CRLM por spFBA 2026.
+
+Si estamos en una zona menos recorrida y potencialmente valiosa:
+
+`conectar espacialmente un estado mieloide HLA-DRB5-like con los programas pyruvate/transamination que podrian reflejar la economia de lactato no canonica descrita por spFBA.`
+
+La novedad posible no es un gen ni una via suelta. Es el puente inmune-metabolico.
 
 ## Hipotesis vigente
 
-La mejor formulacion actual es:
+Formulacion actual:
 
-`CXCL12/FN1/CD44 - HLA-DRB5 - MYC/glycolysis spatial niche model in CRLM`
+`Spatial HLA-DRB5-like myeloid niches may mark immune-metabolic regions of colorectal liver metastasis enriched for pyruvate mitochondrial entry and glutamate transamination programs, consistent with non-canonical lactate-carbon routing.`
 
-En CRLM, regiones estromal-mieloides `CXCL12/FN1/CD44-like` y `HLA-DRB5-like` se aproximan espacialmente a programas tumorales `MYC/glycolysis`. Sin embargo, el brazo tumoral metabolico no sube de forma uniforme en todas las celulas epiteliales metastasicas, y los controles random iniciales sugieren que parte del patron puede ser un gradiente regional amplio.
+Traduccion:
 
-Traduccion biologica prudente:
-
-- La rama mieloide/CAF es el nucleo reproducible actual.
-- La rama tumoral `MYC/glycolysis` parece mas local/espacial que global.
-- `HGF-MET-MYC` queda como rama plausible pero ya no debe ser el claim central; `CAF -> MET` bajo nulo por bloques sobrevivio solo en 2/6 muestras.
+En CRLM, los vecindarios `HLA-DRB5-like` no solo podrian representar inmunomodulacion. Tambien podrian marcar zonas donde el tejido tumoral/estromal cercano activa rutas de pyruvato y transaminacion compatibles con el uso no canonico de lactato/pyruvato.
 
 ## Evidencia propia acumulada
 
-### TCGA-COAD bulk
+### GSE245552 paired scRNA
 
-- `MET-MYC` r = 0.515.
-- `MYC-glycolysis` r = 0.422.
-- `CAF-HGF` r = 0.675.
-- `HGF-MET` no fue significativo, consistente con paracrinia diluida.
-- `mcam_caf` y `caf_core` se asocian con N positivo, invasion linfatica y supervivencia exploratoria por mediana.
+- `myeloid SPP1/CXCL12-lite`: LM/primario 1.844, p = 1.34e-04, positivo 13/13 pares.
+- `myeloid HLA-DRB5-lite`: LM/primario 1.478, p = 1.72e-03, positivo 12/13 pares.
+- `tumor MYC/glycolysis-lite`: LM/primario 0.967, p = 0.692, positivo 5/13 pares.
 
-### GSE225857 single-cell y spatial
+Lectura: la rama mieloide sube en metastasis hepatica pareada; el programa tumoral metabolico no sube como promedio global.
 
-- `HGF` se concentra en fibroblastos.
-- `MET` se concentra en tumor.
-- `MYC-glycolysis` es fuerte en tumor.
-- En spatial LCT, vecinos de `CAF-high` enriquecen `MET`, `MYC` y `glycolysis_score` contra 500 permutaciones.
-- Con firmas 2026, `CAF-high` se acopla a `SPP1/CXCL12`, `HLA-DRB5-like` y `MYC/glycolysis`.
-- El control desolapado mantiene fuerte la rama `SPP1/CXCL12-lite`; `HLA-DRB5-lite` queda mas heterogenea.
+### Spatial multi-dataset antes del pivot lactato
 
-### GSE234804 externo
+- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: sobrevive nulo por bloques en 6/6 muestras.
+- `HLA-DRB5-lite -> MYC/glycolysis-lite`: sobrevive en 5/6 muestras.
+- `CAF -> HLA-DRB5-lite`: sobrevive en 5/6 muestras.
+- `CAF -> MET`: solo 2/6, por eso baja prioridad como claim central.
 
-- No valida una firma sample-level simple LM-vs-CRC para `mcam_caf`, `caf_core` ni `myc_glycolysis_core`.
-- Esto obliga a formular la hipotesis como arquitectura local/cell-state-specific.
+Lectura: el patron mas defendible es local y espacial, no bulk ni lineal.
 
-### GSE245552 paired scRNA externo
+### Nuevo screen lactato/pyruvato spatial
 
-- 39 muestras procesadas.
-- 13 pares utiles primario/metastasis hepatica.
-- `myeloid_proxy__score_spp1_cxcl12_axis_desoverlap_2026`: LM/primario 1.844, p = 1.34e-04, positivo 13/13 pares.
-- `myeloid_proxy__score_hla_drb5_macrophage_axis_desoverlap_2026`: LM/primario 1.478, p = 1.72e-03, positivo 12/13 pares.
-- `caf_proxy__score_spp1_cxcl12_axis_desoverlap_2026`: LM/primario 1.361, p = 0.0307, positivo 11/13 pares.
-- `tumor_epithelial_proxy__score_myc_glycolysis_desoverlap_2026`: LM/primario 0.967, p = 0.692, positivo 5/13 pares.
+Script:
 
-Lectura: la rama mieloide/CAF sube pareada; el tumor `MYC/glycolysis` no sube como promedio global.
+```powershell
+python scripts/analyze_spatial_lactate_axis.py --permutations 500 --block-size 12
+```
 
-### GSE217414 external spatial
+Dataset combinado:
 
-- 4 muestras Visium CRLM.
-- 10,674 spots in-tissue.
-- 500 permutaciones por prueba.
-- `CAF -> SPP1/CXCL12-lite`: ratio medio 1.346, positivo 4/4, p <= 0.05 en 3/4.
-- `CAF -> HLA-DRB5-lite`: ratio medio 1.391, positivo 4/4, p <= 0.05 en 4/4.
-- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: ratio medio 1.776, positivo 4/4, p <= 0.05 en 4/4.
-- `HLA-DRB5-lite -> MYC/glycolysis-lite`: ratio medio 1.467, positivo 4/4, p <= 0.05 en 4/4.
-- `CAF -> MET`: ratio medio 1.627, positivo 4/4, p <= 0.05 en 3/4.
+- `GSE225857`: 2 muestras LCT/CRLM.
+- `GSE217414`: 4 muestras CRLM.
+- Total: 6 muestras spatial.
 
-Lectura: esta es la primera validacion espacial externa fuerte del macro-nicho.
+Resultados:
 
-### Auditoria de agentes y controles 2026
+- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
+- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
+- `HLA-DRB5-like -> lactate_import_anabolic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.564.
+- `HLA-DRB5-like -> lactate_export_glycolytic`: positivo 6/6, block p <= 0.05 en 4/6, ratio medio 1.375.
+- `CXCL12/FN1/CD44-like` tambien da ratios altos, pero sus efectos pyruvato/transaminacion sobreviven solo 2/6 bajo nulo por bloques.
 
-Se lanzo un agente investigador y un agente auditor.
-
-El investigador confirmo que no hay novedad en genes sueltos: `SPP1/CXCL12`, `HLA-DRB5+ macrophages`, mCAFs, `SPP1+ TAM`, T-cell stress/exhaustion y `HGF-MET-MYC-glycolysis` ya estan activos en la literatura 2026. La oportunidad real es una integracion espacial/metabolica, posiblemente conectable a spFBA/lactate consumption.
-
-El auditor marco riesgos fuertes: nulo espacial global debil, circularidad por `MYC` dentro de `MYC/glycolysis-lite`, leakage `PTPRC` entre proxy mieloide y `HLA-DRB5-lite`, falta normalizacion por UMI, y nombre excesivo de `SPP1/CXCL12-lite` porque la version desolapada no contiene `SPP1`.
-
-Se crearon tres scripts:
-
-- `scripts/consolidate_spatial_niche_effects.py`
-- `scripts/audit_spatial_signature_specificity.py`
-- `scripts/audit_spatial_block_permutation.py`
-
-Resultado consolidado:
-
-- Antes de controles duros, 7/7 efectos clave fueron positivos en 6/6 muestras spatial combinadas.
-- Con ablacion y random controls dentro del panel extraido, los efectos siguen positivos pero no superan random controls. Esto baja la especificidad molecular fina.
-- Con permutacion espacial por bloques, `SPP1/CXCL12-lite -> MYC/glycolysis-lite` sobrevive en 6/6 muestras, ratio medio 1.718, block p <= 0.05 en 6/6.
-- Con permutacion por bloques, `HLA-DRB5-lite -> MYC/glycolysis-lite` sobrevive en 5/6, ratio medio 1.357.
-- Con permutacion por bloques, `CAF -> HLA-DRB5-lite` sobrevive en 5/6, ratio medio 1.417.
-- `CAF -> SPP1/CXCL12-lite` queda parcial: 4/6.
-- `CAF -> MET` baja prioridad: 2/6.
-
-Lectura: el patron mas defendible ya no es `CAF -> MET`, sino `stromal/myeloid-like regions -> MYC/glycolysis local adjacency`.
+Lectura: la rama `HLA-DRB5-like` es mas interesante para una hipotesis inmune-metabolica especifica que la rama `CXCL12/FN1/CD44-like`, que parece mas vulnerable a gradientes regionales amplios.
 
 ## Decision
 
-La hipotesis sigue viva, pero queda mas estrecha y mas honesta.
+La mejor apuesta actual para buscar algo digno de paper es:
 
-La formulacion tipo paper seria:
+`HLA-DRB5-like immune-metabolic niche in CRLM lactate-carbon routing`
 
-`Exploratory paired single-cell and spatial transcriptomics support a reproducible stromal-myeloid/metabolic architecture in colorectal liver metastasis, where CXCL12/FN1/CD44-like and HLA-DRB5-like regions show local adjacency to MYC/glycolysis programs.`
+No decir todavia:
 
-Todavia no decir:
-
-- que hay causalidad demostrada;
-- que tenemos biomarcador clinico validado;
-- que `SPP1/CXCL12` o `MET/MYC` son targets probados por este repo;
-- que el hallazgo es completamente nuevo por genes individuales.
-- que `CAF -> MET` es el eje espacial central.
+- que hay causalidad;
+- que HLA-DRB5 regula lactato;
+- que tenemos flux real;
+- que el mecanismo esta validado clinicamente;
+- que esto es terapeuticamente accionable.
 
 Si decir:
 
-- que tenemos una hipotesis espacial refinada y falsable;
-- que ya tiene soporte en mas de un dataset;
-- que el patron mas robusto es estromal-mieloide;
-- que la rama tumoral metabolica parece local y espacial.
-- que los controles iniciales obligan a validar especificidad full-transcriptome.
+- que encontramos una hipotesis mas novedosa y falsable;
+- que la senal aparece en 6 muestras spatial de 2 datasets;
+- que los mejores efectos sobreviven permutacion por bloques en 5/6;
+- que el siguiente paso ya no es mas correlacion bonita, sino spFBA/FES o flux-like validation.
 
 ## Proximo paso tecnico
 
-El siguiente bloque debe ser mas duro:
-
-1. Full-transcriptome random controls, no solo panel extraido.
-2. Sensibilidad a block-size: 8, 12, 16, 20.
-3. Residualizacion por UMI/profundidad y coordenadas espaciales.
-4. Leave-one-gene-out formal para `MYC`, `PTPRC`, `CD74`, `FN1`, `HIF1A`, `CD44`.
-5. Integrar spFBA/lactate consumption 2026 si los datos son accesibles.
-6. Mejorar GSE245552 con anotacion celular o pseudobulk por compartimento.
+1. Conseguir o reproducir mapas spFBA/FES de lactate uptake, pyruvate/transamination, alphaKG/malate y reductive TCA.
+2. Testear si `HLA-DRB5-like` predice esos mapas en vecinos espaciales.
+3. Residualizar por UMI/profundidad, coordenadas, region histologica y tumor/stroma/hepatocyte scores.
+4. Crear random controls full-transcriptome emparejados por expresion para los proxies metabolicos.
+5. Leave-one-gene-out para `MPC1`, `MPC2`, `PDHA1`, `PDHB`, `GOT1`, `GOT2`, `GLUD1`, `GLS`.
+6. Si el puente se sostiene, preparar una figura tipo paper: literatura gap -> spatial proxy -> block null -> spFBA validation.
 
 ## Cuidado epistemologico
 
 La frase correcta hoy:
 
-`Estamos cerca de una hipotesis computacional publicable, pero todavia no de un hallazgo cerrado; la prioridad es demostrar que el patron supera controles full-transcriptome e histologia/deconvolucion-aware.`
+`Estamos cerca de una hipotesis computacional publicable, no de un descubrimiento cerrado. El camino mas virgen es probar si HLA-DRB5-like myeloid niches predicen el metabolismo no canonico de lactato/pyruvato en CRLM.`
 
-No estamos todavia en:
+La version honesta del entusiasmo:
 
-`descubrimiento clinico confirmado`.
+`Esto huele a borde de hallazgo, pero todavia necesita flux real para convertirse en paper fuerte.`
+
+## Fuentes clave
+
+- spFBA lactate consumption CRLM: https://www.nature.com/articles/s41540-026-00654-x
+- SPP1+ y HLA-DRB5+ macrophages CRLM: https://link.springer.com/article/10.1186/s12967-026-07853-4
+- Macrophage lipid metabolism CRLM: https://link.springer.com/article/10.1186/s12967-025-07581-1
+- HGF-MET-MYC-glycolysis spatial CRLM: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/
