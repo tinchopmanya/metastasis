@@ -524,3 +524,57 @@ Siguiente fase:
 2. Si hay FES procesados, mapearlos a spots/regions y ejecutar el mismo esquema de vecinos.
 3. Si no hay FES procesados, evaluar si es viable reproducir spFBA con datos raw/procesados disponibles.
 4. Mantener como criterio de avance: superar residualizacion y nulos espaciales, no solo ratios brutos.
+
+## Fase 6G completada: analisis spFBA/FES del archivo output.tar.gz
+
+Actualizacion: 2026-04-29 08:23:44 -03:00
+
+Se ejecuto:
+
+```powershell
+python scripts/summarize_spfba_flux_statistics.py
+```
+
+Input:
+
+- `downloads/spfba/output.tar.gz`
+- `downloads/spfba/extracted/output/*/sampling/CBS/flux_statistics.h5ad`
+
+Output:
+
+- `data_manifest/generated/spfba_flux_summary_report.md`
+- `data_manifest/generated/spfba_flux_selected_reaction_summary.tsv`
+- `data_manifest/generated/spfba_flux_lm_vs_pt_comparisons.tsv`
+- `data_manifest/generated/spfba_lactate_uptake_correlation_summary.tsv`
+
+Resultado:
+
+- `EX_lac__L_e < 0` confirma lactate uptake en SC087 LM4, LM4r y LM7.
+- El primario SC087 PT tambien es lactate-consuming; no hay efecto metastasis-especifico promedio.
+- Dentro de muestra, lactate uptake se acopla con `ASPTA`, `MDHm`, `PDHm` y `ASPTAm`.
+- El analisis rescata el fenotipo metabolico, pero no valida `HLA-DRB5` porque falta expresion/metadata de los mismos spots.
+
+Decision:
+
+La siguiente fase no es mas proxy transcriptomico. Es:
+
+`FES-expression alignment`
+
+## Fase 6H siguiente: alinear FES con expresion spFBA
+
+Objetivo:
+
+Probar en los mismos spots si `HLA-DRB5-like` predice FES de lactate uptake/transamination.
+
+Tareas:
+
+1. Extraer selectivamente los datos procesados de expresion/anotacion del deposito spFBA, probablemente desde `data.tar.gz`.
+2. Confirmar si los indices de spots coinciden con los `flux_statistics.h5ad`.
+3. Calcular firmas `HLA-DRB5-like`, `SPP1/CXCL12-like`, CAF, tumor/hepatocyte y controles metabolicos.
+4. Modelar `EX_lac__L_e uptake`, `ASPTA`, `ASPTAm`, `PDHm`, `MDHm` contra vecinos o regiones `HLA-DRB5-like`.
+5. Usar nulos por bloques, residualizacion por profundidad/coordenadas y random controls full-transcriptome.
+
+Criterio de avance:
+
+- Si `HLA-DRB5-like -> FES lactate/transamination` sobrevive controles, preparar figura paper-grade.
+- Si falla, cerrar el puente `HLA-DRB5/lactate` y mantener solo el hallazgo metabolico independiente.

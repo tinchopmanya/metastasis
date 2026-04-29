@@ -685,3 +685,52 @@ Siguiente trabajo ideal:
 `spFBA/FES or stop`
 
 Si los mapas de flux reales rescatan lactate uptake/transamination cerca de `HLA-DRB5-like`, vuelve a ser candidato fuerte. Si no, cerrar esta rama como artefacto regional y volver al nucleo estromal/mieloide local.
+
+## Actualizacion para Claude: ola 003K spFBA/FES output.tar.gz
+
+Fecha: 2026-04-29 08:23:44 -03:00
+
+Se descargo `output.tar.gz` del deposito spFBA 2026, aproximadamente 2.8 GB. El archivo queda fuera de git:
+
+`downloads/spfba/output.tar.gz`
+
+Se extrajeron selectivamente:
+
+`output/*/sampling/CBS/flux_statistics.h5ad`
+
+Nuevo script reproducible:
+
+```powershell
+python scripts/summarize_spfba_flux_statistics.py
+```
+
+Salidas:
+
+- `data_manifest/generated/spfba_flux_summary_report.md`
+- `data_manifest/generated/spfba_flux_selected_reaction_summary.tsv`
+- `data_manifest/generated/spfba_flux_lm_vs_pt_comparisons.tsv`
+- `data_manifest/generated/spfba_lactate_uptake_correlation_summary.tsv`
+
+Resultado principal:
+
+- SC087 LM4, LM4r y LM7 muestran lactate uptake extendido (`EX_lac__L_e < 0` en 92.6%, 99.5% y 98.2% de spots).
+- SC087 PT tambien muestra uptake fuerte (99.0% de spots), asi que no vender metastasis-especificidad promedio.
+- Dentro de muestra, lactate uptake se acopla con transaminacion/malato/PDH:
+- LM7 `ASPTA` Spearman 0.776, `MDHm` 0.643.
+- LM4r `ASPTA` 0.520, `MDHm` 0.489, `PDHm` 0.404.
+- CRC_P2 `PDHm` 0.615, `ASPTA` 0.529, `MDHm` 0.511.
+- CRC_P5 `PDHm` 0.527, `ASPTA` 0.504.
+
+Decision:
+
+El FES rescata el fenotipo metabolico, pero no rescata el puente `HLA-DRB5`. Para eso falta alinear expression/metadata/coords de los mismos samples spFBA con los FES.
+
+Siguiente trabajo si continuas:
+
+1. Descargar o extraer selectivamente `data.tar.gz` del mismo deposito.
+2. Buscar datos procesados de `SC087_C03445G5_PT`, `SC087_A02991A2_LM4`, `SC087_A03389C5_LM4r`, `SC087_C03445C6_LM7`, `CRC_P1`, `CRC_P2`, `CRC_P5`.
+3. Ver si los spots coinciden con `flux_statistics.h5ad`.
+4. Scorear `HLA-DRB5-like` y controles.
+5. Testear `HLA-DRB5-like -> EX_lac__L_e uptake / ASPTA / ASPTAm / PDHm / MDHm` con nulos por bloques y residualizacion.
+
+Regla: si no se puede alinear FES y expresion en los mismos spots, no afirmar nicho HLA-DRB5/lactato.

@@ -582,3 +582,43 @@ La rama lactato/HLA-DRB5 queda degradada a:
 Siguiente paso:
 
 `spFBA/FES or stop`. Si los mapas de flux reales no rescatan el efecto, cerrar esta rama y volver al nucleo `stromal/myeloid local architecture`.
+
+## Decimoseptimo avance tecnico ejecutado
+
+Actualizacion: 2026-04-29 08:23:44 -03:00
+
+Se descargo y analizo el archivo pesado `output.tar.gz` del deposito spFBA 2026, aproximadamente 2.8 GB. El archivo queda fuera de git en `downloads/spfba/output.tar.gz`.
+
+Nuevo script:
+
+```powershell
+python scripts/summarize_spfba_flux_statistics.py
+```
+
+Nuevas salidas:
+
+- `data_manifest/generated/spfba_flux_summary_report.md`
+- `data_manifest/generated/spfba_flux_selected_reaction_summary.tsv`
+- `data_manifest/generated/spfba_flux_lm_vs_pt_comparisons.tsv`
+- `data_manifest/generated/spfba_lactate_uptake_correlation_summary.tsv`
+
+Resultado:
+
+- spFBA/FES confirma lactate uptake extendido en SC087 LM4, LM4r y LM7.
+- El primario pareado PT tambien tiene uptake fuerte, incluso mas negativo en promedio.
+- No hay claim simple de metastasis-especificidad promedio.
+- Dentro de muestra, lactate uptake se acopla con `ASPTA`, `MDHm`, `PDHm` y `ASPTAm`, especialmente en LM7, LM4r, CRC_P2 y CRC_P5.
+
+Decision estrategica:
+
+La rama cambia a:
+
+`metabolic phenotype real; immune HLA-DRB5 bridge unproven`
+
+Siguiente bloque autonomo:
+
+1. Conseguir expression/metadata/coords procesados de los mismos samples spFBA.
+2. Alinear spots FES con expresion.
+3. Scorear `HLA-DRB5-like` y controles.
+4. Probar `HLA-DRB5-like -> lactate uptake/transamination FES`.
+5. Cerrar la rama si no sobrevive nulos por bloques y residualizacion.

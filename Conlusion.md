@@ -1,6 +1,6 @@
 # Conclusion dinamica vigente
 
-Fecha de actualizacion: 2026-04-29 03:23:00 -03:00
+Fecha de actualizacion: 2026-04-29 08:23:44 -03:00
 
 ## Linea activa
 
@@ -8,125 +8,112 @@ La linea activa sigue siendo:
 
 `cancer colorrectal -> metastasis hepatica -> nicho metastasico hepatico`
 
-La rama que estabamos persiguiendo era:
+La rama que estamos probando con mas dureza es:
 
-`HLA-DRB5-like myeloid neighborhoods -> pyruvate/transamination metabolism -> possible non-canonical lactate-carbon handling in CRLM`
-
-Despues de la auditoria robusta, esa rama queda viva solo como hipotesis a validar con flux real, no como hallazgo transcriptomico especifico.
+`HLA-DRB5-like myeloid neighborhoods -> lactate uptake / pyruvate-transamination FES -> possible immune-metabolic CRLM niche`
 
 ## Estado real
 
 No estamos en terreno virgen por componentes aislados.
 
-Ya existen en la literatura:
+Ya existen:
 
 - `SPP1+` y `HLA-DRB5+` macrophages en CRLM.
-- nichos mCAF/SPP1/T-cell exhaustion.
+- Nichos mCAF/SPP1/T-cell exhaustion.
 - `HGF-MET-MYC-glycolysis` en paisajes spatial CRLM.
-- lactate uptake y reruteo no canonico de carbono en CRLM por spFBA 2026.
+- Lactate uptake y reruteo no canonico de carbono en CRC/CRLM por spFBA 2026.
 
 La zona potencialmente novedosa sigue siendo el puente:
 
-`modulo inmune HLA-DRB5-like <-> metabolismo lactato/pyruvato no canonico`
+`estado inmune HLA-DRB5-like <-> mapas reales de flux lactate uptake / pyruvate-transamination`
 
-Pero el proxy transcriptomico espacial no lo demuestra todavia.
+Pero ese puente todavia no esta demostrado.
 
-## Lo que aprendimos hoy
+## Lo nuevo del analisis spFBA/FES
 
-El screen inicial habia encontrado:
+Se descargo `output.tar.gz` del deposito spFBA 2026, aproximadamente 2.8 GB, fuera de git en:
 
-- `HLA-DRB5-like -> glutamate_transamination`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.764.
-- `HLA-DRB5-like -> pyruvate_mito_entry`: positivo 6/6, block p <= 0.05 en 5/6, ratio medio 1.571.
+`downloads/spfba/output.tar.gz`
 
-La auditoria robusta agrego:
+Se extrajeron selectivamente los `flux_statistics.h5ad` y se resumieron con:
 
-- sensibilidad a block-size 8/12/16/20;
-- ablation de `PTPRC`, `CD74`, target leave-one-gene-out;
-- random controls full-transcriptome emparejados por expresion/dropout;
-- residualizacion por profundidad total y coordenadas espaciales.
+```powershell
+python scripts/summarize_spfba_flux_statistics.py
+```
 
-Resultado honesto:
+Resultado central:
 
-- La senal sobrevive varios tamanos de bloque.
-- La senal sobrevive sacar `PTPRC`.
-- La senal no pertenece a `HLA-DRB5` aislado: `HLA-DRB5-only` falla.
-- La senal no supera random controls full-transcriptome: 0/6 en pyruvate y transamination, con o sin `PTPRC`.
-- La senal desaparece al residualizar por profundidad/coordenadas: 0/6 o 1/6 segun variante.
+- Las metastasis hepaticas SC087 tienen lactate uptake extendido: `EX_lac__L_e < 0` en 92.6% a 99.5% de spots.
+- El primario pareado SC087 tambien tiene lactate uptake fuerte: 99.0% de spots negativos y media mas negativa que el promedio LM.
+- Por tanto, lactate uptake no es metastasis-especifico en promedio.
+- Dentro de varias muestras, lactate uptake se acopla con transaminacion/malato/PDH.
 
-## Hipotesis vigente revisada
+Acoplamientos fuertes:
 
-Formulacion anterior, demasiado fuerte:
+- `LM7`: lactate uptake vs `ASPTA`, Spearman 0.776.
+- `LM7`: lactate uptake vs `MDHm`, Spearman 0.643.
+- `LM4r`: lactate uptake vs `ASPTA`, Spearman 0.520.
+- `LM4r`: lactate uptake vs `MDHm`, Spearman 0.489.
+- `CRC_P2`: lactate uptake vs `PDHm`, Spearman 0.615.
+- `CRC_P5`: lactate uptake vs `PDHm`, Spearman 0.527.
 
-`HLA-DRB5-like myeloid niches may mark immune-metabolic CRLM regions enriched for non-canonical lactate-carbon routing.`
+## Interpretacion
 
-Formulacion correcta ahora:
+La mitad metabolica de la historia queda mejor parada:
 
-`HLA-DRB5-like immune regions co-occur with broad regional metabolic expression programs in CRLM, but transcript proxies do not yet prove a specific lactate/pyruvate niche.`
+`lactate uptake + transamination/malate/PDH coupling`
 
-La pregunta que queda abierta:
+Eso aparece en FES independientes y no depende de nuestros proxies transcriptomicos anteriores.
 
-`Los mapas reales de flux spFBA/FES muestran lactate uptake/transamination cerca de modulos HLA-DRB5-like, incluso despues de controlar profundidad, coordenadas y region?`
+Pero la mitad inmune sigue abierta:
 
-## Evidencia que sigue fuerte
+`HLA-DRB5-like -> FES lactate/transamination`
 
-### GSE245552 paired scRNA
+No queda probada porque los FES analizados no estan todavia alineados con expression/metadata/coords que permitan scorear `HLA-DRB5-like` en los mismos spots.
 
-- `myeloid SPP1/CXCL12-lite`: LM/primario 1.844, p = 1.34e-04, positivo 13/13 pares.
-- `myeloid HLA-DRB5-lite`: LM/primario 1.478, p = 1.72e-03, positivo 12/13 pares.
-- `tumor MYC/glycolysis-lite`: LM/primario 0.967, p = 0.692, positivo 5/13 pares.
-
-Lectura: la rama mieloide sube en metastasis hepatica pareada; el programa tumoral metabolico no sube como promedio global.
-
-### Spatial multi-dataset antes del pivot lactato
-
-- `SPP1/CXCL12-lite -> MYC/glycolysis-lite`: sobrevive nulo por bloques en 6/6 muestras.
-- `HLA-DRB5-lite -> MYC/glycolysis-lite`: sobrevive en 5/6 muestras.
-- `CAF -> HLA-DRB5-lite`: sobrevive en 5/6 muestras.
-- `CAF -> MET`: solo 2/6, por eso baja prioridad como claim central.
-
-Lectura: el patron estromal/mieloide local sigue siendo el mejor nucleo. El brazo metabolico especifico necesita flux real.
-
-## Decision
-
-La rama lactato/HLA-DRB5 no se abandona, pero queda degradada:
-
-`de posible hallazgo -> a hipotesis que solo se puede rescatar con spFBA/FES`
+## Decision vigente
 
 No decir:
 
 - que descubrimos un nicho lactato/HLA-DRB5;
 - que HLA-DRB5 regula lactato;
-- que los proxies de pyruvato/transaminacion son especificos;
-- que hay mecanismo causal.
+- que lactate uptake es especifico de metastasis hepatica;
+- que los proxies transcriptomicos ya validaron flux.
 
 Si decir:
 
-- que detectamos una co-ocurrencia regional reproducible;
-- que esa co-ocurrencia no supera controles transcriptomicos duros;
-- que esto obliga a validar con flux, no con mas proxies;
-- que el trabajo se volvio mas serio porque ya falsamos la version facil.
+- que el fenotipo lactate-consuming existe en mapas spFBA/FES de CRC/CRLM;
+- que en varias muestras lactate uptake se acopla con transaminacion/malato/PDH;
+- que el puente inmune-metabolico todavia exige datos de expresion/anotacion de los mismos samples spFBA;
+- que la rama esta viva solo si pasamos de triangulacion a colocalizacion FES-expression.
 
 ## Proximo paso tecnico
 
 Siguiente movimiento:
 
-`spFBA/FES or stop`
+`spFBA expression/metadata alignment or stop`
 
 Tareas:
 
-1. Buscar/descargar/reconstruir mapas spFBA/FES del paper 2026.
-2. Testear lactate uptake, pyruvate/transamination, alphaKG/malate y reductive TCA contra modulos `HLA-DRB5-like`.
-3. Aplicar nulo por bloques y residualizacion por profundidad/coordenadas/region.
-4. Si FES sobrevive, la rama vuelve a ser candidata a paper.
-5. Si FES falla, cerrar lactato/HLA-DRB5 como artefacto regional y volver al nucleo `stromal/myeloid local architecture`.
+1. Extraer selectivamente de `data.tar.gz` o equivalente los datos procesados de `SC087_*` y `CRC_P*`.
+2. Confirmar si hay expresion, coordenadas, anotaciones y spots compatibles con los `flux_statistics.h5ad`.
+3. Calcular scores `HLA-DRB5-like`, `SPP1/CXCL12-like`, CAF, tumor/metabolic controls.
+4. Probar `HLA-DRB5-like -> EX_lac__L_e uptake / ASPTA / ASPTAm / PDHm / MDHm` en los mismos spots o regiones.
+5. Aplicar nulo por bloques, residualizacion por profundidad/coordenadas y random controls full-transcriptome.
+
+Si sobrevive, la rama vuelve a ser candidata fuerte a paper.
+
+Si falla, cerrar `HLA-DRB5/lactate` y volver al nucleo mas robusto:
+
+`stromal/myeloid local architecture -> MYC/glycolysis-like adjacency`
 
 ## Frase final
 
-`Hoy no descubrimos el mecanismo; descubrimos que la version facil no aguanta. Eso es progreso real. El unico camino no recorrido que queda vale la pena solo si pasamos a flux real.`
+`No tenemos todavia el hallazgo cerrado. Tenemos una mitad metabolica real, una mitad inmune no probada y un proximo experimento computacional muy claro. La frontera del descubrimiento esta en alinear FES y expresion en los mismos spots.`
 
 ## Fuentes clave
 
-- spFBA lactate consumption CRLM: https://www.nature.com/articles/s41540-026-00654-x
-- SPP1+ y HLA-DRB5+ macrophages CRLM: https://link.springer.com/article/10.1186/s12967-026-07853-4
-- Macrophage lipid metabolism CRLM: https://link.springer.com/article/10.1186/s12967-025-07581-1
+- spFBA lactate consumption CRC/CRLM: https://www.nature.com/articles/s41540-026-00654-x
+- Repositorio spFBA: https://github.com/CompBtBs/spFBA
+- Zenodo spFBA record 13988866: https://zenodo.org/records/13988866
 - HGF-MET-MYC-glycolysis spatial CRLM: https://pmc.ncbi.nlm.nih.gov/articles/PMC12605286/

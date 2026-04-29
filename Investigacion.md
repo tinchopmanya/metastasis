@@ -156,3 +156,19 @@ Este archivo es el log central de la carpeta de investigación. Su función es m
 - [scripts/audit_lactate_axis_robustness.py](./scripts/audit_lactate_axis_robustness.py)
 - [data_manifest/generated/lactate_axis_robustness_report.md](./data_manifest/generated/lactate_axis_robustness_report.md)
 - Resultado: el patron `HLA-DRB5-like -> pyruvate/transamination` sobrevive block-size y ablation sin `PTPRC`, pero no supera random controls full-transcriptome ni residualizacion por profundidad/coordenadas. La rama queda degradada a co-ocurrencia regional hasta que spFBA/FES real la rescate.
+
+### Ola 003K
+- Fecha de apertura: 2026-04-29 08:23:44 -03:00
+- Tema: analisis spFBA/FES 2026 del archivo `output.tar.gz` de 2.8 GB.
+- Estado: abierta como triangulacion metabolica independiente.
+- Archivos asociados:
+- [InvestigacionSobreAnalisisSpFBAFESLactatoCRLM2026.md](./InvestigacionSobreAnalisisSpFBAFESLactatoCRLM2026.md)
+- [ResumenInvestigacionSobreAnalisisSpFBAFESLactatoCRLM2026.md](./ResumenInvestigacionSobreAnalisisSpFBAFESLactatoCRLM2026.md)
+- [scripts/summarize_spfba_flux_statistics.py](./scripts/summarize_spfba_flux_statistics.py)
+- [data_manifest/generated/spfba_flux_summary_report.md](./data_manifest/generated/spfba_flux_summary_report.md)
+- [data_manifest/generated/spfba_flux_selected_reaction_summary.tsv](./data_manifest/generated/spfba_flux_selected_reaction_summary.tsv)
+- [data_manifest/generated/spfba_flux_lm_vs_pt_comparisons.tsv](./data_manifest/generated/spfba_flux_lm_vs_pt_comparisons.tsv)
+- [data_manifest/generated/spfba_lactate_uptake_correlation_summary.tsv](./data_manifest/generated/spfba_lactate_uptake_correlation_summary.tsv)
+- [Conlusion.md](./Conlusion.md)
+- Resultado: spFBA/FES confirma lactate uptake extendido en muestras CRLM y acoplamientos internos lactato-transaminacion/malato/PDH, pero no demuestra especificidad metastasica promedio ni rescata todavia el puente `HLA-DRB5`.
+- Decision: avanzar solo si podemos alinear expression/metadata/coords de los mismos samples spFBA con FES; si no, cerrar `HLA-DRB5/lactate` como puente no probado.
